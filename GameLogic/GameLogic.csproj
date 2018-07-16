@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1364BC83-91E5-47B7-8E43-4346FF978FC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GameLogic</RootNamespace>
+    <AssemblyName>GameLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\IAct.cs" />
+    <Compile Include="Actions\MoveAction.cs" />
+    <Compile Include="BreadthFirstSearch.cs" />
+    <Compile Include="CellVisibiltySetter.cs" />
+    <Compile Include="Population.cs" />
+    <Compile Include="Settlement.cs" />
+    <Compile Include="Actions\ExploreAction.cs" />
+    <Compile Include="Enumerations.cs" />
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="NewLocationCalculators\EastCalculator.cs" />
+    <Compile Include="NewLocationCalculators\INewLocationCalculator.cs" />
+    <Compile Include="NewLocationCalculators\NewLocationCalculatorFactory.cs" />
+    <Compile Include="NewLocationCalculators\NorthCalculator.cs" />
+    <Compile Include="NewLocationCalculators\NorthEastCalculator.cs" />
+    <Compile Include="NewLocationCalculators\NorthWestCalculator.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Player2.cs" />
+    <Compile Include="Processors\MovementProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NewLocationCalculators\SouthCalculator.cs" />
+    <Compile Include="NewLocationCalculators\SouthEastCalculator.cs" />
+    <Compile Include="NewLocationCalculators\SouthWestCalculator.cs" />
+    <Compile Include="SettlementBuildings.cs" />
+    <Compile Include="SettlementCitizens.cs" />
+    <Compile Include="TerrainHelper.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="NewLocationCalculators\WestCalculator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameData\GameData.csproj">
+      <Project>{35bfb00c-7ecc-4a04-a787-452319ad4b9b}</Project>
+      <Name>GameData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameMap\GameMap.csproj">
+      <Project>{40c67b06-306e-4b17-8d04-677fd11e2e23}</Project>
+      <Name>GameMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeneralUtilities\GeneralUtilities.csproj">
+      <Project>{52dae17e-3240-4b33-a875-a9fe73e208c5}</Project>
+      <Name>GeneralUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notes.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Archmaester.Fonts;
+using Archmaester.ScreenManagement;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Archmaester
 {
@@ -9,13 +11,30 @@ namespace Archmaester
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        
+        private SpriteBatch _spriteBatch;
+        private BmFont _fontTime;
+        private BmFont _fontTest;
+
+        private GraphicsDeviceManager _graphics;
+        private ScreenManager _screenManager;
+
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1600, // 853
+                PreferredBackBufferHeight = 900 // 480
+            };
             Content.RootDirectory = "Content";
+
+            // Create the screen manager component.
+            _screenManager = new ScreenManager(this);
+
+            Components.Add(_screenManager);
+
+            // Activate the first screens.
+            _screenManager.AddScreen(new BackgroundScreen(), null);
+            _screenManager.AddScreen(new MainMenuScreen(), null);
         }
 
         /// <summary>
@@ -26,8 +45,6 @@ namespace Archmaester
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -37,10 +54,11 @@ namespace Archmaester
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _fontTime = new BmFont(@"Fonts\Montserrat.fnt", @"Fonts\Montserrat-32_0", Content);
+            _fontTest = new BmFont(@"Fonts\Font01_30.fnt", @"Fonts\Font01_30_sheet", Content);
 
-            // TODO: use this.Content to load your game content here
+            Content.Load<object>(@"Images\gradient");
         }
 
         /// <summary>
@@ -49,7 +67,6 @@ namespace Archmaester
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -59,11 +76,6 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -73,11 +85,17 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
 
             base.Draw(gameTime);
+
+            _spriteBatch.Begin();
+            _fontTime.Draw(DateTime.Now.ToString("HH mm"), new Vector2(10, 10), _spriteBatch);
+            _fontTest.Draw("ABCDEFGHIJKLMNOPQRSTUVWXYZ", new Vector2(0, 50), _spriteBatch);
+            _fontTest.Draw("abcdefghijklmnopqrstuvwxyz", new Vector2(0, 100), _spriteBatch);
+            _fontTest.Draw("0123456789.,;:?!-&/+%$\"", new Vector2(0, 150), _spriteBatch);
+            _fontTest.Draw("In a hole in the ground lived a hobbit.", new Vector2(0, 200), _spriteBatch);
+            _spriteBatch.End();
         }
     }
 }
