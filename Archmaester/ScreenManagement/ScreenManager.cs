@@ -188,9 +188,8 @@ namespace Archmaester.ScreenManagement
         /// <summary>
         /// Adds a new screen to the screen manager.
         /// </summary>
-        public void AddScreen(GameScreen screen, PlayerIndex? controllingPlayer)
+        public void AddScreen(GameScreen screen)
         {
-            screen.ControllingPlayer = controllingPlayer;
             screen.ScreenManager = this;
             screen.IsExiting = false;
 
@@ -201,9 +200,6 @@ namespace Archmaester.ScreenManagement
             }
 
             _screens.Add(screen);
-
-            // update the TouchPanel to respond to gestures this screen is interested in
-            TouchPanel.EnabledGestures = screen.EnabledGestures;
         }
 
         /// <summary>
@@ -223,12 +219,6 @@ namespace Archmaester.ScreenManagement
             _screens.Remove(screen);
             _screensToUpdate.Remove(screen);
 
-            // if there is a screen still in the manager, update TouchPanel
-            // to respond to gestures that screen is interested in.
-            if (_screens.Count > 0)
-            {
-                TouchPanel.EnabledGestures = _screens[_screens.Count - 1].EnabledGestures;
-            }
         }
 
         /// <summary>

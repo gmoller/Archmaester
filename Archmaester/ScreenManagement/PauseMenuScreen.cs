@@ -41,7 +41,7 @@
 
             confirmQuitMessageBox.Accepted += ConfirmQuitMessageBoxAccepted;
 
-            ScreenManager.AddScreen(confirmQuitMessageBox, ControllingPlayer);
+            ScreenManager.AddScreen(confirmQuitMessageBox);
         }
 
         /// <summary>

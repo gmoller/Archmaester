@@ -33,8 +33,8 @@ namespace Archmaester
             Components.Add(_screenManager);
 
             // Activate the first screens.
-            _screenManager.AddScreen(new BackgroundScreen(), null);
-            _screenManager.AddScreen(new MainMenuScreen(), null);
+            _screenManager.AddScreen(new BackgroundScreen());
+            _screenManager.AddScreen(new MainMenuScreen());
         }
 
         /// <summary>
@@ -45,6 +45,8 @@ namespace Archmaester
         /// </summary>
         protected override void Initialize()
         {
+            IsMouseVisible = true;
+
             base.Initialize();
         }
 

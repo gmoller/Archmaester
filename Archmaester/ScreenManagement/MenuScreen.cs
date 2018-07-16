@@ -53,7 +53,7 @@ namespace Archmaester.ScreenManagement
         public override void HandleInput(InputState input)
         {
             // Move to the previous menu entry?
-            if (input.IsMenuUp(ControllingPlayer))
+            if (input.IsMenuUp())
             {
                 _selectedEntry--;
 
@@ -62,7 +62,7 @@ namespace Archmaester.ScreenManagement
             }
 
             // Move to the next menu entry?
-            if (input.IsMenuDown(ControllingPlayer))
+            if (input.IsMenuDown())
             {
                 _selectedEntry++;
 
@@ -75,15 +75,13 @@ namespace Archmaester.ScreenManagement
             // If we pass a null controlling player, the InputState helper returns to
             // us which player actually provided the input. We pass that through to
             // OnSelectEntry and OnCancel, so they can tell which player triggered them.
-            PlayerIndex playerIndex;
-
-            if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
+            if (input.IsMenuSelect())
             {
-                OnSelectEntry(_selectedEntry, playerIndex);
+                OnSelectEntry(_selectedEntry, 0);
             }
-            else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
+            else if (input.IsMenuCancel())
             {
-                OnCancel(playerIndex);
+                OnCancel(0);
             }
         }
 

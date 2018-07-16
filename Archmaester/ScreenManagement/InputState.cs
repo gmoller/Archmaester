@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Archmaester.ScreenManagement
 {
     /// <summary>
-    /// Helper for reading input from keyboard, gamepad. This class 
+    /// Helper for reading input from keyboard. This class 
     /// tracks both the current and previous state of the input devices, and implements 
     /// query methods for high level input actions such as "move up through the menu"
     /// or "pause the game".
@@ -15,17 +13,11 @@ namespace Archmaester.ScreenManagement
     {
         #region Fields
 
-        public const int MaxInputs = 4;
+        public KeyboardState CurrentKeyboardState { get; private set; }
+        public MouseState CurrentMouseState { get; private set; }
 
-        public readonly KeyboardState[] CurrentKeyboardStates;
-        public readonly GamePadState[] CurrentGamePadStates;
-
-        public readonly KeyboardState[] LastKeyboardStates;
-        public readonly GamePadState[] LastGamePadStates;
-
-        public readonly bool[] GamePadWasConnected;
-
-        public readonly List<GestureSample> Gestures = new List<GestureSample>();
+        public KeyboardState LastKeyboardState { get; private set; }
+        public MouseState LastMouseState { get; private set; }
 
         #endregion
 
@@ -36,13 +28,11 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         public InputState()
         {
-            CurrentKeyboardStates = new KeyboardState[MaxInputs];
-            CurrentGamePadStates = new GamePadState[MaxInputs];
+            CurrentKeyboardState = Keyboard.GetState();
+            CurrentMouseState = Mouse.GetState();
 
-            LastKeyboardStates = new KeyboardState[MaxInputs];
-            LastGamePadStates = new GamePadState[MaxInputs];
-
-            GamePadWasConnected = new bool[MaxInputs];
+            LastKeyboardState = Keyboard.GetState();
+            LastMouseState = Mouse.GetState();
         }
 
         #endregion
@@ -50,31 +40,15 @@ namespace Archmaester.ScreenManagement
         #region Public Methods
 
         /// <summary>
-        /// Reads the latest state of the keyboard and gamepad.
+        /// Reads the latest state of the keyboard.
         /// </summary>
         public void Update()
         {
-            for (int i = 0; i < MaxInputs; i++)
-            {
-                LastKeyboardStates[i] = CurrentKeyboardStates[i];
-                LastGamePadStates[i] = CurrentGamePadStates[i];
+            LastKeyboardState = CurrentKeyboardState;
+            LastMouseState = CurrentMouseState;
 
-                CurrentKeyboardStates[i] = Keyboard.GetState((PlayerIndex)i);
-                CurrentGamePadStates[i] = GamePad.GetState((PlayerIndex)i);
-
-                // Keep track of whether a gamepad has ever been
-                // connected, so we can detect if it is unplugged.
-                if (CurrentGamePadStates[i].IsConnected)
-                {
-                    GamePadWasConnected[i] = true;
-                }
-            }
-
-            Gestures.Clear();
-            while (TouchPanel.IsGestureAvailable)
-            {
-                Gestures.Add(TouchPanel.ReadGesture());
-            }
+            CurrentKeyboardState = Keyboard.GetState();
+            CurrentMouseState = Mouse.GetState();
         }
 
         /// <summary>
@@ -83,59 +57,31 @@ namespace Archmaester.ScreenManagement
         /// If this is null, it will accept input from any player. When a keypress
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
-        public bool IsNewKeyPress(Keys key, PlayerIndex? controllingPlayer,
-                                            out PlayerIndex playerIndex)
+        public bool IsNewKeyPress(Keys key)
         {
-            if (controllingPlayer.HasValue)
-            {
-                // Read input from the specified player.
-                playerIndex = controllingPlayer.Value;
-
-                int i = (int)playerIndex;
-
-                return (CurrentKeyboardStates[i].IsKeyDown(key) &&
-                        LastKeyboardStates[i].IsKeyUp(key));
-            }
-            else
-            {
-                // Accept input from any player.
-                return (IsNewKeyPress(key, PlayerIndex.One, out playerIndex) ||
-                        IsNewKeyPress(key, PlayerIndex.Two, out playerIndex) ||
-                        IsNewKeyPress(key, PlayerIndex.Three, out playerIndex) ||
-                        IsNewKeyPress(key, PlayerIndex.Four, out playerIndex));
-            }
+            return CurrentKeyboardState.IsKeyDown(key) &&
+                   LastKeyboardState.IsKeyUp(key);
         }
 
-
-        /// <summary>
-        /// Helper for checking if a button was newly pressed during this update.
-        /// The controllingPlayer parameter specifies which player to read input for.
-        /// If this is null, it will accept input from any player. When a button press
-        /// is detected, the output playerIndex reports which player pressed it.
-        /// </summary>
-        public bool IsNewButtonPress(Buttons button, PlayerIndex? controllingPlayer,
-                                                     out PlayerIndex playerIndex)
+        public bool IsLeftMouseButtonPressed()
         {
-            if (controllingPlayer.HasValue)
-            {
-                // Read input from the specified player.
-                playerIndex = controllingPlayer.Value;
-
-                int i = (int)playerIndex;
-
-                return (CurrentGamePadStates[i].IsButtonDown(button) &&
-                        LastGamePadStates[i].IsButtonUp(button));
-            }
-            else
-            {
-                // Accept input from any player.
-                return (IsNewButtonPress(button, PlayerIndex.One, out playerIndex) ||
-                        IsNewButtonPress(button, PlayerIndex.Two, out playerIndex) ||
-                        IsNewButtonPress(button, PlayerIndex.Three, out playerIndex) ||
-                        IsNewButtonPress(button, PlayerIndex.Four, out playerIndex));
-            }
+            return CurrentMouseState.LeftButton == ButtonState.Pressed;
         }
 
+        public bool IsLeftMouseButtonPressedInAnArea(Rectangle area)
+        {
+            return IsLeftMouseButtonPressed() && area.Contains(CurrentMouseState.X, CurrentMouseState.Y);
+        }
+
+        public bool IsRightMouseButtonPressed()
+        {
+            return CurrentMouseState.RightButton == ButtonState.Pressed;
+        }
+
+        public bool IsRightMouseButtonPressedInAnArea(Rectangle area)
+        {
+            return IsRightMouseButtonPressed() && area.Contains(CurrentMouseState.X, CurrentMouseState.Y);
+        }
 
         /// <summary>
         /// Checks for a "menu select" input action.
@@ -143,15 +89,11 @@ namespace Archmaester.ScreenManagement
         /// If this is null, it will accept input from any player. When the action
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
-        public bool IsMenuSelect(PlayerIndex? controllingPlayer,
-                                 out PlayerIndex playerIndex)
+        public bool IsMenuSelect()
         {
-            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
-                   IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Space) ||
+                   IsNewKeyPress(Keys.Enter);
         }
-
 
         /// <summary>
         /// Checks for a "menu cancel" input action.
@@ -159,57 +101,39 @@ namespace Archmaester.ScreenManagement
         /// If this is null, it will accept input from any player. When the action
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
-        public bool IsMenuCancel(PlayerIndex? controllingPlayer,
-                                 out PlayerIndex playerIndex)
+        public bool IsMenuCancel()
         {
-            return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.B, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Escape);
         }
-
 
         /// <summary>
         /// Checks for a "menu up" input action.
         /// The controllingPlayer parameter specifies which player to read
         /// input for. If this is null, it will accept input from any player.
         /// </summary>
-        public bool IsMenuUp(PlayerIndex? controllingPlayer)
+        public bool IsMenuUp()
         {
-            PlayerIndex playerIndex;
-
-            return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.DPadUp, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Up);
         }
-
 
         /// <summary>
         /// Checks for a "menu down" input action.
         /// The controllingPlayer parameter specifies which player to read
         /// input for. If this is null, it will accept input from any player.
         /// </summary>
-        public bool IsMenuDown(PlayerIndex? controllingPlayer)
+        public bool IsMenuDown()
         {
-            PlayerIndex playerIndex;
-
-            return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.DPadDown, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Down);
         }
-
 
         /// <summary>
         /// Checks for a "pause the game" input action.
         /// The controllingPlayer parameter specifies which player to read
         /// input for. If this is null, it will accept input from any player.
         /// </summary>
-        public bool IsPauseGame(PlayerIndex? controllingPlayer)
+        public bool IsPauseGame()
         {
-            PlayerIndex playerIndex;
-
-            return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Escape);
         }
 
         #endregion

@@ -39,7 +39,7 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new GameplayScreen());
+            LoadingScreen.Load(ScreenManager, true, new GameplayScreen());
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         private void OptionsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
+            ScreenManager.AddScreen(new OptionsMenuScreen());
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Archmaester.ScreenManagement
 
             confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
 
-            ScreenManager.AddScreen(confirmExitMessageBox, playerIndex);
+            ScreenManager.AddScreen(confirmExitMessageBox);
         }
 
         /// <summary>

@@ -39,8 +39,8 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         public MessageBoxScreen(string message, bool includeUsageText)
         {
-            const string usageText = "\nA button, Space, Enter = ok" +
-                                     "\nB button, Esc = cancel";
+            const string usageText = "\nSpace, Enter = ok" +
+                                     "\nEsc = cancel";
 
             if (includeUsageText)
                 _message = message + usageText;
@@ -49,8 +49,8 @@ namespace Archmaester.ScreenManagement
 
             IsPopup = true;
 
-            TransitionOnTime = TimeSpan.FromSeconds(0.2);
-            TransitionOffTime = TimeSpan.FromSeconds(0.2);
+            TransitionOnTime = TimeSpan.FromSeconds(0.1);
+            TransitionOffTime = TimeSpan.FromSeconds(0.1);
         }
 
         /// <summary>
@@ -75,24 +75,22 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         public override void HandleInput(InputState input)
         {
-            PlayerIndex playerIndex;
+            SpriteFont font = ScreenManager.Font;
+            Vector2 textSize = GetTextSize(_message, font);
+            Vector2 textPosition = GetTextPosition(textSize);
+            Rectangle backgroundRectangle = GetBackgroundRectangle(textPosition, textSize);
 
-            // We pass in our ControllingPlayer, which may either be null (to
-            // accept input from any player) or a specific index. If we pass a null
-            // controlling player, the InputState helper returns to us which player
-            // actually provided the input. We pass that through to our Accepted and
-            // Cancelled events, so they can tell which player triggered them.
-            if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
+            if (input.IsMenuSelect() || input.IsLeftMouseButtonPressedInAnArea(backgroundRectangle))
             {
                 // Raise the accepted event, then exit the message box.
-                Accepted?.Invoke(this, new PlayerIndexEventArgs(playerIndex));
+                Accepted?.Invoke(this, new PlayerIndexEventArgs(0));
 
                 ExitScreen();
             }
-            else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
+            else if (input.IsMenuCancel() || input.IsRightMouseButtonPressedInAnArea(backgroundRectangle))
             {
                 // Raise the cancelled event, then exit the message box.
-                Cancelled?.Invoke(this, new PlayerIndexEventArgs(playerIndex));
+                Cancelled?.Invoke(this, new PlayerIndexEventArgs(0));
 
                 ExitScreen();
             }
@@ -113,20 +111,9 @@ namespace Archmaester.ScreenManagement
             // Darken down any other screens that were drawn beneath the popup.
             ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
 
-            // Center the message text in the viewport.
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
-            Vector2 textSize = font.MeasureString(_message);
-            Vector2 textPosition = (viewportSize - textSize) / 2;
-
-            // The background includes a border somewhat larger than the text itself.
-            const int hPad = 32;
-            const int vPad = 16;
-
-            Rectangle backgroundRectangle = new Rectangle((int)textPosition.X - hPad,
-                (int)textPosition.Y - vPad,
-                (int)textSize.X + hPad * 2,
-                (int)textSize.Y + vPad * 2);
+            Vector2 textSize = GetTextSize(_message, font);
+            Vector2 textPosition = GetTextPosition(textSize);
+            Rectangle backgroundRectangle = GetBackgroundRectangle(textPosition, textSize);
 
             // Fade the popup alpha during transitions.
             Color color = Color.White * TransitionAlpha;
@@ -140,6 +127,37 @@ namespace Archmaester.ScreenManagement
             spriteBatch.DrawString(font, _message, textPosition, color);
 
             spriteBatch.End();
+        }
+
+        private Vector2 GetTextSize(string message, SpriteFont font)
+        {
+            Vector2 textSize = font.MeasureString(message);
+
+            return textSize;
+        }
+
+        private Vector2 GetTextPosition(Vector2 textSize)
+        {
+            // Center the message text in the viewport.
+            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+            var viewportSize = new Vector2(viewport.Width, viewport.Height);
+            Vector2 textPosition = (viewportSize - textSize) / 2;
+
+            return textPosition;
+        }
+
+        private Rectangle GetBackgroundRectangle(Vector2 textPosition, Vector2 textSize)
+        {
+            // The background includes a border somewhat larger than the text itself.
+            const int hPad = 32;
+            const int vPad = 16;
+
+            var backgroundRectangle = new Rectangle((int)textPosition.X - hPad,
+                (int)textPosition.Y - vPad,
+                (int)textSize.X + hPad * 2,
+                (int)textSize.Y + vPad * 2);
+
+            return backgroundRectangle;
         }
 
         #endregion
