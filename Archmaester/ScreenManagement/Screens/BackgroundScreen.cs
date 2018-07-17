@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement
+namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// The background screen sits behind all the other menu screens.
@@ -44,7 +44,7 @@ namespace Archmaester.ScreenManagement
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
             }
 
-            _backgroundTexture = _content.Load<Texture2D>(@"Images\background");
+            _backgroundTexture = _content.Load<Texture2D>(@"Images\background2");
         }
 
         /// <summary>

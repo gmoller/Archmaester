@@ -21,7 +21,7 @@ namespace Archmaester.Fonts
             }
         }
 
-        public void DrawText(SpriteBatch spriteBatch, int x, int y, string text)
+        public void DrawText(SpriteBatch spriteBatch, int x, int y, string text, Color color, float scale)
         {
             int dx = x;
             int dy = y;
@@ -33,12 +33,12 @@ namespace Archmaester.Fonts
                     var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
                     var position = new Vector2(dx + fc.XOffset, dy + fc.YOffset);
 
-                    spriteBatch.Draw(_texture, position, sourceRectangle, Color.White);
+                    spriteBatch.Draw(_texture, position, sourceRectangle, color, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
 
                     //var destRectangle = new Rectangle((int)position.X, (int)position.Y, 40, 40);
                     //spriteBatch.Draw(_texture, destRectangle, sourceRectangle, Color.White);
 
-                    dx += fc.XAdvance - 6;
+                    dx += (int)(fc.XAdvance * scale);
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace Archmaester.ScreenManagement
+﻿namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// The options screen is brought up over the top of the main menu
@@ -40,14 +40,14 @@
         public OptionsMenuScreen() : base("Options")
         {
             // Create our menu entries.
-            ungulateMenuEntry = new MenuEntry(string.Empty);
-            languageMenuEntry = new MenuEntry(string.Empty);
-            frobnicateMenuEntry = new MenuEntry(string.Empty);
-            elfMenuEntry = new MenuEntry(string.Empty);
+            ungulateMenuEntry = new MenuEntry(string.Empty, this);
+            languageMenuEntry = new MenuEntry(string.Empty, this);
+            frobnicateMenuEntry = new MenuEntry(string.Empty, this);
+            elfMenuEntry = new MenuEntry(string.Empty, this);
 
             SetMenuEntryText();
 
-            MenuEntry back = new MenuEntry("Back");
+            MenuEntry back = new MenuEntry("Back", this);
 
             // Hook up menu event handlers.
             ungulateMenuEntry.Selected += UngulateMenuEntrySelected;

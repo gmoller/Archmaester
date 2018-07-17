@@ -42,24 +42,29 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BlankScroll.cs" />
+    <Compile Include="Cursor.cs" />
     <Compile Include="Fonts\BmFont.cs" />
+    <Compile Include="Fonts\Extensions.cs" />
     <Compile Include="Fonts\FontFile.cs" />
     <Compile Include="Fonts\FontLoader.cs" />
     <Compile Include="Fonts\FontRenderer.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Primitives2D.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenManagement\BackgroundScreen.cs" />
-    <Compile Include="ScreenManagement\GameplayScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\BackgroundScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\GameplayScreen.cs" />
     <Compile Include="ScreenManagement\GameScreen.cs" />
     <Compile Include="ScreenManagement\InputState.cs" />
-    <Compile Include="ScreenManagement\LoadingScreen.cs" />
-    <Compile Include="ScreenManagement\MainMenuScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\LoadingScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\MainMenuScreen.cs" />
     <Compile Include="ScreenManagement\MenuEntry.cs" />
-    <Compile Include="ScreenManagement\MenuScreen.cs" />
-    <Compile Include="ScreenManagement\MessageBoxScreen.cs" />
-    <Compile Include="ScreenManagement\OptionsMenuScreen.cs" />
-    <Compile Include="ScreenManagement\PauseMenuScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\MenuScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\MessageBoxScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\OptionsMenuScreen.cs" />
+    <Compile Include="ScreenManagement\Screens\PauseMenuScreen.cs" />
+    <Compile Include="ScreenManagement\PlayerIndexEventArgs.cs" />
     <Compile Include="ScreenManagement\ScreenManager.cs" />
     <Compile Include="ScreenManagement\ScreenState.cs" />
   </ItemGroup>
@@ -133,8 +138,10 @@
   <ItemGroup>
     <Content Include="Content\Fonts\Font01_30_sheet.png" />
     <Content Include="Content\Fonts\montserrat-32_0.png" />
-    <Content Include="Content\Images\background.png" />
+    <Content Include="Content\Images\background2.jpg" />
     <Content Include="Content\Images\blank.png" />
+    <Content Include="Content\Images\blankscroll2.png" />
+    <Content Include="Content\Images\cursor.png" />
     <Content Include="Content\Images\gradient.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

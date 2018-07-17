@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Archmaester.ScreenManagement
+namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// This screen implements the actual game logic. It is just a

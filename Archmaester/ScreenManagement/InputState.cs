@@ -65,7 +65,8 @@ namespace Archmaester.ScreenManagement
 
         public bool IsLeftMouseButtonPressed()
         {
-            return CurrentMouseState.LeftButton == ButtonState.Pressed;
+            return CurrentMouseState.LeftButton == ButtonState.Pressed &&
+                   LastMouseState.LeftButton != ButtonState.Pressed;
         }
 
         public bool IsLeftMouseButtonPressedInAnArea(Rectangle area)
@@ -73,14 +74,47 @@ namespace Archmaester.ScreenManagement
             return IsLeftMouseButtonPressed() && area.Contains(CurrentMouseState.X, CurrentMouseState.Y);
         }
 
+        public bool IsLeftMouseButtonPressedInOneOfAreas(out int index, params Rectangle[] areas)
+        {
+            index = 0;
+            foreach (Rectangle area in areas)
+            {
+                if (IsLeftMouseButtonPressedInAnArea(area))
+                {
+                    return true;
+                }
+                index++;
+            }
+
+            index = -1;
+            return false;
+        }
+
         public bool IsRightMouseButtonPressed()
         {
-            return CurrentMouseState.RightButton == ButtonState.Pressed;
+            return CurrentMouseState.RightButton == ButtonState.Pressed &&
+                   LastMouseState.RightButton != ButtonState.Pressed;
         }
 
         public bool IsRightMouseButtonPressedInAnArea(Rectangle area)
         {
             return IsRightMouseButtonPressed() && area.Contains(CurrentMouseState.X, CurrentMouseState.Y);
+        }
+
+        public bool IsMouseInOneOfAreas(out int index, params Rectangle[] areas)
+        {
+            index = 0;
+            foreach (Rectangle area in areas)
+            {
+                if (area.Contains(CurrentMouseState.Position))
+                {
+                    return true;
+                }
+                index++;
+            }
+
+            index = -1;
+            return false;
         }
 
         /// <summary>

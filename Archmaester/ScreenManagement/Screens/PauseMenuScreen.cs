@@ -1,4 +1,4 @@
-﻿namespace Archmaester.ScreenManagement
+﻿namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// The pause menu comes up over the top of the game,
@@ -14,8 +14,8 @@
         public PauseMenuScreen() : base("Paused")
         {
             // Create our menu entries.
-            MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game");
-            MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
+            MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game", this);
+            MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game", this);
 
             // Hook up menu event handlers.
             resumeGameMenuEntry.Selected += OnCancel;

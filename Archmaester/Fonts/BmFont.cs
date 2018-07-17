@@ -20,9 +20,9 @@ namespace Archmaester.Fonts
             _fontRenderer = new FontRenderer(fontFile, fontTexture2D);
         }
 
-        public void Draw(string message, Vector2 pos, SpriteBatch spriteBatch)
+        public void Draw(string message, Vector2 pos, Color color, float scale, SpriteBatch spriteBatch)
         {
-            _fontRenderer.DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message);
+            _fontRenderer.DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message, color, scale);
         }
     }
 }

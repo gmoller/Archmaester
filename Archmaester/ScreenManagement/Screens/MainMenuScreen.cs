@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Archmaester.ScreenManagement
+﻿namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// The main menu screen is the first thing displayed when the game starts up.
@@ -12,22 +10,26 @@ namespace Archmaester.ScreenManagement
         /// <summary>
         /// Constructor fills in the menu contents.
         /// </summary>
-        public MainMenuScreen() : base("Main Menu")
+        public MainMenuScreen() : base("Archmaester")
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
-            MenuEntry optionsMenuEntry = new MenuEntry("Options");
-            MenuEntry exitMenuEntry = new MenuEntry("Exit");
+            MenuEntry continueMenuEntry = new MenuEntry("Continue", this);
+            MenuEntry loadMenuEntry = new MenuEntry("Load Game", this);
+            MenuEntry newMenuEntry = new MenuEntry("New Game", this);
+            MenuEntry hallOfFameMenuEntry = new MenuEntry("Hall of Fame", this);
+            MenuEntry quitMenuEntry = new MenuEntry("Quit", this);
 
             // Hook up menu event handlers.
-            playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
-            optionsMenuEntry.Selected += OptionsMenuEntrySelected;
-            exitMenuEntry.Selected += OnCancel;
+            continueMenuEntry.Selected += PlayGameMenuEntrySelected;
+            loadMenuEntry.Selected += OptionsMenuEntrySelected;
+            quitMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
-            MenuEntries.Add(playGameMenuEntry);
-            MenuEntries.Add(optionsMenuEntry);
-            MenuEntries.Add(exitMenuEntry);
+            MenuEntries.Add(continueMenuEntry);
+            MenuEntries.Add(loadMenuEntry);
+            MenuEntries.Add(newMenuEntry);
+            MenuEntries.Add(hallOfFameMenuEntry);
+            MenuEntries.Add(quitMenuEntry);
         }
 
         #endregion
@@ -53,7 +55,7 @@ namespace Archmaester.ScreenManagement
         /// <summary>
         /// When the user cancels the main menu, ask if they want to exit the sample.
         /// </summary>
-        protected override void OnCancel(PlayerIndex playerIndex)
+        protected override void OnCancel()
         {
             const string message = "Are you sure you want to exit this sample?";
 

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement
+namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// A popup message box screen, used to display "are you sure?"

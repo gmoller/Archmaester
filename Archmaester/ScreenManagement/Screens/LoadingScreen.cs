@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement
+namespace Archmaester.ScreenManagement.Screens
 {
     public class LoadingScreen : GameScreen
     {

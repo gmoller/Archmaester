@@ -1,6 +1,7 @@
 ﻿using System;
 using Archmaester.Fonts;
 using Archmaester.ScreenManagement;
+using Archmaester.ScreenManagement.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,6 +15,8 @@ namespace Archmaester
         private SpriteBatch _spriteBatch;
         private BmFont _fontTime;
         private BmFont _fontTest;
+        private Cursor _cursor;
+        private BlankScroll _blankScroll;
 
         private GraphicsDeviceManager _graphics;
         private ScreenManager _screenManager;
@@ -45,7 +48,7 @@ namespace Archmaester
         /// </summary>
         protected override void Initialize()
         {
-            IsMouseVisible = true;
+            //IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -61,6 +64,11 @@ namespace Archmaester
             _fontTest = new BmFont(@"Fonts\Font01_30.fnt", @"Fonts\Font01_30_sheet", Content);
 
             Content.Load<object>(@"Images\gradient");
+
+            _cursor = new Cursor();
+            _cursor.LoadContent(_spriteBatch, Content);
+            _blankScroll = new BlankScroll();
+            _blankScroll.LoadContent(_spriteBatch, Content);
         }
 
         /// <summary>
@@ -78,6 +86,8 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            _cursor.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -92,12 +102,21 @@ namespace Archmaester
             base.Draw(gameTime);
 
             _spriteBatch.Begin();
-            _fontTime.Draw(DateTime.Now.ToString("HH mm"), new Vector2(10, 10), _spriteBatch);
-            _fontTest.Draw("ABCDEFGHIJKLMNOPQRSTUVWXYZ", new Vector2(0, 50), _spriteBatch);
-            _fontTest.Draw("abcdefghijklmnopqrstuvwxyz", new Vector2(0, 100), _spriteBatch);
-            _fontTest.Draw("0123456789.,;:?!-&/+%$\"", new Vector2(0, 150), _spriteBatch);
-            _fontTest.Draw("In a hole in the ground lived a hobbit.", new Vector2(0, 200), _spriteBatch);
+
+            _spriteBatch.DrawString(_fontTime, DateTime.Now.ToString("HH mm"), new Vector2(10, 10));
+            _spriteBatch.DrawString(_fontTest, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", new Vector2(0, 50));
+            _spriteBatch.DrawString(_fontTest, "abcdefghijklmnopqrstuvwxyz", new Vector2(0, 100));
+            _spriteBatch.DrawString(_fontTest, "0123456789.,;:?!-&/+%$\"", new Vector2(0, 150));
+            _spriteBatch.DrawString(_fontTest, "In a hole in the ground lived a hobbit.", new Vector2(0, 200));
+
+            _spriteBatch.DrawString(_fontTest, "Hey diddle diddle.", new Vector2(0, 250), Color.Red);
+            _spriteBatch.DrawString(_fontTest, "The cat and the fiddle.", new Vector2(0, 300), Color.Red, 0.5f);
+            _spriteBatch.DrawString(_fontTest, "The cow jumped over the moon.", new Vector2(0, 350), 0.5f);
+
             _spriteBatch.End();
+
+            _blankScroll.Draw(gameTime);
+            _cursor.Draw(gameTime);
         }
     }
 }

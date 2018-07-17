@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement
+namespace Archmaester.ScreenManagement.Screens
 {
     /// <summary>
     /// Base class for screens that contain a menu of options. The user can
@@ -70,33 +71,43 @@ namespace Archmaester.ScreenManagement
                     _selectedEntry = 0;
             }
 
-            // Accept or cancel the menu? We pass in our ControllingPlayer, which may
-            // either be null (to accept input from any player) or a specific index.
-            // If we pass a null controlling player, the InputState helper returns to
-            // us which player actually provided the input. We pass that through to
-            // OnSelectEntry and OnCancel, so they can tell which player triggered them.
+            // Move to menu entry that mouse is over?
+            int index;
+            if (input.IsMouseInOneOfAreas(out index, MenuEntries.Select(item => item.Rectangle).ToArray()))
+            {
+                _selectedEntry = index;
+            }
+
+            // Accept or cancel the menu?
             if (input.IsMenuSelect())
             {
-                OnSelectEntry(_selectedEntry, 0);
+                OnSelectEntry(_selectedEntry);
             }
             else if (input.IsMenuCancel())
             {
-                OnCancel(0);
+                OnCancel();
+            }
+
+            // Accept if mouse clicked
+            int index2;
+            if (input.IsLeftMouseButtonPressedInOneOfAreas(out index2, MenuEntries.Select(item => item.Rectangle).ToArray()))
+            {
+                OnSelectEntry(index2);
             }
         }
 
         /// <summary>
         /// Handler for when the user has chosen a menu entry.
         /// </summary>
-        protected virtual void OnSelectEntry(int entryIndex, PlayerIndex playerIndex)
+        protected virtual void OnSelectEntry(int entryIndex)
         {
-            _menuEntries[entryIndex].OnSelectEntry(playerIndex);
+            _menuEntries[entryIndex].OnSelectEntry();
         }
 
         /// <summary>
         /// Handler for when the user has cancelled the menu.
         /// </summary>
-        protected virtual void OnCancel(PlayerIndex playerIndex)
+        protected virtual void OnCancel()
         {
             ExitScreen();
         }
@@ -106,13 +117,12 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         protected void OnCancel(object sender, PlayerIndexEventArgs e)
         {
-            OnCancel(e.PlayerIndex);
+            OnCancel();
         }
 
         #endregion
 
         #region Update and Draw
-
 
         /// <summary>
         /// Allows the screen the chance to position the menu entries. By default
@@ -126,7 +136,7 @@ namespace Archmaester.ScreenManagement
             float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
             // start at Y = 175; each X value is generated per entry
-            Vector2 position = new Vector2(0f, 175f);
+            Vector2 position = new Vector2(0.0f, 675.0f);
 
             // update each menu entry's location in turn
             for (int i = 0; i < _menuEntries.Count; i++)
@@ -196,15 +206,15 @@ namespace Archmaester.ScreenManagement
             float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
             // Draw the menu title centered on the screen
-            Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2, 80);
+            Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2.0f, 80);
             Vector2 titleOrigin = font.MeasureString(_menuTitle) / 2;
-            Color titleColor = new Color(192, 192, 192) * TransitionAlpha;
+            Color titleColor = Color.Red * TransitionAlpha;
             float titleScale = 1.25f;
 
             titlePosition.Y -= transitionOffset * 100;
 
-            spriteBatch.DrawString(font, _menuTitle, titlePosition, titleColor, 0,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, _menuTitle, titlePosition, titleColor, 0.0f,
+                                   titleOrigin, titleScale, SpriteEffects.None, 0.0f);
 
             spriteBatch.End();
         }
