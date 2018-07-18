@@ -12,12 +12,14 @@ namespace BitmapFonts
             _spriteFont = spriteFont;
         }
 
-        public void Draw(string message, Vector2 pos, Color color, float scale, SpriteBatch spriteBatch)
+        public int LineSpacing => _spriteFont.LineSpacing;
+
+        public void Draw(string message, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_spriteFont, message, pos, color, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(_spriteFont, message, pos, color, rotation, origin, scale, spriteEffects, layerDepth);
         }
 
-        public Vector2 MeasureString(string text)
+        public Vector2 MeasureString(string text, float scale)
         {
             return _spriteFont.MeasureString(text);
         }

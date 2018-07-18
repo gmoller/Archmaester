@@ -34,7 +34,6 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement
         /// A default font shared by all the screens. This saves
         /// each screen having to bother loading their own local copy.
         /// </summary>
-        public SpriteFont SpriteFont { get; private set; }
         public IFont Font { get; private set; }
 
         /// <summary>
@@ -75,12 +74,12 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement
 
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             SpriteFont spriteFont = content.Load<SpriteFont>(@"Fonts\menufont");
-            SpriteFont = spriteFont;
             IFont f = new SpriteFontWrapper(spriteFont);
             Font = f;
 
-            IFont bmFont = new BmFont(@"Fonts\Montserrat.fnt", @"Fonts\Montserrat-32_0", Game.Content);
-            Font = bmFont;
+            //IFont bmFont = new BmFont(@"Fonts\Font01_30.fnt", @"Fonts\Font01_30_sheet", Game.Content);
+            //IFont bmFont = new BmFont(@"Fonts\Montserrat.fnt", @"Fonts\Montserrat-32_0", Game.Content);
+            //Font = bmFont;
 
             _blankTexture = content.Load<Texture2D>(@"Images\blank");
 

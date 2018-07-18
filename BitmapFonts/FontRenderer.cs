@@ -23,7 +23,7 @@ namespace BitmapFonts
             }
         }
 
-        public void DrawText(SpriteBatch spriteBatch, int x, int y, string text, Color color, float scale)
+        public void DrawText(SpriteBatch spriteBatch, int x, int y, string text, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth)
         {
             int dx = x;
             int dy = y;
@@ -42,8 +42,8 @@ namespace BitmapFonts
                         var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
                         var position = new Vector2(dx + fc.XOffset, dy + fc.YOffset);
 
-                        spriteBatch.Draw(_texture, position, sourceRectangle, color, 0.0f, Vector2.Zero, scale,
-                            SpriteEffects.None, 0.0f);
+                        spriteBatch.Draw(_texture, position, sourceRectangle, color, rotation, origin, scale,
+                            spriteEffects, layerDepth);
 
                         dx += (int) (fc.XAdvance * scale);
                     }

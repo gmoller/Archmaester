@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BitmapFonts;
 
 namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {
@@ -186,7 +187,7 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 
             GraphicsDevice graphics = ScreenManager.GraphicsDevice;
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            SpriteFont font = ScreenManager.SpriteFont;
+            IFont font = ScreenManager.Font;
 
             spriteBatch.Begin();
 
@@ -207,14 +208,13 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 
             // Draw the menu title centered on the screen
             Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2.0f, 80);
-            Vector2 titleOrigin = font.MeasureString(_menuTitle) / 2;
+            Vector2 titleOrigin = font.MeasureString(_menuTitle, 1.0f) / 2;
             Color titleColor = Color.Red * TransitionAlpha;
             float titleScale = 1.25f;
 
             titlePosition.Y -= transitionOffset * 100;
 
-            spriteBatch.DrawString(font, _menuTitle, titlePosition, titleColor, 0.0f,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, _menuTitle, titlePosition, titleColor, 0.0f, titleOrigin, titleScale, SpriteEffects.None, 0.0f);
 
             spriteBatch.End();
         }

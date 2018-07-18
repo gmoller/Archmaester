@@ -5,7 +5,8 @@ namespace BitmapFonts
 {
     public interface IFont
     {
-        Vector2 MeasureString(string text);
-        void Draw(string message, Vector2 pos, Color color, float scale, SpriteBatch spriteBatch);
+        int LineSpacing { get; }
+        Vector2 MeasureString(string text, float scale);
+        void Draw(string message, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth, SpriteBatch spriteBatch);
     }
 }

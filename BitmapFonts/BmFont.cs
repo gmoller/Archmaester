@@ -12,6 +12,8 @@ namespace BitmapFonts
         private readonly Dictionary<char, FontChar> _characterMap;
         private readonly FontRenderer _fontRenderer;
 
+        public int LineSpacing => _fontFile.Common.LineHeight;
+
         public BmFont(string fontTexture, string png, ContentManager content)
         {
             string fontFilePath = Path.Combine(content.RootDirectory, fontTexture);
@@ -29,21 +31,21 @@ namespace BitmapFonts
             }
         }
 
-        public void Draw(string message, Vector2 pos, Color color, float scale, SpriteBatch spriteBatch)
+        public void Draw(string message, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth, SpriteBatch spriteBatch)
         {
-            _fontRenderer.DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message, color, scale);
+            _fontRenderer.DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message, color, rotation, origin, scale, spriteEffects, layerDepth);
         }
 
-        public Vector2 MeasureString(string text)
+        public Vector2 MeasureString(string text, float scale)
         {
             if (string.IsNullOrEmpty(text))
                 return Vector2.Zero;
 
-            var stringRectangle = GetStringRectangle(text);
+            var stringRectangle = GetStringRectangle(text, scale);
             return new Vector2(stringRectangle.Width, stringRectangle.Height);
         }
 
-        private Rectangle GetStringRectangle(string text)
+        private Rectangle GetStringRectangle(string text, float scale)
         {
             int dx = 0;
             int dy = 0;
@@ -61,7 +63,7 @@ namespace BitmapFonts
                     FontChar fc;
                     if (_characterMap.TryGetValue(c, out fc))
                     {
-                        dx += (int) (fc.XAdvance * 1.0f); // scale hardcoded to 1 - fix!
+                        dx += (int) (fc.XAdvance * scale);
                     }
                 }
             }

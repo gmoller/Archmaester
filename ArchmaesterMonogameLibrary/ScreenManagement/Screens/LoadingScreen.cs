@@ -1,4 +1,5 @@
 ﻿using System;
+using BitmapFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -103,14 +104,14 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
             if (_loadingIsSlow)
             {
                 SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-                SpriteFont font = ScreenManager.SpriteFont;
+                IFont font = ScreenManager.Font;
 
                 const string message = "Loading...";
 
                 // Center the text in the viewport.
                 Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
                 Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
-                Vector2 textSize = font.MeasureString(message);
+                Vector2 textSize = font.MeasureString(message, 1.0f);
                 Vector2 textPosition = (viewportSize - textSize) / 2;
 
                 Color color = Color.White * TransitionAlpha;

@@ -1,5 +1,6 @@
 ﻿using System;
 using ArchmaesterMonogameLibrary.ScreenManagement.Screens;
+using BitmapFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -126,11 +127,11 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement
             // Draw text, centered on the middle of each line.
             ScreenManager screenManager = screen.ScreenManager;
             SpriteBatch spriteBatch = screenManager.SpriteBatch;
-            SpriteFont font = screenManager.SpriteFont;
+            IFont font = screenManager.Font;
 
             Vector2 origin = new Vector2(0, font.LineSpacing / 2.0f);
 
-            spriteBatch.DrawString(font, Text, Position, color, 0, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, Text, Position, color, 0, origin, scale, SpriteEffects.None, 0.0f);
 
             //spriteBatch.DrawRectangle(Rectangle, Color.White);
         }
@@ -140,7 +141,7 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement
         /// </summary>
         public virtual int GetHeight(MenuScreen screen)
         {
-            return screen.ScreenManager.SpriteFont.LineSpacing;
+            return screen.ScreenManager.Font.LineSpacing;
         }
 
         /// <summary>
@@ -148,7 +149,7 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement
         /// </summary>
         public virtual int GetWidth(MenuScreen screen)
         {
-            return (int)screen.ScreenManager.SpriteFont.MeasureString(Text).X;
+            return (int)screen.ScreenManager.Font.MeasureString(Text, 1.0f).X;
         }
 
         #endregion

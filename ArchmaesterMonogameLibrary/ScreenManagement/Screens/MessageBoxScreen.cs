@@ -132,7 +132,7 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 
         private Vector2 GetTextSize(string message, IFont font)
         {
-            Vector2 textSize = font.MeasureString(message);
+            Vector2 textSize = font.MeasureString(message, 1.0f);
 
             return textSize;
         }
