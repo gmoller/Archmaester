@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement.Screens
+namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {
     public class LoadingScreen : GameScreen
     {
@@ -103,7 +103,7 @@ namespace Archmaester.ScreenManagement.Screens
             if (_loadingIsSlow)
             {
                 SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-                SpriteFont font = ScreenManager.Font;
+                SpriteFont font = ScreenManager.SpriteFont;
 
                 const string message = "Loading...";
 

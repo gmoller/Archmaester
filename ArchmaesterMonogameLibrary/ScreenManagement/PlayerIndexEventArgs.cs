@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Archmaester.ScreenManagement
+namespace ArchmaesterMonogameLibrary.ScreenManagement
 {
     /// <summary>
     /// Custom event argument which includes the index of the player who

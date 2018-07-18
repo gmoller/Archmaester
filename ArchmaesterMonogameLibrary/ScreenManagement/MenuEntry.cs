@@ -1,9 +1,9 @@
 ﻿using System;
-using Archmaester.ScreenManagement.Screens;
+using ArchmaesterMonogameLibrary.ScreenManagement.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement
+namespace ArchmaesterMonogameLibrary.ScreenManagement
 {
     /// <summary>
     /// Helper class represents a single entry in a MenuScreen. By default this
@@ -126,7 +126,7 @@ namespace Archmaester.ScreenManagement
             // Draw text, centered on the middle of each line.
             ScreenManager screenManager = screen.ScreenManager;
             SpriteBatch spriteBatch = screenManager.SpriteBatch;
-            SpriteFont font = screenManager.Font;
+            SpriteFont font = screenManager.SpriteFont;
 
             Vector2 origin = new Vector2(0, font.LineSpacing / 2.0f);
 
@@ -140,7 +140,7 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         public virtual int GetHeight(MenuScreen screen)
         {
-            return screen.ScreenManager.Font.LineSpacing;
+            return screen.ScreenManager.SpriteFont.LineSpacing;
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         public virtual int GetWidth(MenuScreen screen)
         {
-            return (int)screen.ScreenManager.Font.MeasureString(Text).X;
+            return (int)screen.ScreenManager.SpriteFont.MeasureString(Text).X;
         }
 
         #endregion

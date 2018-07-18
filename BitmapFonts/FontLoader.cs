@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Archmaester.Fonts
+namespace BitmapFonts
 {
     public class FontLoader
     {

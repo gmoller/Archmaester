@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archmaester", "Archmaester\Archmaester.csproj", "{096AA133-60AA-4253-9131-066E5F3BC4A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchmaesterMonogameLibrary", "ArchmaesterMonogameLibrary\ArchmaesterMonogameLibrary.csproj", "{18E22B61-1C46-4086-95EE-41985A34FEFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitmapFonts", "BitmapFonts\BitmapFonts.csproj", "{A56B8095-BD97-476D-A221-9648C34763AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{096AA133-60AA-4253-9131-066E5F3BC4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{096AA133-60AA-4253-9131-066E5F3BC4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{096AA133-60AA-4253-9131-066E5F3BC4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18E22B61-1C46-4086-95EE-41985A34FEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E22B61-1C46-4086-95EE-41985A34FEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18E22B61-1C46-4086-95EE-41985A34FEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18E22B61-1C46-4086-95EE-41985A34FEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56B8095-BD97-476D-A221-9648C34763AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56B8095-BD97-476D-A221-9648C34763AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56B8095-BD97-476D-A221-9648C34763AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56B8095-BD97-476D-A221-9648C34763AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

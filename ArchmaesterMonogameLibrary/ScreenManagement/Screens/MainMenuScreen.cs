@@ -1,4 +1,4 @@
-﻿namespace Archmaester.ScreenManagement.Screens
+﻿namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {
     /// <summary>
     /// The main menu screen is the first thing displayed when the game starts up.

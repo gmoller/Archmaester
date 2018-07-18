@@ -1,29 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace Archmaester
+namespace ArchmaesterMonogameLibrary
 {
-    public class BlankScroll
+    public class Cursor
     {
         private SpriteBatch _spriteBatch;
 
-        private Texture2D _texture;
+        private Texture2D _cursorTex;
+        private Vector2 _cursorPos;
+
 
         public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
         {
             _spriteBatch = spriteBatch;
-            _texture = content.Load<Texture2D>(@"Images\blankscroll2");
+            _cursorTex = content.Load<Texture2D>(@"Images\cursor");
         }
 
         public void Update(GameTime gameTime)
         {
+            _cursorPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
         }
 
         public void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_texture, new Rectangle(800-200, 375-250, 400, 500), Color.White);
+            _spriteBatch.Draw(_cursorTex, _cursorPos, Color.White);
             _spriteBatch.End();
         }
     }

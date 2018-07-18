@@ -2,15 +2,17 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.Fonts
+namespace BitmapFonts
 {
     public class FontRenderer
     {
+        private readonly FontFile _fontFile;
         private readonly Dictionary<char, FontChar> _characterMap;
         private readonly Texture2D _texture;
 
         public FontRenderer(FontFile fontFile, Texture2D fontTexture)
         {
+            _fontFile = fontFile;
             _texture = fontTexture;
             _characterMap = new Dictionary<char, FontChar>();
 
@@ -27,18 +29,24 @@ namespace Archmaester.Fonts
             int dy = y;
             foreach (char c in text)
             {
-                FontChar fc;
-                if (_characterMap.TryGetValue(c, out fc))
+                if (c == '\n')
                 {
-                    var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
-                    var position = new Vector2(dx + fc.XOffset, dy + fc.YOffset);
+                    dx = x;
+                    dy += _fontFile.Common.LineHeight;
+                }
+                else
+                {
+                    FontChar fc;
+                    if (_characterMap.TryGetValue(c, out fc))
+                    {
+                        var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
+                        var position = new Vector2(dx + fc.XOffset, dy + fc.YOffset);
 
-                    spriteBatch.Draw(_texture, position, sourceRectangle, color, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
+                        spriteBatch.Draw(_texture, position, sourceRectangle, color, 0.0f, Vector2.Zero, scale,
+                            SpriteEffects.None, 0.0f);
 
-                    //var destRectangle = new Rectangle((int)position.X, (int)position.Y, 40, 40);
-                    //spriteBatch.Draw(_texture, destRectangle, sourceRectangle, Color.White);
-
-                    dx += (int)(fc.XAdvance * scale);
+                        dx += (int) (fc.XAdvance * scale);
+                    }
                 }
             }
         }

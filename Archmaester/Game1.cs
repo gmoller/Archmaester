@@ -1,9 +1,10 @@
 ﻿using System;
-using Archmaester.Fonts;
-using Archmaester.ScreenManagement;
-using Archmaester.ScreenManagement.Screens;
+using ArchmaesterMonogameLibrary;
+using ArchmaesterMonogameLibrary.ScreenManagement;
+using ArchmaesterMonogameLibrary.ScreenManagement.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BitmapFonts;
 
 namespace Archmaester
 {
@@ -13,8 +14,8 @@ namespace Archmaester
     public class Game1 : Game
     {
         private SpriteBatch _spriteBatch;
-        private BmFont _fontTime;
-        private BmFont _fontTest;
+        private IFont _fontTime;
+        private IFont _fontTest;
         private Cursor _cursor;
         private BlankScroll _blankScroll;
 
@@ -25,8 +26,8 @@ namespace Archmaester
         {
             _graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 1600, // 853
-                PreferredBackBufferHeight = 900 // 480
+                PreferredBackBufferWidth = 1600, // 853 - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width
+                PreferredBackBufferHeight = 900 // 480 - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
             };
             Content.RootDirectory = "Content";
 
@@ -115,7 +116,7 @@ namespace Archmaester
 
             _spriteBatch.End();
 
-            _blankScroll.Draw(gameTime);
+            //_blankScroll.Draw(gameTime);
             _cursor.Draw(gameTime);
         }
     }

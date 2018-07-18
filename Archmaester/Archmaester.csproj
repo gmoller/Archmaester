@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,8 @@
     <AssemblyName>Archmaester</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -42,31 +43,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BlankScroll.cs" />
-    <Compile Include="Cursor.cs" />
-    <Compile Include="Fonts\BmFont.cs" />
-    <Compile Include="Fonts\Extensions.cs" />
-    <Compile Include="Fonts\FontFile.cs" />
-    <Compile Include="Fonts\FontLoader.cs" />
-    <Compile Include="Fonts\FontRenderer.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Primitives2D.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScreenManagement\Screens\BackgroundScreen.cs" />
-    <Compile Include="ScreenManagement\Screens\GameplayScreen.cs" />
-    <Compile Include="ScreenManagement\GameScreen.cs" />
-    <Compile Include="ScreenManagement\InputState.cs" />
-    <Compile Include="ScreenManagement\Screens\LoadingScreen.cs" />
-    <Compile Include="ScreenManagement\Screens\MainMenuScreen.cs" />
-    <Compile Include="ScreenManagement\MenuEntry.cs" />
-    <Compile Include="ScreenManagement\Screens\MenuScreen.cs" />
-    <Compile Include="ScreenManagement\Screens\MessageBoxScreen.cs" />
-    <Compile Include="ScreenManagement\Screens\OptionsMenuScreen.cs" />
-    <Compile Include="ScreenManagement\Screens\PauseMenuScreen.cs" />
-    <Compile Include="ScreenManagement\PlayerIndexEventArgs.cs" />
-    <Compile Include="ScreenManagement\ScreenManager.cs" />
-    <Compile Include="ScreenManagement\ScreenState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.7.0.768, Culture=neutral, processorArchitecture=MSIL">
@@ -74,7 +54,6 @@
       <HintPath>..\Libs\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -126,6 +105,7 @@
       <Link>MonoGame.Framework.dll.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Content\Fonts\Font01_30.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -144,6 +124,16 @@
     <Content Include="Content\Images\blankscroll2.png" />
     <Content Include="Content\Images\cursor.png" />
     <Content Include="Content\Images\gradient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchmaesterMonogameLibrary\ArchmaesterMonogameLibrary.csproj">
+      <Project>{18e22b61-1c46-4086-95ee-41985a34fefc}</Project>
+      <Name>ArchmaesterMonogameLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BitmapFonts\BitmapFonts.csproj">
+      <Project>{a56b8095-bd97-476d-a221-9648c34763ac}</Project>
+      <Name>BitmapFonts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

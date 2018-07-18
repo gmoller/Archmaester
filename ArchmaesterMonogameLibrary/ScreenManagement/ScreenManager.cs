@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using BitmapFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Archmaester.ScreenManagement
+namespace ArchmaesterMonogameLibrary.ScreenManagement
 {
     public class ScreenManager : DrawableGameComponent
     {
@@ -34,7 +34,8 @@ namespace Archmaester.ScreenManagement
         /// A default font shared by all the screens. This saves
         /// each screen having to bother loading their own local copy.
         /// </summary>
-        public SpriteFont Font { get; private set; }
+        public SpriteFont SpriteFont { get; private set; }
+        public IFont Font { get; private set; }
 
         /// <summary>
         /// If true, the manager prints out a list of all the screens
@@ -52,9 +53,6 @@ namespace Archmaester.ScreenManagement
         /// </summary>
         public ScreenManager(Game game) : base(game)
         {
-            // we must set EnabledGestures before we can query for them, but
-            // we don't assume the game wants to read them.
-            TouchPanel.EnabledGestures = GestureType.None;
         }
 
         /// <summary>
@@ -76,7 +74,14 @@ namespace Archmaester.ScreenManagement
             ContentManager content = Game.Content;
 
             SpriteBatch = new SpriteBatch(GraphicsDevice);
-            Font = content.Load<SpriteFont>(@"Fonts\menufont");
+            SpriteFont spriteFont = content.Load<SpriteFont>(@"Fonts\menufont");
+            SpriteFont = spriteFont;
+            IFont f = new SpriteFontWrapper(spriteFont);
+            Font = f;
+
+            IFont bmFont = new BmFont(@"Fonts\Montserrat.fnt", @"Fonts\Montserrat-32_0", Game.Content);
+            Font = bmFont;
+
             _blankTexture = content.Load<Texture2D>(@"Images\blank");
 
             // Tell each of the screens to load their content.

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement.Screens
+namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {
     /// <summary>
     /// The background screen sits behind all the other menu screens.

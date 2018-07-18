@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Archmaester.ScreenManagement
+namespace ArchmaesterMonogameLibrary.ScreenManagement
 {
     public class GameScreen
     {

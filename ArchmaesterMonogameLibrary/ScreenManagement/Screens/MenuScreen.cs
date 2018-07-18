@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Archmaester.ScreenManagement.Screens
+namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {
     /// <summary>
     /// Base class for screens that contain a menu of options. The user can
@@ -186,7 +186,7 @@ namespace Archmaester.ScreenManagement.Screens
 
             GraphicsDevice graphics = ScreenManager.GraphicsDevice;
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            SpriteFont font = ScreenManager.Font;
+            SpriteFont font = ScreenManager.SpriteFont;
 
             spriteBatch.Begin();
 

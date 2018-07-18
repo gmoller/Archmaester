@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using BitmapFonts;
 
-namespace Archmaester.ScreenManagement.Screens
+namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {
     /// <summary>
     /// A popup message box screen, used to display "are you sure?"
@@ -75,7 +76,7 @@ namespace Archmaester.ScreenManagement.Screens
         /// </summary>
         public override void HandleInput(InputState input)
         {
-            SpriteFont font = ScreenManager.Font;
+            IFont font = ScreenManager.Font;
             Vector2 textSize = GetTextSize(_message, font);
             Vector2 textPosition = GetTextPosition(textSize);
             Rectangle backgroundRectangle = GetBackgroundRectangle(textPosition, textSize);
@@ -106,7 +107,7 @@ namespace Archmaester.ScreenManagement.Screens
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            SpriteFont font = ScreenManager.Font;
+            IFont font = ScreenManager.Font;
 
             // Darken down any other screens that were drawn beneath the popup.
             ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
@@ -129,7 +130,7 @@ namespace Archmaester.ScreenManagement.Screens
             spriteBatch.End();
         }
 
-        private Vector2 GetTextSize(string message, SpriteFont font)
+        private Vector2 GetTextSize(string message, IFont font)
         {
             Vector2 textSize = font.MeasureString(message);
 

@@ -1,4 +1,4 @@
-﻿namespace Archmaester.ScreenManagement
+﻿namespace ArchmaesterMonogameLibrary.ScreenManagement
 {
     /// <summary>
     /// Enum describes the screen transition state.
