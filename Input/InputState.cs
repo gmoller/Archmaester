@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace ArchmaesterMonogameLibrary
+namespace Input
 {
     /// <summary>
     /// Helper for reading input from keyboard. This class 

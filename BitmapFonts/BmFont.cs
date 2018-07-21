@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.IO;
+using BitmapFonts.Loaders;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,19 +8,21 @@ namespace BitmapFonts
 {
     public class BmFont : IFont
     {
+        private readonly ContentManager _content;
+        private readonly string _fontTexture;
         private readonly FontFile _fontFile;
         private readonly Dictionary<char, FontChar> _characterMap;
-        private readonly FontRenderer _fontRenderer;
 
         public int LineSpacing => _fontFile.Common.LineHeight;
 
-        public BmFont(string fontTexture, string png, ContentManager content)
+        public BmFont(string fontTexture, ContentManager content)
         {
-            string fontFilePath = Path.Combine(content.RootDirectory, fontTexture);
+            _content = content;
+            _fontTexture = fontTexture;
+
+            string fontFilePath = $"Content\\{fontTexture}.fnt";
             FontFile fontFile = FontLoader.Load(fontFilePath);
             _fontFile = fontFile;
-            Texture2D fontTexture2D = content.Load<Texture2D>(png);
-            _fontRenderer = new FontRenderer(fontFile, fontTexture2D);
 
             _characterMap = new Dictionary<char, FontChar>();
 
@@ -33,13 +35,41 @@ namespace BitmapFonts
 
         public void Draw(string message, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth, SpriteBatch spriteBatch)
         {
-            _fontRenderer.DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message, color, rotation, origin, scale, spriteEffects, layerDepth);
+            DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message, color, rotation, origin, scale, spriteEffects, layerDepth);
+        }
+
+        private void DrawText(SpriteBatch spriteBatch, int x, int y, string text, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth)
+        {
+            var texture = _content.Load<Texture2D>(_fontTexture);
+
+            int dx = x;
+            int dy = y;
+            foreach (char c in text)
+            {
+                if (c == '\n')
+                {
+                    dx = x;
+                    dy += _fontFile.Common.LineHeight;
+                }
+                else
+                {
+                    FontChar fc;
+                    if (_characterMap.TryGetValue(c, out fc))
+                    {
+                        var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
+                        var position = new Vector2(dx + fc.XOffset, dy + fc.YOffset);
+
+                        spriteBatch.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, spriteEffects, layerDepth);
+
+                        dx += (int)(fc.XAdvance * scale);
+                    }
+                }
+            }
         }
 
         public Vector2 MeasureString(string text, float scale)
         {
-            if (string.IsNullOrEmpty(text))
-                return Vector2.Zero;
+            if (string.IsNullOrEmpty(text)) return Vector2.Zero;
 
             var stringRectangle = GetStringRectangle(text, scale);
             return new Vector2(stringRectangle.Width, stringRectangle.Height);

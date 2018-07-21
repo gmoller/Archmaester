@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using BitmapFonts;
+using Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -73,13 +74,9 @@ namespace ArchmaesterMonogameLibrary.ScreenManagement
             ContentManager content = Game.Content;
 
             SpriteBatch = new SpriteBatch(GraphicsDevice);
-            SpriteFont spriteFont = content.Load<SpriteFont>(@"Fonts\menufont");
-            IFont f = new SpriteFontWrapper(spriteFont);
-            Font = f;
 
-            //IFont bmFont = new BmFont(@"Fonts\Font01_30.fnt", @"Fonts\Font01_30_sheet", Game.Content);
-            //IFont bmFont = new BmFont(@"Fonts\Montserrat.fnt", @"Fonts\Montserrat-32_0", Game.Content);
-            //Font = bmFont;
+            Font = AssetsRepository.Instance.GetFont("MenuSpriteFont");
+            //Font = AssetsRepository.Instance.GetFont("MenuBitmapFont");
 
             _blankTexture = content.Load<Texture2D>(@"Images\blank");
 

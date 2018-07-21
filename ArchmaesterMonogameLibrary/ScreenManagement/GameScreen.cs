@@ -1,4 +1,5 @@
 ﻿using System;
+using Input;
 using Microsoft.Xna.Framework;
 
 namespace ArchmaesterMonogameLibrary.ScreenManagement

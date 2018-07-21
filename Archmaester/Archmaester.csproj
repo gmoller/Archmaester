@@ -44,7 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
-    <Compile Include="Primitives2D.cs" />
+    <Compile Include="Game2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -107,23 +107,46 @@
     </None>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <None Include="Content\Fonts\Font01_30.fnt">
+    <None Include="Content\Fonts\Font01_30_sheet.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Fonts\Font03_30_sheet.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Fonts\gamefont.spritefont" />
     <None Include="Content\Fonts\menufont.spritefont" />
-    <None Include="Content\Fonts\Montserrat.fnt">
+    <None Include="Content\Fonts\montserrat-32_0.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Fonts\Font01_30_sheet.png" />
+    <Content Include="Content\Fonts\Font03_30_sheet.png" />
     <Content Include="Content\Fonts\montserrat-32_0.png" />
     <Content Include="Content\Images\background2.jpg" />
     <Content Include="Content\Images\blank.png" />
     <Content Include="Content\Images\blankscroll2.png" />
+    <Content Include="Content\Images\button.png" />
     <Content Include="Content\Images\cursor.png" />
     <Content Include="Content\Images\gradient.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-background.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-botleft.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-botright.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-left.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-right.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-top.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-topleft.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border-topright.png" />
+    <Content Include="Content\Images\Gui\lite\lite_opaque-border_bottom.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-background.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-botleft.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-botright.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-left.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-right.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-top.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-topleft.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border-topright.png" />
+    <Content Include="Content\Images\Gui\lite\lite_translucent-border_bottom.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArchmaesterMonogameLibrary\ArchmaesterMonogameLibrary.csproj">
@@ -133,6 +156,10 @@
     <ProjectReference Include="..\BitmapFonts\BitmapFonts.csproj">
       <Project>{a56b8095-bd97-476d-a221-9648c34763ac}</Project>
       <Name>BitmapFonts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Textures\Textures.csproj">
+      <Project>{F1C1B1DB-B61E-4395-8E99-C8D8E6F90981}</Project>
+      <Name>Textures</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

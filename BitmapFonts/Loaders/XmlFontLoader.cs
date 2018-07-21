@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace BitmapFonts
+namespace BitmapFonts.Loaders
 {
-    public class FontLoader
+    public class XmlFontLoader : IFontLoader
     {
-        public static FontFile Load(string filename)
+        public FontFile ReadFile(string filename)
         {
             var deserializer = new XmlSerializer(typeof(FontFile));
             var textReader = new StreamReader(filename);
