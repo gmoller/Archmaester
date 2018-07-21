@@ -13,11 +13,11 @@ namespace GuiControls
         private readonly Vector2 _size;
         private readonly string _text;
         private readonly Color _textColor;
-        private readonly float _scale;
 
         public Rectangle Area => new Rectangle((int)(_center.X - Width / 2.0f), (int)(_center.Y - Height / 2.0f), Width, Height);
-        public int Width => (int)(_size.X * _scale);
-        public int Height => (int)(_size.Y * _scale);
+        public int Width => (int)(_size.X * Scale);
+        public int Height => (int)(_size.Y * Scale);
+        public float Scale { get; set; }
 
         private LabelControl(IFont font, Vector2 center, string text, Color textColor, float scale)
         {
@@ -25,7 +25,7 @@ namespace GuiControls
             _center = center;
             _text = text;
             _textColor = textColor;
-            _scale = scale;
+            Scale = scale;
 
             // autosize
             _size = font.MeasureString(text, 1.0f);
@@ -45,7 +45,7 @@ namespace GuiControls
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin = _size / 2.0f;
-            spriteBatch.DrawString(_font, _text, _center, _textColor, 0.0f, origin, _scale, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(_font, _text, _center, _textColor, 0.0f, origin, Scale, SpriteEffects.None, 0.0f);
 
             //spriteBatch.DrawRectangle(Area, Color.Red);
         }

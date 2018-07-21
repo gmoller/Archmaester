@@ -7,7 +7,7 @@ namespace Textures
     {
         int Width { get; }
         int Height { get; }
-        void Draw(Vector2 position, Color color, SpriteBatch spriteBatch);
+        void Draw(Vector2 position, Color color, float scale, SpriteBatch spriteBatch);
         void Draw(Rectangle destinationRectangle, Color color, SpriteBatch spriteBatch);
     }
 }

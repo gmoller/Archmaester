@@ -33,10 +33,10 @@ namespace Textures
             }
         }
 
-        public void Draw(Vector2 position, Color color, SpriteBatch spriteBatch)
+        public void Draw(Vector2 position, Color color, float scale, SpriteBatch spriteBatch)
         {
             var texture = _content.Load<Texture2D>(_textureName);
-            spriteBatch.Draw(texture, position, color);
+            spriteBatch.Draw(texture, position, null, color, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.0f);
         }
 
         public void Draw(Rectangle destinationRectangle, Color color, SpriteBatch spriteBatch)

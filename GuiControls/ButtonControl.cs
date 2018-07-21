@@ -2,7 +2,6 @@
 using BitmapFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Primitives2D;
 using Textures;
 using Input;
 using Microsoft.Xna.Framework.Audio;
@@ -24,11 +23,10 @@ namespace GuiControls
         private readonly ITexture2D _textureBottom;
         private readonly ITexture2D _textureBottomRight;
 
-        private readonly IFont _font;
+        private readonly LabelControl _label;
+
         private readonly Vector2 _center;
         private Vector2 _size;
-        private readonly string _text;
-        private readonly Color _textColor = Color.Yellow;
 
         private ControlState _controlState;
         private float _clickedCountdown;
@@ -42,7 +40,6 @@ namespace GuiControls
         private ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures, ContentManager content)
         {
             _content = content;
-            _font = font;
 
             _textureTopLeft = textures[0];
             _textureTop = textures[1];
@@ -56,7 +53,8 @@ namespace GuiControls
 
             _center = center;
             _size = new Vector2(width, height);
-            _text = text;
+
+            _label = LabelControl.Create(font, center, text, Color.Yellow, 1.0f);
         }
 
         public static ButtonControl Create(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures, ContentManager content)
@@ -89,24 +87,24 @@ namespace GuiControls
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _textureTopLeft.Draw(new Vector2(Area.Left, Area.Top), Color.White, spriteBatch);
+            float scale = _controlState == ControlState.MouseOver ? 1.1f : 1.0f;
+
+            _textureTopLeft.Draw(new Vector2(Area.Left, Area.Top), Color.White, 1.0f, spriteBatch);
             _textureTop.Draw(new Rectangle(Area.Left + _textureTopLeft.Width, Area.Top, Area.Width - _textureTopLeft.Width - _textureTopRight.Width, _textureTop.Height), Color.White, spriteBatch);
-            _textureTopRight.Draw(new Vector2(Area.Right - _textureTopRight.Width, Area.Top), Color.White, spriteBatch);
+            _textureTopRight.Draw(new Vector2(Area.Right - _textureTopRight.Width, Area.Top), Color.White, 1.0f, spriteBatch);
 
             _textureLeft.Draw(new Rectangle(Area.Left, Area.Top + _textureTopLeft.Height, _textureTopLeft.Width, Area.Height - _textureTopLeft.Height - _textureBottomLeft.Height), Color.White, spriteBatch);
             _textureBackground.Draw(new Rectangle(Area.Left + _textureLeft.Width, Area.Top + _textureTop.Height, Area.Width - _textureLeft.Width - _textureRight.Width, Area.Height - _textureTop.Height - _textureBottom.Height), Color.White, spriteBatch);
             _textureRight.Draw(new Rectangle(Area.Right - _textureRight.Width, Area.Top + _textureTopRight.Height, _textureTopRight.Width, Area.Height - _textureTopRight.Height - _textureBottomRight.Height), Color.White, spriteBatch);
 
-            _textureBottomLeft.Draw(new Vector2(Area.Left, Area.Bottom - _textureBottomLeft.Height), Color.White, spriteBatch);
+            _textureBottomLeft.Draw(new Vector2(Area.Left, Area.Bottom - _textureBottomLeft.Height), Color.White, 1.0f, spriteBatch);
             _textureBottom.Draw(new Rectangle(Area.Left + _textureBottomLeft.Width, Area.Bottom - _textureBottom.Height, Area.Width - _textureBottomLeft.Width - _textureBottomRight.Width, _textureBottom.Height), Color.White, spriteBatch);
-            _textureBottomRight.Draw(new Vector2(Area.Right - _textureBottomRight.Width, Area.Bottom - _textureBottomRight.Height), Color.White, spriteBatch);
+            _textureBottomRight.Draw(new Vector2(Area.Right - _textureBottomRight.Width, Area.Bottom - _textureBottomRight.Height), Color.White, 1.0f, spriteBatch);
 
             //_texture.Draw(Area, Color.White, spriteBatch);
-            //spriteBatch.DrawRectangle(Area, Color.Red);
 
-            Vector2 size = _font.MeasureString(_text, 1.0f);
-            Vector2 origin = size / 2.0f;
-            spriteBatch.DrawString(_font, _text, _center, _controlState == ControlState.MouseOver ? Color.Magenta :_textColor, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
+            _label.Scale = scale;
+            _label.Draw(spriteBatch);
         }
 
         private void OnClick(EventArgs e)
