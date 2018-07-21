@@ -39,19 +39,19 @@ namespace ArchmaesterMonogameLibrary.StateManagement.GameStates
             float x = StateManager.Instance.GraphicsDevice.Viewport.Width / 2.0f;
             float y = StateManager.Instance.GraphicsDevice.Viewport.Height - 350.0f;
 
-            var continueButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Continue", textures, content);
+            var continueButton = ButtonControl.Create(menuItemFont, new Vector2(x, y), 200, 70, "Continue", textures, content);
             continueButton.Click += continueButton_Click;
             y += continueButton.Height;
-            var loadGameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Load Game", textures, content);
+            var loadGameButton = ButtonControl.Create(menuItemFont, new Vector2(x, y), 200, 70, "Load Game", textures, content);
             loadGameButton.Click += continueButton_Click;
             y += loadGameButton.Height;
-            var newGameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "New Game", textures, content);
+            var newGameButton = ButtonControl.Create(menuItemFont, new Vector2(x, y), 200, 70, "New Game", textures, content);
             newGameButton.Click += continueButton_Click;
             y += newGameButton.Height;
-            var hallOfFameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Hall Of Fame", textures, content);
+            var hallOfFameButton = ButtonControl.Create(menuItemFont, new Vector2(x, y), 200, 70, "Hall Of Fame", textures, content);
             hallOfFameButton.Click += continueButton_Click;
             y += hallOfFameButton.Height;
-            var quitButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Quit", textures, content);
+            var quitButton = ButtonControl.Create(menuItemFont, new Vector2(x, y), 200, 70, "Quit", textures, content);
             quitButton.Click += quitButton_Click;
 
             _menuItems = new List<ButtonControl>

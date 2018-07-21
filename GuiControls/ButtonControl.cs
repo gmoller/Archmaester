@@ -39,27 +39,7 @@ namespace GuiControls
         public int Width => (int)_size.X;
         public int Height => (int)_size.Y;
 
-        public ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D textureTopLeft, ITexture2D textureTop, ITexture2D textureTopRight, ITexture2D textureLeft, ITexture2D textureBackground, ITexture2D textureRight, ITexture2D textureBottomLeft, ITexture2D textureBottom, ITexture2D textureBottomRight)
-        {
-            //_content = content;
-            _font = font;
-
-            _textureTopLeft = textureTopLeft;
-            _textureTop = textureTop;
-            _textureTopRight = textureTopRight;
-            _textureLeft = textureLeft;
-            _textureBackground = textureBackground;
-            _textureRight = textureRight;
-            _textureBottomLeft = textureBottomLeft;
-            _textureBottom = textureBottom;
-            _textureBottomRight = textureBottomRight;
-
-            _center = center;
-            _size = new Vector2(width, height);
-            _text = text;
-        }
-
-        public ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures, ContentManager content)
+        private ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures, ContentManager content)
         {
             _content = content;
             _font = font;
@@ -77,6 +57,13 @@ namespace GuiControls
             _center = center;
             _size = new Vector2(width, height);
             _text = text;
+        }
+
+        public static ButtonControl Create(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures, ContentManager content)
+        {
+            var control = new ButtonControl(font, center, width, height, text, textures, content);
+
+            return control;
         }
 
         public void Update(InputState input, GameTime gameTime)
