@@ -42,13 +42,12 @@ namespace Archmaester
             AssetsRepository.Instance.AddFont("MenuSpriteFont", new SpriteFontWrapper(@"Fonts\menufont", Content));
 
             AssetsRepository.Instance.AddTextures(@"Images", Content);
-            AssetsRepository.Instance.AddTextures(@"Images\Gui\lite", Content);
 
             StateManager.Instance.Game = this;
             StateManager.Instance.GraphicsDevice = GraphicsDevice;
 
             // Activate the first screens.
-            StateManager.Instance.AddState("MainMenu", new MainMenuState());
+            StateManager.Instance.AddState("MainMenu", new MainMenuState(Content));
             //_screenManager.AddScreen(new BackgroundScreen());
             //_screenManager.AddScreen(new TestScreen());
             //_screenManager.AddScreen(new MainMenuScreen());

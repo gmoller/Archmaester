@@ -71,7 +71,7 @@ namespace Input
 
         public bool IsLeftMouseButtonPressedInAnArea(Rectangle area)
         {
-            return IsLeftMouseButtonPressed() && area.Contains(CurrentMouseState.X, CurrentMouseState.Y);
+            return IsLeftMouseButtonPressed() && IsMouseInArea(area);
         }
 
         public bool IsLeftMouseButtonPressedInOneOfAreas(out int index, params Rectangle[] areas)
@@ -98,7 +98,12 @@ namespace Input
 
         public bool IsRightMouseButtonPressedInAnArea(Rectangle area)
         {
-            return IsRightMouseButtonPressed() && area.Contains(CurrentMouseState.X, CurrentMouseState.Y);
+            return IsRightMouseButtonPressed() && IsMouseInArea(area);
+        }
+
+        public bool IsMouseInArea(Rectangle area)
+        {
+            return area.Contains(CurrentMouseState.Position);
         }
 
         public bool IsMouseInOneOfAreas(out int index, params Rectangle[] areas)
@@ -106,7 +111,7 @@ namespace Input
             index = 0;
             foreach (Rectangle area in areas)
             {
-                if (area.Contains(CurrentMouseState.Position))
+                if (IsMouseInArea(area))
                 {
                     return true;
                 }
@@ -114,6 +119,7 @@ namespace Input
             }
 
             index = -1;
+
             return false;
         }
 

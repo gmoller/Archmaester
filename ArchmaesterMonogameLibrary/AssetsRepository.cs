@@ -13,6 +13,7 @@ namespace ArchmaesterMonogameLibrary
 
         private readonly Dictionary<string, IFont> _fonts;
         private readonly Dictionary<string, ITexture2D> _textures;
+        private readonly Dictionary<string, string> _sounds;
 
         public static AssetsRepository Instance => Lazy.Value;
 
@@ -20,6 +21,7 @@ namespace ArchmaesterMonogameLibrary
         {
             _fonts = new Dictionary<string, IFont>();
             _textures = new Dictionary<string, ITexture2D>();
+            _sounds= new Dictionary<string, string>();
         }
 
         public void AddFont(string name, IFont font)
@@ -34,18 +36,30 @@ namespace ArchmaesterMonogameLibrary
 
         public void AddTextures(string path, ContentManager content)
         {
-            string[] files = Directory.GetFiles(Path.Combine("Content", path), "*.xnb");
+            string[] files = Directory.GetFiles(Path.Combine("Content", path), "*.xnb", SearchOption.AllDirectories);
 
             foreach (string file in files)
             {
-                string fileName = Path.GetFileNameWithoutExtension(file);
-                _textures.Add(fileName, new Texture2DWrapper(Path.Combine(path, fileName), content));
+                string fileName = Path.ChangeExtension(file, null);
+                string textureName = fileName.Remove(0, 8); // remove "Content\"
+                string key = Path.GetFileNameWithoutExtension(file);
+                _textures.Add(key, new Texture2DWrapper(textureName, content));
             }
         }
 
         public IFont GetFont(string fontName)
         {
-            return _fonts[fontName];
+            IFont font;
+            try
+            {
+                font = _fonts[fontName];
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Texture [{fontName}] not found in dictionary.", ex);
+            }
+
+            return font;
         }
 
         public ITexture2D GetTexture(string textureName)
@@ -61,6 +75,21 @@ namespace ArchmaesterMonogameLibrary
             }
 
             return tex;
+        }
+
+        public string GetSound(string soundName)
+        {
+            string sound;
+            try
+            {
+                sound = _sounds[soundName];
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Sound [{soundName}] not found in dictionary.", ex);
+            }
+
+            return sound;
         }
     }
 }

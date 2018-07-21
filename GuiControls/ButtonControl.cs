@@ -5,11 +5,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Primitives2D;
 using Textures;
 using Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
 namespace GuiControls
 {
     public class ButtonControl
     {
+        private readonly ContentManager _content;
+
         private readonly ITexture2D _textureTopLeft;
         private readonly ITexture2D _textureTop;
         private readonly ITexture2D _textureTopRight;
@@ -22,17 +26,22 @@ namespace GuiControls
 
         private readonly IFont _font;
         private readonly Vector2 _center;
-        private readonly Rectangle _area;
+        private Vector2 _size;
         private readonly string _text;
         private readonly Color _textColor = Color.Yellow;
 
+        private ControlState _controlState;
+        private float _clickedCountdown;
+
         public event EventHandler Click;
 
-        public int Width => _area.Width;
-        public int Height => _area.Height;
+        public Rectangle Area => new Rectangle((int)(_center.X - _size.X / 2.0f), (int)(_center.Y - _size.Y / 2.0f), (int)_size.X, (int)_size.Y);
+        public int Width => (int)_size.X;
+        public int Height => (int)_size.Y;
 
         public ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D textureTopLeft, ITexture2D textureTop, ITexture2D textureTopRight, ITexture2D textureLeft, ITexture2D textureBackground, ITexture2D textureRight, ITexture2D textureBottomLeft, ITexture2D textureBottom, ITexture2D textureBottomRight)
         {
+            //_content = content;
             _font = font;
 
             _textureTopLeft = textureTopLeft;
@@ -46,12 +55,13 @@ namespace GuiControls
             _textureBottomRight = textureBottomRight;
 
             _center = center;
-            _area = new Rectangle((int)center.X - width/2, (int)center.Y - height/2, width, height);
+            _size = new Vector2(width, height);
             _text = text;
         }
 
-        public ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures)
+        public ButtonControl(IFont font, Vector2 center, int width, int height, string text, ITexture2D[] textures, ContentManager content)
         {
+            _content = content;
             _font = font;
 
             _textureTopLeft = textures[0];
@@ -65,43 +75,71 @@ namespace GuiControls
             _textureBottomRight = textures[8];
 
             _center = center;
-            _area = new Rectangle((int)center.X - width / 2, (int)center.Y - height / 2, width, height);
+            _size = new Vector2(width, height);
             _text = text;
         }
 
         public void Update(InputState input, GameTime gameTime)
         {
-            // check for input (mouse or keyboard) and if clicked - need to have access to InputState
-            if (input.IsLeftMouseButtonPressedInAnArea(_area))
+            if (_clickedCountdown > 0.0f)
             {
-                OnClick(new EventArgs());
+                _clickedCountdown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_clickedCountdown <= 0.0f)
+                {
+                    OnClickComplete();
+                }
+            }
+            else
+            {
+                _controlState = input.IsMouseInArea(Area) ? ControlState.MouseOver : ControlState.None;
+
+                if (input.IsLeftMouseButtonPressedInAnArea(Area))
+                {
+                    OnClick(new EventArgs());
+                }
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _textureTopLeft.Draw(new Vector2(_area.Left, _area.Top), Color.White, spriteBatch);
-            _textureTop.Draw(new Rectangle(_area.Left + _textureTopLeft.Width, _area.Top, _area.Width - _textureTopLeft.Width - _textureTopRight.Width, _textureTop.Height), Color.White, spriteBatch);
-            _textureTopRight.Draw(new Vector2(_area.Right - _textureTopRight.Width, _area.Top), Color.White, spriteBatch);
+            _textureTopLeft.Draw(new Vector2(Area.Left, Area.Top), Color.White, spriteBatch);
+            _textureTop.Draw(new Rectangle(Area.Left + _textureTopLeft.Width, Area.Top, Area.Width - _textureTopLeft.Width - _textureTopRight.Width, _textureTop.Height), Color.White, spriteBatch);
+            _textureTopRight.Draw(new Vector2(Area.Right - _textureTopRight.Width, Area.Top), Color.White, spriteBatch);
 
-            _textureLeft.Draw(new Rectangle(_area.Left, _area.Top + _textureTopLeft.Height, _textureTopLeft.Width, _area.Height - _textureTopLeft.Height - _textureBottomLeft.Height), Color.White, spriteBatch);
-            _textureBackground.Draw(new Rectangle(_area.Left + _textureLeft.Width, _area.Top + _textureTop.Height, _area.Width - _textureLeft.Width - _textureRight.Width, _area.Height - _textureTop.Height - _textureBottom.Height), Color.White, spriteBatch);
-            _textureRight.Draw(new Rectangle(_area.Right - _textureRight.Width, _area.Top + _textureTopRight.Height, _textureTopRight.Width, _area.Height - _textureTopRight.Height - _textureBottomRight.Height), Color.White, spriteBatch);
+            _textureLeft.Draw(new Rectangle(Area.Left, Area.Top + _textureTopLeft.Height, _textureTopLeft.Width, Area.Height - _textureTopLeft.Height - _textureBottomLeft.Height), Color.White, spriteBatch);
+            _textureBackground.Draw(new Rectangle(Area.Left + _textureLeft.Width, Area.Top + _textureTop.Height, Area.Width - _textureLeft.Width - _textureRight.Width, Area.Height - _textureTop.Height - _textureBottom.Height), Color.White, spriteBatch);
+            _textureRight.Draw(new Rectangle(Area.Right - _textureRight.Width, Area.Top + _textureTopRight.Height, _textureTopRight.Width, Area.Height - _textureTopRight.Height - _textureBottomRight.Height), Color.White, spriteBatch);
 
-            _textureBottomLeft.Draw(new Vector2(_area.Left, _area.Bottom - _textureBottomLeft.Height), Color.White, spriteBatch);
-            _textureBottom.Draw(new Rectangle(_area.Left + _textureBottomLeft.Width, _area.Bottom - _textureBottom.Height, _area.Width - _textureBottomLeft.Width - _textureBottomRight.Width, _textureBottom.Height), Color.White, spriteBatch);
-            _textureBottomRight.Draw(new Vector2(_area.Right - _textureBottomRight.Width, _area.Bottom - _textureBottomRight.Height), Color.White, spriteBatch);
+            _textureBottomLeft.Draw(new Vector2(Area.Left, Area.Bottom - _textureBottomLeft.Height), Color.White, spriteBatch);
+            _textureBottom.Draw(new Rectangle(Area.Left + _textureBottomLeft.Width, Area.Bottom - _textureBottom.Height, Area.Width - _textureBottomLeft.Width - _textureBottomRight.Width, _textureBottom.Height), Color.White, spriteBatch);
+            _textureBottomRight.Draw(new Vector2(Area.Right - _textureBottomRight.Width, Area.Bottom - _textureBottomRight.Height), Color.White, spriteBatch);
 
-            //_texture.Draw(_area, Color.White, spriteBatch);
-            //spriteBatch.DrawRectangle(_area, Color.Red);
+            //_texture.Draw(Area, Color.White, spriteBatch);
+            //spriteBatch.DrawRectangle(Area, Color.Red);
 
             Vector2 size = _font.MeasureString(_text, 1.0f);
-            spriteBatch.DrawString(_font, _text, _center, _textColor, 0.0f, size / 2.0f, 1.0f, SpriteEffects.None, 0.0f);
+            Vector2 origin = size / 2.0f;
+            spriteBatch.DrawString(_font, _text, _center, _controlState == ControlState.MouseOver ? Color.Magenta :_textColor, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
         }
 
-        protected virtual void OnClick(EventArgs e)
+        private void OnClick(EventArgs e)
         {
+            SoundEffect effect = _content.Load<SoundEffect>("Sounds\\Button_click");
+            effect.Play();
+
+            _clickedCountdown = 0.25f; // in seconds
+            _size.X -= 5;
+            _size.Y -= 5;
+            _controlState = ControlState.Clicked;
             Click?.Invoke(this, e);
+        }
+
+        private void OnClickComplete()
+        {
+            _clickedCountdown = 0.0f;
+            _size.X += 5;
+            _size.Y += 5;
+            _controlState = ControlState.None;
         }
     }
 }

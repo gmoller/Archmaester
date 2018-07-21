@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using BitmapFonts;
 using GuiControls;
 using Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Textures;
 
@@ -11,55 +13,45 @@ namespace ArchmaesterMonogameLibrary.StateManagement.GameStates
 {
     public class MainMenuState : IGameState
     {
-        private readonly IFont _titleFont;
-        private readonly string _menuTitle;
+        private readonly LabelControl _title;
         private readonly List<ButtonControl> _menuItems;
 
-        public MainMenuState()
+        public MainMenuState(ContentManager content)
         {
-            _menuTitle = "Archmaester";
+            var titleFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
+            var titlePostion = new Vector2(StateManager.Instance.GraphicsDevice.Viewport.Width / 2.0f, 80.0f);
+            _title = LabelControl.Create(titleFont, titlePostion, "Archmaester", Color.Red, 1.25f);
 
-            _titleFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
             IFont menuItemFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
-            ITexture2D buttonTextureTopLeft = AssetsRepository.Instance.GetTexture("lite_translucent-border-topleft");
-            ITexture2D buttonTextureTop = AssetsRepository.Instance.GetTexture("lite_translucent-border-top");
-            ITexture2D buttonTextureTopRight = AssetsRepository.Instance.GetTexture("lite_translucent-border-topright");
-            ITexture2D buttonTextureLeft = AssetsRepository.Instance.GetTexture("lite_translucent-border-left");
-            ITexture2D buttonTextureRight = AssetsRepository.Instance.GetTexture("lite_translucent-border-right");
-            ITexture2D buttonTextureBackground = AssetsRepository.Instance.GetTexture("lite_translucent-background");
-            ITexture2D buttonTextureBottomLeft = AssetsRepository.Instance.GetTexture("lite_translucent-border-botleft");
-            ITexture2D buttonTextureBottom = AssetsRepository.Instance.GetTexture("lite_translucent-border_bottom");
-            ITexture2D buttonTextureBottomRight = AssetsRepository.Instance.GetTexture("lite_translucent-border-botright");
-            ITexture2D[] translucentTextures = { buttonTextureTopLeft, buttonTextureTop, buttonTextureTopRight, buttonTextureLeft, buttonTextureBackground, buttonTextureRight, buttonTextureBottomLeft, buttonTextureBottom, buttonTextureBottomRight };
 
-            ITexture2D buttonTextureTopLeft2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-topleft");
-            ITexture2D buttonTextureTop2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-top");
-            ITexture2D buttonTextureTopRight2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-topright");
-            ITexture2D buttonTextureLeft2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-left");
-            ITexture2D buttonTextureRight2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-right");
-            ITexture2D buttonTextureBackground2 = AssetsRepository.Instance.GetTexture("lite_opaque-background");
-            ITexture2D buttonTextureBottomLeft2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-botleft");
-            ITexture2D buttonTextureBottom2 = AssetsRepository.Instance.GetTexture("lite_opaque-border_bottom");
-            ITexture2D buttonTextureBottomRight2 = AssetsRepository.Instance.GetTexture("lite_opaque-border-botright");
-            ITexture2D[] opaqueTextures = { buttonTextureTopLeft2, buttonTextureTop2, buttonTextureTopRight2, buttonTextureLeft2, buttonTextureBackground2, buttonTextureRight2, buttonTextureBottomLeft2, buttonTextureBottom2, buttonTextureBottomRight2 };
+            string s = "medium_translucent"; // "lite_translucent", "lite_opaque", "medium_translucent", "menu", "opaque", "selection", "selection2", "strong_opaque", "strong_translucent", "thick_opaque", "thin_opaque", "thin_translucent", "translucent54", "translucent65"
+            ITexture2D buttonTextureTopLeft = AssetsRepository.Instance.GetTexture($"{s}-border-topleft");
+            ITexture2D buttonTextureTop = AssetsRepository.Instance.GetTexture($"{s}-border-top");
+            ITexture2D buttonTextureTopRight = AssetsRepository.Instance.GetTexture($"{s}-border-topright");
+            ITexture2D buttonTextureLeft = AssetsRepository.Instance.GetTexture($"{s}-border-left");
+            ITexture2D buttonTextureRight = AssetsRepository.Instance.GetTexture($"{s}-border-right");
+            ITexture2D buttonTextureBackground = AssetsRepository.Instance.GetTexture($"{s}-background");
+            ITexture2D buttonTextureBottomLeft = AssetsRepository.Instance.GetTexture($"{s}-border-botleft");
+            ITexture2D buttonTextureBottom = AssetsRepository.Instance.GetTexture($"{s}-border-bottom");
+            ITexture2D buttonTextureBottomRight = AssetsRepository.Instance.GetTexture($"{s}-border-botright");
+            ITexture2D[] textures = { buttonTextureTopLeft, buttonTextureTop, buttonTextureTopRight, buttonTextureLeft, buttonTextureBackground, buttonTextureRight, buttonTextureBottomLeft, buttonTextureBottom, buttonTextureBottomRight };
 
-            Viewport viewport = StateManager.Instance.GraphicsDevice.Viewport;
-            float x = viewport.Width / 2.0f;
-            float y = viewport.Height - 350.0f;
+            float x = StateManager.Instance.GraphicsDevice.Viewport.Width / 2.0f;
+            float y = StateManager.Instance.GraphicsDevice.Viewport.Height - 350.0f;
 
-            var continueButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Continue", opaqueTextures);
+            var continueButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Continue", textures, content);
             continueButton.Click += continueButton_Click;
             y += continueButton.Height;
-            var loadGameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Load Game", opaqueTextures);
+            var loadGameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Load Game", textures, content);
             loadGameButton.Click += continueButton_Click;
             y += loadGameButton.Height;
-            var newGameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "New Game", opaqueTextures);
+            var newGameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "New Game", textures, content);
             newGameButton.Click += continueButton_Click;
             y += newGameButton.Height;
-            var hallOfFameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Hall Of Fame", opaqueTextures);
+            var hallOfFameButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Hall Of Fame", textures, content);
             hallOfFameButton.Click += continueButton_Click;
             y += hallOfFameButton.Height;
-            var quitButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Quit", opaqueTextures);
+            var quitButton = new ButtonControl(menuItemFont, new Vector2(x, y), 200, 70, "Quit", textures, content);
             quitButton.Click += quitButton_Click;
 
             _menuItems = new List<ButtonControl>
@@ -78,6 +70,7 @@ namespace ArchmaesterMonogameLibrary.StateManagement.GameStates
 
         private void quitButton_Click(object sender, EventArgs e)
         {
+            Thread.Sleep(250); // sleep so click sound can be heard by user
             StateManager.Instance.ExitGame();
         }
 
@@ -106,10 +99,7 @@ namespace ArchmaesterMonogameLibrary.StateManagement.GameStates
 
         private void DrawTitle(Vector2 titlePosition, SpriteBatch spriteBatch)
         {
-            float titleScale = 1.25f;
-
-            Vector2 titleOrigin = _titleFont.MeasureString(_menuTitle, titleScale) / 2.0f;
-            spriteBatch.DrawString(_titleFont, _menuTitle, titlePosition, Color.Red, 0.0f, titleOrigin, titleScale, SpriteEffects.None, 0.0f);
+            _title.Draw(spriteBatch);
         }
 
         private void DrawMenuItems(SpriteBatch spriteBatch)

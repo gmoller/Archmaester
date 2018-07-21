@@ -35,7 +35,7 @@ namespace BitmapFonts
         {
             var spriteFont = _content.Load<SpriteFont>(_fontName);
 
-            return spriteFont.MeasureString(text);
+            return spriteFont.MeasureString(text) * scale;
         }
     }
 }
