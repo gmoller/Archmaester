@@ -37,9 +37,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetsRepository.cs" />
     <Compile Include="BlankScroll.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="GameStates\BattlescapeState.cs" />
+    <Compile Include="GameStates\CityscapeState.cs" />
+    <Compile Include="GameStates\ExitState.cs" />
+    <Compile Include="GameStates\OverlandState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenManagement\GameScreen.cs" />
     <Compile Include="ScreenManagement\MenuEntry.cs" />
@@ -55,14 +58,20 @@
     <Compile Include="ScreenManagement\Screens\OptionsMenuScreen.cs" />
     <Compile Include="ScreenManagement\Screens\PauseMenuScreen.cs" />
     <Compile Include="ScreenManagement\Screens\TestScreen.cs" />
-    <Compile Include="StateManagement\GameStates\MainMenuState.cs" />
-    <Compile Include="StateManagement\IGameState.cs" />
-    <Compile Include="StateManagement\StateManager.cs" />
+    <Compile Include="GameStates\MainMenuState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BitmapFonts\BitmapFonts.csproj">
       <Project>{a56b8095-bd97-476d-a221-9648c34763ac}</Project>
       <Name>BitmapFonts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{57426cd6-ff61-4700-9ed8-a1299ab80a38}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameState\GameState.csproj">
+      <Project>{3428c325-4ecd-416b-ade8-7c7a937a4ccd}</Project>
+      <Name>GameState</Name>
     </ProjectReference>
     <ProjectReference Include="..\GuiControls\GuiControls.csproj">
       <Project>{bb5ab9b7-9c2d-482f-854a-dca4e03ac7d7}</Project>
@@ -71,6 +80,10 @@
     <ProjectReference Include="..\Input\Input.csproj">
       <Project>{42a8c522-c4a0-4d06-8c33-a115a64ee9df}</Project>
       <Name>Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{13e46164-03c9-490a-9e87-84d0026e874f}</Project>
+      <Name>Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Textures\Textures.csproj">
       <Project>{f1c1b1db-b61e-4395-8e99-c8d8e6f90981}</Project>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BitmapFonts.Loaders;
+using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,21 +36,16 @@ namespace BitmapFonts
 
         public void Draw(string message, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth, SpriteBatch spriteBatch)
         {
-            DrawText(spriteBatch, (int)pos.X, (int)pos.Y, message, color, rotation, origin, scale, spriteEffects, layerDepth);
-        }
-
-        private void DrawText(SpriteBatch spriteBatch, int x, int y, string text, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth)
-        {
             var texture = _content.Load<Texture2D>(_fontTexture);
 
-            int dx = x;
-            int dy = y;
-            foreach (char c in text)
+            int dx = (int)pos.X;
+            int dy = (int)pos.Y;
+            foreach (char c in message)
             {
                 if (c == '\n')
                 {
-                    dx = x;
-                    dy += _fontFile.Common.LineHeight;
+                    dx = (int)pos.X;
+                    dy += (int)(_fontFile.Common.LineHeight * scale);
                 }
                 else
                 {
@@ -57,7 +53,7 @@ namespace BitmapFonts
                     if (_characterMap.TryGetValue(c, out fc))
                     {
                         var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
-                        var position = new Vector2(dx + fc.XOffset, dy + fc.YOffset);
+                        var position = new Vector2(dx + fc.XOffset * scale, dy + fc.YOffset * scale);
 
                         spriteBatch.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, spriteEffects, layerDepth);
 
@@ -86,7 +82,7 @@ namespace BitmapFonts
                 {
                     if (dx > maxX) maxX = dx;
                     dx = 0;
-                    dy += _fontFile.Common.LineHeight;
+                    dy += (int)(_fontFile.Common.LineHeight * scale);
                 }
                 else
                 {

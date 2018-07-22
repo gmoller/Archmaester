@@ -1,6 +1,7 @@
 ﻿using System;
 using ArchmaesterMonogameLibrary.ScreenManagement.Screens;
 using BitmapFonts;
+using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

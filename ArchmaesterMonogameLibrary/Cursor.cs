@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Common;
+using GameState;
+using Interfaces;
+using Textures;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,17 +10,7 @@ namespace ArchmaesterMonogameLibrary
 {
     public class Cursor
     {
-        private SpriteBatch _spriteBatch;
-
-        private Texture2D _cursorTex;
         private Vector2 _cursorPos;
-
-
-        public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
-        {
-            _spriteBatch = spriteBatch;
-            _cursorTex = content.Load<Texture2D>(@"Images\cursor");
-        }
 
         public void Update(GameTime gameTime)
         {
@@ -26,9 +19,12 @@ namespace ArchmaesterMonogameLibrary
 
         public void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_cursorTex, _cursorPos, Color.White);
-            _spriteBatch.End();
+            ITexture2D cursorTexture = AssetsRepository.Instance.GetTexture("cursor");
+
+            SpriteBatch spriteBatch = StateManager.Instance.SpriteBatch;
+            spriteBatch.Begin();
+            spriteBatch.Draw(cursorTexture, _cursorPos, Color.White, 1.0f);
+            spriteBatch.End();
         }
     }
 }

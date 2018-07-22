@@ -4,6 +4,7 @@ using ArchmaesterMonogameLibrary.ScreenManagement.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BitmapFonts;
+using Common;
 
 namespace Archmaester
 {
@@ -70,7 +71,7 @@ namespace Archmaester
 
             Content.Load<object>(@"Images\gradient");
 
-            _cursor.LoadContent(_spriteBatch, Content);
+            //_cursor.LoadContent(_spriteBatch, Content);
             _blankScroll.LoadContent(_spriteBatch, Content);
         }
 

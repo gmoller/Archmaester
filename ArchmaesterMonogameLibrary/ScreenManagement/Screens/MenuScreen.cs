@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BitmapFonts;
 using Input;
+using Interfaces;
 
 namespace ArchmaesterMonogameLibrary.ScreenManagement.Screens
 {

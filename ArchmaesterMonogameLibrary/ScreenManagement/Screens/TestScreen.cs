@@ -1,5 +1,7 @@
 ﻿using System;
 using BitmapFonts;
+using Common;
+using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

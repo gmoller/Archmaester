@@ -1,9 +1,13 @@
-﻿using ArchmaesterMonogameLibrary;
-using ArchmaesterMonogameLibrary.StateManagement;
-using ArchmaesterMonogameLibrary.StateManagement.GameStates;
+﻿using System.IO;
+using ArchmaesterMonogameLibrary;
+using ArchmaesterMonogameLibrary.GameStates;
 using BitmapFonts;
+using Common;
+using GameState;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Textures;
 
 namespace Archmaester
 {
@@ -15,6 +19,7 @@ namespace Archmaester
         private SpriteBatch _spriteBatch;
 
         private Cursor _cursor;
+        private FrameRateCounter _fps;
 
         private GraphicsDeviceManager _graphics;
 
@@ -36,28 +41,47 @@ namespace Archmaester
         /// </summary>
         protected override void Initialize()
         {
+            AddFonts();
+            AddTextures(@"Images", Content);
+            AddSounds();
+
+            StateManager.Instance.AddState(new MainMenuState(this));
+            StateManager.Instance.AddState(new OverlandState(this));
+            StateManager.Instance.AddState(new CityscapeState(this));
+            StateManager.Instance.AddState(new BattlescapeState(this));
+            StateManager.Instance.AddState(new ExitState(this));
+
+            _cursor = new Cursor();
+            _fps = new FrameRateCounter();
+
+            base.Initialize();
+        }
+
+        private void AddFonts()
+        {
             AssetsRepository.Instance.AddFont("TimeFont", new BmFont(@"Fonts\Montserrat-32_0", Content));
             AssetsRepository.Instance.AddFont("TestFont", new BmFont(@"Fonts\Font01_30_sheet", Content));
             AssetsRepository.Instance.AddFont("MenuBitmapFont", new BmFont(@"Fonts\Font03_30_sheet", Content));
             AssetsRepository.Instance.AddFont("MenuSpriteFont", new SpriteFontWrapper(@"Fonts\menufont", Content));
+            AssetsRepository.Instance.AddFont("GameSpriteFont", new SpriteFontWrapper(@"Fonts\gamefont", Content));
+        }
 
-            AssetsRepository.Instance.AddTextures(@"Images", Content);
+        private void AddTextures(string path, ContentManager content)
+        {
+            string[] files = Directory.GetFiles(Path.Combine("Content", path), "*.xnb", SearchOption.AllDirectories);
 
-            StateManager.Instance.Game = this;
-            StateManager.Instance.GraphicsDevice = GraphicsDevice;
+            foreach (string file in files)
+            {
+                string fileName = Path.ChangeExtension(file, null);
+                string textureName = fileName.Remove(0, 8); // remove "Content\"
+                string key = Path.GetFileNameWithoutExtension(file);
+                AssetsRepository.Instance.AddTexture(key, new Texture2DWrapper(textureName, content));
+            }
+        }
 
-            // Activate the first screens.
-            StateManager.Instance.AddState("MainMenu", new MainMenuState(Content));
-            //_screenManager.AddScreen(new BackgroundScreen());
-            //_screenManager.AddScreen(new TestScreen());
-            //_screenManager.AddScreen(new MainMenuScreen());
-
-            StateManager.Instance.SetState("MainMenu");
-
-            _cursor = new Cursor();
-
-
-            base.Initialize();
+        private void AddSounds()
+        {
+            AssetsRepository.Instance.AddSound("ButtonClick", "Sounds\\Button_click");
         }
 
         /// <summary>
@@ -68,8 +92,6 @@ namespace Archmaester
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             StateManager.Instance.SpriteBatch = _spriteBatch;
-
-            _cursor.LoadContent(_spriteBatch, Content);
         }
 
         /// <summary>
@@ -87,6 +109,7 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            _fps.Update(gameTime);
             _cursor.Update(gameTime);
 
             StateManager.Instance.Update(gameTime);
@@ -100,10 +123,11 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             StateManager.Instance.Draw(gameTime);
             _cursor.Draw(gameTime);
+            _fps.Draw(gameTime);
 
             base.Draw(gameTime);
         }

@@ -1,25 +1,27 @@
 ﻿using BitmapFonts;
+using Common;
 using Input;
+using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Primitives2D;
 
 namespace GuiControls
 {
-    public class LabelControl
+    public class Label
     {
         private readonly IFont _font;
         private readonly Vector2 _center;
-        private readonly Vector2 _size;
+        private readonly Size _size;
         private readonly string _text;
         private readonly Color _textColor;
 
         public Rectangle Area => new Rectangle((int)(_center.X - Width / 2.0f), (int)(_center.Y - Height / 2.0f), Width, Height);
-        public int Width => (int)(_size.X * Scale);
-        public int Height => (int)(_size.Y * Scale);
+        public int Width => (int)(_size.Width * Scale);
+        public int Height => (int)(_size.Height * Scale);
         public float Scale { get; set; }
 
-        private LabelControl(IFont font, Vector2 center, string text, Color textColor, float scale)
+        private Label(IFont font, Vector2 center, string text, Color textColor, float scale)
         {
             _font = font;
             _center = center;
@@ -28,12 +30,13 @@ namespace GuiControls
             Scale = scale;
 
             // autosize
-            _size = font.MeasureString(text, 1.0f);
+            Vector2 v = font.MeasureString(text, 1.0f);
+            _size = new Size((int)v.X, (int)v.Y);
         }
 
-        public static LabelControl Create(IFont font, Vector2 center, string text, Color textColor, float scale)
+        public static Label Create(IFont font, Vector2 center, string text, Color textColor, float scale)
         {
-            var control = new LabelControl(font, center, text, textColor, scale);
+            var control = new Label(font, center, text, textColor, scale);
 
             return control;
         }
@@ -44,7 +47,8 @@ namespace GuiControls
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 origin = _size / 2.0f;
+            Size size = _size / 2;
+            var origin = new Vector2(size.Width, size.Height);
             spriteBatch.DrawString(_font, _text, _center, _textColor, 0.0f, origin, Scale, SpriteEffects.None, 0.0f);
 
             //spriteBatch.DrawRectangle(Area, Color.Red);

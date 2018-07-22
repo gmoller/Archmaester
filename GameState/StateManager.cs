@@ -4,7 +4,7 @@ using Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ArchmaesterMonogameLibrary.StateManagement
+namespace GameState
 {
     public sealed class StateManager
     {
@@ -12,10 +12,9 @@ namespace ArchmaesterMonogameLibrary.StateManagement
 
         private readonly Dictionary<string, IGameState> _states;
         private IGameState _currentState;
+        private string _stateToChangeTo;
         private readonly InputState _input;
 
-        public Game Game { get; set; }
-        public GraphicsDevice GraphicsDevice { get; set; }
         public SpriteBatch SpriteBatch { get; set; }
 
         public static StateManager Instance => Lazy.Value;
@@ -24,22 +23,34 @@ namespace ArchmaesterMonogameLibrary.StateManagement
         {
             _states = new Dictionary<string, IGameState>();
             _input = new InputState();
+            _stateToChangeTo = string.Empty;
         }
 
-        public void AddState(string name, IGameState state)
+        public void AddState(IGameState state)
         {
-            _states.Add(name, state);
+            _states.Add(state.Name, state);
+
+            if (_states.Count == 1)
+            {
+                SetState(state.Name);
+            }
         }
 
-        public void SetState(string name)
+        public void SignalStateChange(string name)
         {
-            _currentState = _states[name];
+            _stateToChangeTo = name;
         }
 
         public void Update(GameTime gameTime)
         {
             _input.Update();
             _currentState.Update(_input, gameTime);
+
+            if (!string.IsNullOrEmpty(_stateToChangeTo))
+            {
+                ChangeState(_currentState.Name, _stateToChangeTo);
+                _stateToChangeTo = string.Empty;
+            }
         }
 
         public void Draw(GameTime gameTime)
@@ -47,9 +58,14 @@ namespace ArchmaesterMonogameLibrary.StateManagement
             _currentState.Draw(gameTime);
         }
 
-        public void ExitGame()
+        private void ChangeState(string currentState, string requestedState)
         {
-            Game.Exit();
+            SetState(requestedState);
+        }
+
+        private void SetState(string name)
+        {
+            _currentState = _states[name];
         }
     }
 }

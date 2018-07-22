@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using BitmapFonts;
-using Microsoft.Xna.Framework.Content;
-using Textures;
+using Interfaces;
 
-namespace ArchmaesterMonogameLibrary
+namespace Common
 {
     public sealed class AssetsRepository
     {
@@ -21,7 +18,7 @@ namespace ArchmaesterMonogameLibrary
         {
             _fonts = new Dictionary<string, IFont>();
             _textures = new Dictionary<string, ITexture2D>();
-            _sounds= new Dictionary<string, string>();
+            _sounds = new Dictionary<string, string>();
         }
 
         public void AddFont(string name, IFont font)
@@ -34,17 +31,9 @@ namespace ArchmaesterMonogameLibrary
             _textures.Add(name, texture);
         }
 
-        public void AddTextures(string path, ContentManager content)
+        public void AddSound(string name, string sound)
         {
-            string[] files = Directory.GetFiles(Path.Combine("Content", path), "*.xnb", SearchOption.AllDirectories);
-
-            foreach (string file in files)
-            {
-                string fileName = Path.ChangeExtension(file, null);
-                string textureName = fileName.Remove(0, 8); // remove "Content\"
-                string key = Path.GetFileNameWithoutExtension(file);
-                _textures.Add(key, new Texture2DWrapper(textureName, content));
-            }
+            _sounds.Add(name, sound);
         }
 
         public IFont GetFont(string fontName)

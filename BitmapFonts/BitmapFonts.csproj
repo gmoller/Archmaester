@@ -39,15 +39,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BmFont.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="SpriteBatchExtensions.cs" />
     <Compile Include="FontFile.cs" />
     <Compile Include="Loaders\FontLoader.cs" />
-    <Compile Include="IFont.cs" />
     <Compile Include="Loaders\IFontLoader.cs" />
     <Compile Include="MySpriteFont.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Loaders\TextFontLoader.cs" />
     <Compile Include="Loaders\XmlFontLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{13e46164-03c9-490a-9e87-84d0026e874f}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
