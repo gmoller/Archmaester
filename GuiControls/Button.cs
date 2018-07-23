@@ -37,6 +37,7 @@ namespace GuiControls
         public Rectangle Area => new Rectangle((int)(_center.X - _size.Width / 2.0f), (int)(_center.Y - _size.Height / 2.0f), (int)_size.Width, (int)_size.Height);
         public int Width => (int)_size.Width;
         public int Height => (int)_size.Height;
+        public float Alpha { get; set; }
 
         private Button(IFont font, Vector2 center, Size size, string text, ITexture2D[] textures, ContentManager content)
         {
@@ -84,25 +85,26 @@ namespace GuiControls
                     OnClick(new EventArgs());
                 }
             }
+
+            float scale = _controlState == ControlState.MouseOver ? 1.1f : 1.0f;
+            _label.Scale = scale;
+            _label.Alpha = Alpha;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            float scale = _controlState == ControlState.MouseOver ? 1.1f : 1.0f;
+            spriteBatch.Draw(_textureTopLeft, new Vector2(Area.Left, Area.Top), Color.White * Alpha, 1.0f);
+            spriteBatch.Draw(_textureTop, new Rectangle(Area.Left + _textureTopLeft.Width, Area.Top, Area.Width - _textureTopLeft.Width - _textureTopRight.Width, _textureTop.Height), Color.White * Alpha);
+            spriteBatch.Draw(_textureTopRight, new Vector2(Area.Right - _textureTopRight.Width, Area.Top), Color.White * Alpha, 1.0f);
 
-            spriteBatch.Draw(_textureTopLeft, new Vector2(Area.Left, Area.Top), Color.White, 1.0f);
-            spriteBatch.Draw(_textureTop, new Rectangle(Area.Left + _textureTopLeft.Width, Area.Top, Area.Width - _textureTopLeft.Width - _textureTopRight.Width, _textureTop.Height), Color.White);
-            spriteBatch.Draw(_textureTopRight, new Vector2(Area.Right - _textureTopRight.Width, Area.Top), Color.White, 1.0f);
+            spriteBatch.Draw(_textureLeft, new Rectangle(Area.Left, Area.Top + _textureTopLeft.Height, _textureTopLeft.Width, Area.Height - _textureTopLeft.Height - _textureBottomLeft.Height), Color.White * Alpha);
+            spriteBatch.Draw(_textureBackground, new Rectangle(Area.Left + _textureLeft.Width, Area.Top + _textureTop.Height, Area.Width - _textureLeft.Width - _textureRight.Width, Area.Height - _textureTop.Height - _textureBottom.Height), Color.White * Alpha);
+            spriteBatch.Draw(_textureRight, new Rectangle(Area.Right - _textureRight.Width, Area.Top + _textureTopRight.Height, _textureTopRight.Width, Area.Height - _textureTopRight.Height - _textureBottomRight.Height), Color.White * Alpha);
 
-            spriteBatch.Draw(_textureLeft, new Rectangle(Area.Left, Area.Top + _textureTopLeft.Height, _textureTopLeft.Width, Area.Height - _textureTopLeft.Height - _textureBottomLeft.Height), Color.White);
-            spriteBatch.Draw(_textureBackground, new Rectangle(Area.Left + _textureLeft.Width, Area.Top + _textureTop.Height, Area.Width - _textureLeft.Width - _textureRight.Width, Area.Height - _textureTop.Height - _textureBottom.Height), Color.White);
-            spriteBatch.Draw(_textureRight, new Rectangle(Area.Right - _textureRight.Width, Area.Top + _textureTopRight.Height, _textureTopRight.Width, Area.Height - _textureTopRight.Height - _textureBottomRight.Height), Color.White);
+            spriteBatch.Draw(_textureBottomLeft, new Vector2(Area.Left, Area.Bottom - _textureBottomLeft.Height), Color.White * Alpha, 1.0f);
+            spriteBatch.Draw(_textureBottom, new Rectangle(Area.Left + _textureBottomLeft.Width, Area.Bottom - _textureBottom.Height, Area.Width - _textureBottomLeft.Width - _textureBottomRight.Width, _textureBottom.Height), Color.White * Alpha);
+            spriteBatch.Draw(_textureBottomRight, new Vector2(Area.Right - _textureBottomRight.Width, Area.Bottom - _textureBottomRight.Height), Color.White * Alpha, 1.0f);
 
-            spriteBatch.Draw(_textureBottomLeft, new Vector2(Area.Left, Area.Bottom - _textureBottomLeft.Height), Color.White, 1.0f);
-            spriteBatch.Draw(_textureBottom, new Rectangle(Area.Left + _textureBottomLeft.Width, Area.Bottom - _textureBottom.Height, Area.Width - _textureBottomLeft.Width - _textureBottomRight.Width, _textureBottom.Height), Color.White);
-            spriteBatch.Draw(_textureBottomRight, new Vector2(Area.Right - _textureBottomRight.Width, Area.Bottom - _textureBottomRight.Height), Color.White, 1.0f);
-
-            _label.Scale = scale;
             spriteBatch.Draw(_label);
         }
 

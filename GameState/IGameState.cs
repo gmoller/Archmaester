@@ -7,6 +7,9 @@ namespace GameState
     {
         string Name { get; }
         Game Game { get; }
+        float TransitionOnTime {get; }
+        float TransitionPosition { get; set; }
+
         void Update(InputState input, GameTime gameTime);
         void Draw(GameTime gameTime);
     }

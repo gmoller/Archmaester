@@ -38,6 +38,7 @@ namespace GuiControls
             }
         }
 
+        public float Alpha { get; set; }
         public Button this[string name] => _buttons[name];
 
         public static ButtonGroup Create(IFont font, Vector2 position, Size buttonSize, string[] texts, ITexture2D[] textures, ContentManager content, ButtonGroupDirection direction)
@@ -52,6 +53,7 @@ namespace GuiControls
             foreach (Button button in _buttons.Values)
             {
                 button.Update(input, gameTime);
+                button.Alpha = Alpha;
             }
         }
 

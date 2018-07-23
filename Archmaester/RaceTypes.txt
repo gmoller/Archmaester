@@ -1,0 +1,15 @@
+﻿--Id,Name,FarmingRate,GrowthRateModifier,WorkerProductionRate,FarmerProductionRate--
+0,Barbarians,2.0,20,2.0,0.5
+1,Beastmen,2.0,0,2.0,0.5
+2,Dark Elves,2.0,-20,2.0,0.5
+3,Draconians,2.0,-10,2.0,0.5
+4,Dwarves,2.0,-20,3.0,0.5
+5,Gnolls,2.0,-10,2.0,0.5
+6,Halflings,3.0,0,2.0,0.5
+7,High Elves,2.0,-20,2.0,0.5
+8,High Men,2.0,0,2.0,0.5
+9,Klackons,2.0,-10,3.0,0.5
+10,Lizardmen,2.0,10,2.0,0.5
+11,Nomads,2.0,-10,2.0,0.5
+12,Orcs,2.0,0,2.0,0.5
+13,Trolls,2.0,-20,2.0,0.5

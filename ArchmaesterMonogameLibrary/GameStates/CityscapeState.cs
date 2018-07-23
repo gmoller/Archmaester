@@ -1,24 +1,19 @@
-﻿using GameState;
-using Input;
+﻿using Input;
 using Microsoft.Xna.Framework;
 
 namespace ArchmaesterMonogameLibrary.GameStates
 {
-    public class CityscapeState : IGameState
+    public class CityscapeState : GameState
     {
-        public string Name => "Cityscape";
-        public Game Game { get; }
-
-        public CityscapeState(Game game)
-        {
-            Game = game;
-        }
-
-        public void Update(InputState input, GameTime gameTime)
+        public CityscapeState(Game game) : base("Cityscape", 1.0f, game)
         {
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Update(InputState input, GameTime gameTime)
+        {
+        }
+
+        public override void Draw(GameTime gameTime)
         {
         }
     }

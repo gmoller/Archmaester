@@ -63,6 +63,11 @@ namespace Input
                    LastKeyboardState.IsKeyUp(key);
         }
 
+        public bool IsLeftMouseButtonDown()
+        {
+            return CurrentMouseState.LeftButton == ButtonState.Pressed;
+        }
+
         public bool IsLeftMouseButtonPressed()
         {
             return CurrentMouseState.LeftButton == ButtonState.Pressed &&
@@ -88,6 +93,11 @@ namespace Input
 
             index = -1;
             return false;
+        }
+
+        public bool IsRightMouseButtonDown()
+        {
+            return CurrentMouseState.RightButton == ButtonState.Pressed;
         }
 
         public bool IsRightMouseButtonPressed()

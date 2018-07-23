@@ -20,6 +20,7 @@ namespace GuiControls
         public int Width => (int)(_size.Width * Scale);
         public int Height => (int)(_size.Height * Scale);
         public float Scale { get; set; }
+        public float Alpha { get; set; }
 
         private Label(IFont font, Vector2 center, string text, Color textColor, float scale)
         {
@@ -49,7 +50,7 @@ namespace GuiControls
         {
             Size size = _size / 2;
             var origin = new Vector2(size.Width, size.Height);
-            spriteBatch.DrawString(_font, _text, _center, _textColor, 0.0f, origin, Scale, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(_font, _text, _center, _textColor * Alpha, 0.0f, origin, Scale, SpriteEffects.None, 0.0f);
 
             //spriteBatch.DrawRectangle(Area, Color.Red);
         }

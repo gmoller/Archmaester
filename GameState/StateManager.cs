@@ -43,6 +43,9 @@ namespace GameState
 
         public void Update(GameTime gameTime)
         {
+            // fade in for x seconds
+            _currentState.TransitionPosition = CalculateTransitionPosition(_currentState.TransitionPosition, _currentState.TransitionOnTime, (float) gameTime.ElapsedGameTime.TotalSeconds);
+
             _input.Update();
             _currentState.Update(_input, gameTime);
 
@@ -66,6 +69,18 @@ namespace GameState
         private void SetState(string name)
         {
             _currentState = _states[name];
+            _currentState.TransitionPosition = 0.0f;
+        }
+
+        private float CalculateTransitionPosition(float currentTransitionPosition, float transitionOnTime, float elapsedTimeInSeconds)
+        {
+            float transitionPosition = currentTransitionPosition;
+            if (currentTransitionPosition < 1.0f)
+            {
+                transitionPosition += elapsedTimeInSeconds / transitionOnTime;
+            }
+
+            return transitionPosition;
         }
     }
 }

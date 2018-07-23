@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace ArchmaesterMonogameLibrary.GameStates
 {
-    public class BattlescapeState : GameState
+    public class HallOfFameState : GameState
     {
-        public BattlescapeState(Game game) : base("Battlescape", 1.0f, game)
+        public HallOfFameState(Game game) : base("HallOfFame", 1.0f, game)
         {
         }
 

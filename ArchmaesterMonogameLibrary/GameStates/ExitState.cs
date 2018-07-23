@@ -1,25 +1,20 @@
-﻿using GameState;
-using Input;
+﻿using Input;
 using Microsoft.Xna.Framework;
 
 namespace ArchmaesterMonogameLibrary.GameStates
 {
-    public class ExitState : IGameState
+    public class ExitState : GameState
     {
-        public string Name => "Exit";
-        public Game Game { get; }
-
-        public ExitState(Game game)
+        public ExitState(Game game) : base("Exit", 1.0f, game)
         {
-            Game = game;
         }
 
-        public void Update(InputState input, GameTime gameTime)
+        public override void Update(InputState input, GameTime gameTime)
         {
             Game.Exit();
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
         }
     }

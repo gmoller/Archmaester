@@ -7,13 +7,12 @@ using GuiControls;
 using Input;
 using Interfaces;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Textures;
 
 namespace ArchmaesterMonogameLibrary.GameStates
 {
-    public class MainMenuState : IGameState
+    public class MainMenuState : GameState
     {
         private readonly Label _title;
         private readonly ButtonGroup _menuButtonGroup;
@@ -27,13 +26,8 @@ namespace ArchmaesterMonogameLibrary.GameStates
         private readonly ButtonGroup _testButtonGroup7;
         private readonly ButtonGroup _testButtonGroup8;
 
-        public string Name => "MainMenu";
-        public Game Game { get; }
-
-        public MainMenuState(Game game)
+        public MainMenuState(Game game) : base("MainMenu", 0.2f, game)
         {
-            Game = game;
-
             var titleFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
             var titlePostion = new Vector2(Game.GraphicsDevice.Viewport.Width / 2.0f, 80.0f);
             _title = Label.Create(titleFont, titlePostion, "Archmaester", Color.Red, 1.25f);
@@ -48,6 +42,9 @@ namespace ArchmaesterMonogameLibrary.GameStates
 
             _menuButtonGroup = ButtonGroup.Create(menuItemFont, new Vector2(x, y), new Size(200, 70), new[] { "Continue", "Load Game", "New Game", "Hall Of Fame", "Quit" }, textures, game.Content, ButtonGroupDirection.Vertical);
             _menuButtonGroup["Continue"].Click += continueButton_Click;
+            _menuButtonGroup["Load Game"].Click += loadGameButton_Click;
+            _menuButtonGroup["New Game"].Click += newGameButton_Click;
+            _menuButtonGroup["Hall Of Fame"].Click += hallOfFameButton_Click;
             _menuButtonGroup["Quit"].Click += quitButton_Click;
 
             _testButtonGroup1 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 100), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["lite_opaque"], game.Content, ButtonGroupDirection.Horizontal);
@@ -93,13 +90,28 @@ namespace ArchmaesterMonogameLibrary.GameStates
             StateManager.Instance.SignalStateChange("Overland");
         }
 
+        private void loadGameButton_Click(object sender, EventArgs e)
+        {
+            StateManager.Instance.SignalStateChange("LoadGame");
+        }
+
+        private void newGameButton_Click(object sender, EventArgs e)
+        {
+            StateManager.Instance.SignalStateChange("NewGame");
+        }
+
+        private void hallOfFameButton_Click(object sender, EventArgs e)
+        {
+            StateManager.Instance.SignalStateChange("HallOfFame");
+        }
+
         private void quitButton_Click(object sender, EventArgs e)
         {
             Thread.Sleep(250); // sleep so click sound can be heard by user
             StateManager.Instance.SignalStateChange("Exit");
         }
 
-        public void Update(InputState input, GameTime gameTime)
+        public override void Update(InputState input, GameTime gameTime)
         {
             _menuButtonGroup.Update(input, gameTime);
             _testButtonGroup1.Update(input, gameTime);
@@ -110,29 +122,39 @@ namespace ArchmaesterMonogameLibrary.GameStates
             _testButtonGroup6.Update(input, gameTime);
             _testButtonGroup7.Update(input, gameTime);
             _testButtonGroup8.Update(input, gameTime);
+
+            _title.Alpha = TransitionPosition;
+            _menuButtonGroup.Alpha = TransitionPosition;
+            _testButtonGroup1.Alpha = TransitionPosition;
+            _testButtonGroup2.Alpha = TransitionPosition;
+            _testButtonGroup3.Alpha = TransitionPosition;
+            _testButtonGroup4.Alpha = TransitionPosition;
+            _testButtonGroup5.Alpha = TransitionPosition;
+            _testButtonGroup6.Alpha = TransitionPosition;
+            _testButtonGroup7.Alpha = TransitionPosition;
+            _testButtonGroup8.Alpha = TransitionPosition;
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            SpriteBatch spriteBatch = StateManager.Instance.SpriteBatch;
             Viewport viewport = Game.GraphicsDevice.Viewport;
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             ITexture2D backgroundTexture = AssetsRepository.Instance.GetTexture("background2");
 
-            spriteBatch.Begin();
-            spriteBatch.Draw(backgroundTexture, fullscreen, Color.White);
-            spriteBatch.Draw(_title);
-            spriteBatch.Draw(_menuButtonGroup);
-            spriteBatch.Draw(_testButtonGroup1);
-            spriteBatch.Draw(_testButtonGroup2);
-            spriteBatch.Draw(_testButtonGroup3);
-            spriteBatch.Draw(_testButtonGroup4);
-            spriteBatch.Draw(_testButtonGroup5);
-            spriteBatch.Draw(_testButtonGroup6);
-            spriteBatch.Draw(_testButtonGroup7);
-            spriteBatch.Draw(_testButtonGroup8);
-            spriteBatch.End();
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(backgroundTexture, fullscreen, Color.White * TransitionPosition);
+            SpriteBatch.Draw(_title);
+            SpriteBatch.Draw(_menuButtonGroup);
+            SpriteBatch.Draw(_testButtonGroup1);
+            SpriteBatch.Draw(_testButtonGroup2);
+            SpriteBatch.Draw(_testButtonGroup3);
+            SpriteBatch.Draw(_testButtonGroup4);
+            SpriteBatch.Draw(_testButtonGroup5);
+            SpriteBatch.Draw(_testButtonGroup6);
+            SpriteBatch.Draw(_testButtonGroup7);
+            SpriteBatch.Draw(_testButtonGroup8);
+            SpriteBatch.End();
         }
     }
 }

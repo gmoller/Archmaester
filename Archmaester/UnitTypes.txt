@@ -1,0 +1,12 @@
+﻿--Id,Name,Moves,MovementType--
+0,Spearmen,1,Ground
+1,Swordsmen,1,Ground
+2,Halberdiers,1,Ground
+3,Pikemen,1,Ground
+4,Cavalry,2,Ground
+5,Bowmen,1,Ground
+6,Shamans,1,Ground
+7,Priests,1,Ground
+8,Magicians,1,Ground
+9,Engineers,1,Ground
+10,Settlers,1,Ground

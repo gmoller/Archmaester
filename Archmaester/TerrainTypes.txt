@@ -1,0 +1,16 @@
+﻿--Id,Name,MovementCost,FoodOutput,ProductionPercentage--
+0,Grassland,1,1.5,0.0
+1,Forest,2,0.5,3.0
+2,Desert,1,0.0,3.0
+3,Swamp,3,0.0,0.0
+4,River,2,2.0,0.0
+5,River Mouth,2,2.0,0.0
+6,Hill,3,0.5,3.0
+7,Mountain,4,0.0,5.0
+8,Volcano,4,0.0,0.0
+9,Tundra,2,0.0,0.0
+10,Shore,-1,0.5,0.0
+11,Ocean,-1,0.0,0.0
+12,SorceryNode,1,2.0,0.0
+13,ChaosNode,4,0.0,5.0
+14,NatureNode,2,2.5,3.0

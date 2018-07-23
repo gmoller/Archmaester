@@ -1,0 +1,12 @@
+﻿--Id,Name,FoodModifier--
+0,Silver Ore,0.0
+1,Gold Ore,0.0
+2,Gems,0.0
+3,Iron Ore,0.0
+4,Coal,0.0
+5,Mithril Ore,0.0
+6,Adamantium Ore,0.0
+7,Quork Crystals,0.0
+8,Crysx Crystals,0.0
+9,Nightshade,0.0
+10,WildGame,2.0

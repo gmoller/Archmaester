@@ -1,0 +1,7 @@
+﻿--Id,Name,ConstructionCost,UpkeepGold,UpkeepMana,FoodProduced,GrowthRateIncrease,DependentBuildings,Races--
+0,Barracks,30.0,0.0,0.0,0.0,0.0,none,all
+1,Smithy,40.0,1.0,0.0,0.0,0.0,none,all
+2,Builders Hall,60.0,1.0,0.0,0.0,0.0,none,all
+3,Armory,80.0,2.0,0.0,0.0,0.0,0;1,all
+4,Fighters Guild,200.0,3.0,0.0,0.0,0.0,3,all
+5,Armorers Guild,350.0,4.0,0.0,0.0,0.0,4,allexcept:5;6

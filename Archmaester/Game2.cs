@@ -49,6 +49,9 @@ namespace Archmaester
             StateManager.Instance.AddState(new OverlandState(this));
             StateManager.Instance.AddState(new CityscapeState(this));
             StateManager.Instance.AddState(new BattlescapeState(this));
+            StateManager.Instance.AddState(new LoadGameState(this));
+            StateManager.Instance.AddState(new NewGameState(this));
+            StateManager.Instance.AddState(new HallOfFameState(this));
             StateManager.Instance.AddState(new ExitState(this));
 
             _cursor = new Cursor();
