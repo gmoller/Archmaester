@@ -30,16 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameLogic">
-      <HintPath>..\..\MapEditor\GameLogic\bin\Debug\GameLogic.dll</HintPath>
-    </Reference>
-    <Reference Include="GameMap">
-      <HintPath>..\..\MapEditor\GameMap\bin\Debug\GameMap.dll</HintPath>
-    </Reference>
-    <Reference Include="GeneralUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MapEditor\GeneralUtilities\bin\Debug\GeneralUtilities.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.0.768, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MonoGame.Framework.dll</HintPath>
@@ -85,9 +75,21 @@
       <Project>{57426cd6-ff61-4700-9ed8-a1299ab80a38}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameLogic\GameLogic.csproj">
+      <Project>{1364bc83-91e5-47b7-8e43-4346ff978fc0}</Project>
+      <Name>GameLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameMap\GameMap.csproj">
+      <Project>{40c67b06-306e-4b17-8d04-677fd11e2e23}</Project>
+      <Name>GameMap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameState\GameState.csproj">
       <Project>{3428c325-4ecd-416b-ade8-7c7a937a4ccd}</Project>
       <Name>GameState</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeneralUtilities\GeneralUtilities.csproj">
+      <Project>{52dae17e-3240-4b33-a875-a9fe73e208c5}</Project>
+      <Name>GeneralUtilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\GuiControls\GuiControls.csproj">
       <Project>{bb5ab9b7-9c2d-482f-854a-dca4e03ac7d7}</Project>
