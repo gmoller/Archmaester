@@ -9,7 +9,9 @@ namespace GameState
         Game Game { get; }
         float TransitionOnTime {get; }
         float TransitionPosition { get; set; }
+        bool ShowMousePointer { get; set; }
 
+        void Initialize();
         void Update(InputState input, GameTime gameTime);
         void Draw(GameTime gameTime);
     }

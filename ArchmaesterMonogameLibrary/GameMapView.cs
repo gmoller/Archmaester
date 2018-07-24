@@ -128,7 +128,7 @@ namespace ArchmaesterMonogameLibrary
                 }
 
                 // draw grid
-                //spriteBatch.DrawRectangle(rectangle, Color.Black);
+                spriteBatch.DrawRectangle(rectangle, Color.Black);
             }
         }
 

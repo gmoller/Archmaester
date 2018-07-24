@@ -37,14 +37,27 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cursor.cs" />
     <Compile Include="IGameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{57426CD6-FF61-4700-9ED8-A1299AB80A38}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Input\Input.csproj">
       <Project>{42a8c522-c4a0-4d06-8c33-a115a64ee9df}</Project>
       <Name>Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{13E46164-03C9-490A-9E87-84D0026E874F}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Textures\Textures.csproj">
+      <Project>{F1C1B1DB-B61E-4395-8E99-C8D8E6F90981}</Project>
+      <Name>Textures</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

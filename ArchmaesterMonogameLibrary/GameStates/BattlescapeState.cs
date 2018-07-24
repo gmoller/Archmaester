@@ -5,7 +5,11 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class BattlescapeState : GameState
     {
-        public BattlescapeState(Game game) : base("Battlescape", 1.0f, game)
+        public BattlescapeState(Game game) : base("Battlescape", 1.0f, true, game)
+        {
+        }
+
+        public override void Initialize()
         {
         }
 

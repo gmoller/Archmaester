@@ -5,7 +5,11 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class ExitState : GameState
     {
-        public ExitState(Game game) : base("Exit", 1.0f, game)
+        public ExitState(Game game) : base("Exit", 1.0f, false, game)
+        {
+        }
+
+        public override void Initialize()
         {
         }
 

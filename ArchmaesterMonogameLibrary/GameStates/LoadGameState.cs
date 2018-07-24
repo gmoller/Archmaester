@@ -5,7 +5,11 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class LoadGameState : GameState
     {
-        public LoadGameState(Game game) : base("LoadGame", 1.0f, game)
+        public LoadGameState(Game game) : base("LoadGame", 1.0f, true, game)
+        {
+        }
+
+        public override void Initialize()
         {
         }
 

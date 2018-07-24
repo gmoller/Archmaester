@@ -14,6 +14,7 @@ namespace GameState
         private IGameState _currentState;
         private string _stateToChangeTo;
         private readonly InputState _input;
+        private readonly Cursor _cursor;
 
         public SpriteBatch SpriteBatch { get; set; }
 
@@ -24,6 +25,7 @@ namespace GameState
             _states = new Dictionary<string, IGameState>();
             _input = new InputState();
             _stateToChangeTo = string.Empty;
+            _cursor = new Cursor();
         }
 
         public void AddState(IGameState state)
@@ -48,6 +50,10 @@ namespace GameState
 
             _input.Update();
             _currentState.Update(_input, gameTime);
+            if (_currentState.ShowMousePointer)
+            {
+                _cursor.Update(gameTime);
+            }
 
             if (!string.IsNullOrEmpty(_stateToChangeTo))
             {
@@ -59,6 +65,10 @@ namespace GameState
         public void Draw(GameTime gameTime)
         {
             _currentState.Draw(gameTime);
+            if (_currentState.ShowMousePointer)
+            {
+                _cursor.Draw(gameTime);
+            }
         }
 
         private void ChangeState(string currentState, string requestedState)
@@ -70,6 +80,7 @@ namespace GameState
         {
             _currentState = _states[name];
             _currentState.TransitionPosition = 0.0f;
+            _currentState.Initialize();
         }
 
         private float CalculateTransitionPosition(float currentTransitionPosition, float transitionOnTime, float elapsedTimeInSeconds)

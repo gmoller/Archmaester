@@ -1,10 +1,7 @@
-﻿using ArchmaesterMonogameLibrary;
-using ArchmaesterMonogameLibrary.ScreenManagement;
-using ArchmaesterMonogameLibrary.ScreenManagement.Screens;
+﻿using ArchmaesterMonogameLibrary.GameStates;
+using GameState;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BitmapFonts;
-using Common;
 
 namespace Archmaester
 {
@@ -15,18 +12,16 @@ namespace Archmaester
     {
         private SpriteBatch _spriteBatch;
 
-        private Cursor _cursor;
-        private BlankScroll _blankScroll;
+        private FrameRateCounter _fps;
 
         private GraphicsDeviceManager _graphics;
-        private ScreenManager _screenManager;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 1600, // 853 - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width
-                PreferredBackBufferHeight = 900 // 480 - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height
+                PreferredBackBufferWidth = 1600,
+                PreferredBackBufferHeight = 900
             };
             Content.RootDirectory = "Content";
         }
@@ -39,24 +34,17 @@ namespace Archmaester
         /// </summary>
         protected override void Initialize()
         {
-            //IsMouseVisible = true;
-            AssetsRepository.Instance.AddFont("TimeFont", new BmFont(@"Fonts\Montserrat-32_0", Content));
-            AssetsRepository.Instance.AddFont("TestFont", new BmFont(@"Fonts\Font01_30_sheet", Content));
-            AssetsRepository.Instance.AddFont("MenuBitmapFont", new BmFont(@"Fonts\Font03_30_sheet", Content));
-            AssetsRepository.Instance.AddFont("MenuSpriteFont", new SpriteFontWrapper(@"Fonts\menufont", Content));
+            StateManager.Instance.AddState(new LoadingState(this));
+            StateManager.Instance.AddState(new MainMenuState(this));
+            StateManager.Instance.AddState(new OverlandState(this));
+            StateManager.Instance.AddState(new CityscapeState(this));
+            StateManager.Instance.AddState(new BattlescapeState(this));
+            StateManager.Instance.AddState(new LoadGameState(this));
+            StateManager.Instance.AddState(new NewGameState(this));
+            StateManager.Instance.AddState(new HallOfFameState(this));
+            StateManager.Instance.AddState(new ExitState(this));
 
-            // Create the screen manager component.
-            _screenManager = new ScreenManager(this);
-
-            Components.Add(_screenManager);
-
-            // Activate the first screens.
-            _screenManager.AddScreen(new BackgroundScreen());
-            _screenManager.AddScreen(new TestScreen());
-            _screenManager.AddScreen(new MainMenuScreen());
-
-            _cursor = new Cursor();
-            _blankScroll = new BlankScroll();
+            _fps = new FrameRateCounter();
 
             base.Initialize();
         }
@@ -68,11 +56,7 @@ namespace Archmaester
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            Content.Load<object>(@"Images\gradient");
-
-            //_cursor.LoadContent(_spriteBatch, Content);
-            _blankScroll.LoadContent(_spriteBatch, Content);
+            StateManager.Instance.SpriteBatch = _spriteBatch;
         }
 
         /// <summary>
@@ -90,7 +74,8 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            _cursor.Update(gameTime);
+            StateManager.Instance.Update(gameTime);
+            _fps.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -103,10 +88,10 @@ namespace Archmaester
         {
             GraphicsDevice.Clear(Color.Black);
 
-            base.Draw(gameTime);
+            StateManager.Instance.Draw(gameTime);
+            _fps.Draw(gameTime);
 
-            //_blankScroll.Draw(gameTime);
-            _cursor.Draw(gameTime);
+            base.Draw(gameTime);
         }
     }
 }

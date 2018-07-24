@@ -7,9 +7,13 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class OverlandState : GameState
     {
-        private readonly GameMapView _mapWindow;
+        private GameMapView _mapWindow;
 
-        public OverlandState(Game game) : base("Overland", 1.0f, game)
+        public OverlandState(Game game) : base("Overland", 1.0f, true, game)
+        {
+        }
+
+        public override void Initialize()
         {
             // setup map/board
             int[,] terrain = MapGenerator.Generate(200, 160);
@@ -22,6 +26,8 @@ namespace ArchmaesterMonogameLibrary.GameStates
             Globals.Instance.GameWorld.SetPlayer(player);
 
             _mapWindow = new GameMapView(Globals.Instance.GameWorld, new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height));
+
+            // TODO: move mouse cursor to middle tile to stop annoying auto-scrolling after clicking the start button.
         }
 
         public override void Update(InputState input, GameTime gameTime)

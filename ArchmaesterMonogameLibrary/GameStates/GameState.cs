@@ -15,14 +15,19 @@ namespace ArchmaesterMonogameLibrary.GameStates
 
         public float TransitionOnTime { get; } // in seconds
 
+        public bool ShowMousePointer { get; set; }
+
         protected SpriteBatch SpriteBatch => StateManager.Instance.SpriteBatch;
 
-        protected GameState(string name, float transitionOnTime, Game game)
+        protected GameState(string name, float transitionOnTime, bool showMousePointer, Game game)
         {
             Name = name;
-            Game = game;
             TransitionOnTime = transitionOnTime;
+            ShowMousePointer = showMousePointer;
+            Game = game;
         }
+
+        public abstract void Initialize();
 
         public abstract void Draw(GameTime gameTime);
 

@@ -1,12 +1,11 @@
 ﻿using Common;
-using GameState;
 using Interfaces;
-using Textures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Textures;
 
-namespace ArchmaesterMonogameLibrary
+namespace GameState
 {
     public class Cursor
     {

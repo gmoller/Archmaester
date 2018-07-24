@@ -14,19 +14,23 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class MainMenuState : GameState
     {
-        private readonly Label _title;
-        private readonly ButtonGroup _menuButtonGroup;
+        private Label _title;
+        private ButtonGroup _menuButtonGroup;
 
-        private readonly ButtonGroup _testButtonGroup1;
-        private readonly ButtonGroup _testButtonGroup2;
-        private readonly ButtonGroup _testButtonGroup3;
-        private readonly ButtonGroup _testButtonGroup4;
-        private readonly ButtonGroup _testButtonGroup5;
-        private readonly ButtonGroup _testButtonGroup6;
-        private readonly ButtonGroup _testButtonGroup7;
-        private readonly ButtonGroup _testButtonGroup8;
+        private ButtonGroup _testButtonGroup1;
+        private ButtonGroup _testButtonGroup2;
+        private ButtonGroup _testButtonGroup3;
+        private ButtonGroup _testButtonGroup4;
+        private ButtonGroup _testButtonGroup5;
+        private ButtonGroup _testButtonGroup6;
+        private ButtonGroup _testButtonGroup7;
+        private ButtonGroup _testButtonGroup8;
 
-        public MainMenuState(Game game) : base("MainMenu", 0.2f, game)
+        public MainMenuState(Game game) : base("MainMenu", 0.2f, true, game)
+        {
+        }
+
+        public override void Initialize()
         {
             var titleFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
             var titlePostion = new Vector2(Game.GraphicsDevice.Viewport.Width / 2.0f, 80.0f);
@@ -40,21 +44,21 @@ namespace ArchmaesterMonogameLibrary.GameStates
             float x = Game.GraphicsDevice.Viewport.Width / 2.0f;
             float y = Game.GraphicsDevice.Viewport.Height - 350.0f;
 
-            _menuButtonGroup = ButtonGroup.Create(menuItemFont, new Vector2(x, y), new Size(200, 70), new[] { "Continue", "Load Game", "New Game", "Hall Of Fame", "Quit" }, textures, game.Content, ButtonGroupDirection.Vertical);
+            _menuButtonGroup = ButtonGroup.Create(menuItemFont, new Vector2(x, y), new Size(200, 70), new[] { "Continue", "Load Game", "New Game", "Hall Of Fame", "Quit" }, textures, Game.Content, ButtonGroupDirection.Vertical);
             _menuButtonGroup["Continue"].Click += continueButton_Click;
             _menuButtonGroup["Load Game"].Click += loadGameButton_Click;
             _menuButtonGroup["New Game"].Click += newGameButton_Click;
             _menuButtonGroup["Hall Of Fame"].Click += hallOfFameButton_Click;
             _menuButtonGroup["Quit"].Click += quitButton_Click;
 
-            _testButtonGroup1 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 100), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["lite_opaque"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup2 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 200), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["menu"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup3 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 300), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["opaque"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup4 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 400), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup5 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 500), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection2"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup6 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 600), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["strong_opaque"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup7 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 700), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thick_opaque"], game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup8 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 800), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thin_opaque"], game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup1 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 100), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["lite_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup2 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 200), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["menu"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup3 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 300), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup4 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 400), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup5 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 500), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection2"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup6 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 600), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["strong_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup7 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 700), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thick_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            _testButtonGroup8 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 800), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thin_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
         }
 
         private Dictionary<string, ITexture2D[]> GetTextures(params string[] s)

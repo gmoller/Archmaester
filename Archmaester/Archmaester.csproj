@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Game2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -128,10 +127,8 @@
     <Content Include="Content\Fonts\Font03_30_sheet.png" />
     <Content Include="Content\Fonts\montserrat-32_0.png" />
     <Content Include="Content\Images\background2.jpg" />
-    <Content Include="Content\Images\blank.png" />
     <Content Include="Content\Images\blankscroll2.png" />
     <Content Include="Content\Images\cursor.png" />
-    <Content Include="Content\Images\gradient.png" />
     <Content Include="Content\Images\Gui\lite\lite_opaque-background.png" />
     <Content Include="Content\Images\Gui\lite\lite_opaque-border-botleft.png" />
     <Content Include="Content\Images\Gui\lite\lite_opaque-border-botright.png" />

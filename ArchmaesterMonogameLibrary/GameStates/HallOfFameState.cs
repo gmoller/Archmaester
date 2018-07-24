@@ -5,7 +5,11 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class HallOfFameState : GameState
     {
-        public HallOfFameState(Game game) : base("HallOfFame", 1.0f, game)
+        public HallOfFameState(Game game) : base("HallOfFame", 1.0f, true, game)
+        {
+        }
+
+        public override void Initialize()
         {
         }
 
