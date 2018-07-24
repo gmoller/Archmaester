@@ -130,7 +130,6 @@
     <Content Include="Content\Images\background2.jpg" />
     <Content Include="Content\Images\blank.png" />
     <Content Include="Content\Images\blankscroll2.png" />
-    <Content Include="Content\Images\button.png" />
     <Content Include="Content\Images\cursor.png" />
     <Content Include="Content\Images\gradient.png" />
     <Content Include="Content\Images\Gui\lite\lite_opaque-background.png" />
@@ -260,22 +259,7 @@
     <Content Include="Content\Images\Gui\translucent65\translucent65-border-top.png" />
     <Content Include="Content\Images\Gui\translucent65\translucent65-border-topleft.png" />
     <Content Include="Content\Images\Gui\translucent65\translucent65-border-topright.png" />
-    <Content Include="Content\Images\Tiles\Base\conifer_forest_inner.png" />
-    <Content Include="Content\Images\Tiles\Base\dark_plains_1.png" />
-    <Content Include="Content\Images\Tiles\Base\dark_plains_2.png" />
-    <Content Include="Content\Images\Tiles\Base\dark_plains_3.png" />
-    <Content Include="Content\Images\Tiles\Base\dark_plains_4.png" />
-    <Content Include="Content\Images\Tiles\Base\dark_plains_5.png" />
-    <Content Include="Content\Images\Tiles\Base\dark_plains_extra_1.png" />
-    <Content Include="Content\Images\Tiles\Base\hills_inner_1.png" />
-    <Content Include="Content\Images\Tiles\Base\mountains_inner.png" />
-    <Content Include="Content\Images\Tiles\Base\ocean_inner.png" />
-    <Content Include="Content\Images\Tiles\Base\plains_1.png" />
-    <Content Include="Content\Images\Tiles\Base\plains_2.png" />
-    <Content Include="Content\Images\Tiles\Base\plains_3.png" />
-    <Content Include="Content\Images\Tiles\Base\plains_4.png" />
-    <Content Include="Content\Images\Tiles\Base\plains_5.png" />
-    <Content Include="Content\Images\Tiles\Base\plains_extra_1.png" />
+    <Content Include="Content\Images\Tiles\Base\terrain.png" />
     <Content Include="Content\Sounds\Button_click.wav" />
     <Content Include="MineralTypes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

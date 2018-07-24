@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\Game
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralUtilities", "GeneralUtilities\GeneralUtilities.csproj", "{52DAE17E-3240-4B33-A875-A9FE73E208C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameData", "GameData\GameData.csproj", "{35BFB00C-7ECC-4A04-A787-452319AD4B9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noise", "Noise\Noise.csproj", "{AEC160E5-C4DB-4B2C-A16C-EDEB6B1BD2C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,14 @@ Global
 		{52DAE17E-3240-4B33-A875-A9FE73E208C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52DAE17E-3240-4B33-A875-A9FE73E208C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52DAE17E-3240-4B33-A875-A9FE73E208C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BFB00C-7ECC-4A04-A787-452319AD4B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BFB00C-7ECC-4A04-A787-452319AD4B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BFB00C-7ECC-4A04-A787-452319AD4B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BFB00C-7ECC-4A04-A787-452319AD4B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEC160E5-C4DB-4B2C-A16C-EDEB6B1BD2C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEC160E5-C4DB-4B2C-A16C-EDEB6B1BD2C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEC160E5-C4DB-4B2C-A16C-EDEB6B1BD2C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEC160E5-C4DB-4B2C-A16C-EDEB6B1BD2C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

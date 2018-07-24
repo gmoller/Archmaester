@@ -116,9 +116,11 @@ namespace ArchmaesterMonogameLibrary
                 // draw cell
                 if (_gameWorld.IsCellVisible(cellLocation))
                 {
-                    string textureString = GetTextureString(cell.TerrainTypeId);
+                    //string textureString = GetTextureString(cell.TerrainTypeId);
+                    string textureString = "terrain";
                     ITexture2D texture = AssetsRepository.Instance.GetTexture(textureString);
-                    spriteBatch.Draw(texture, rectangle, Color.White);
+                    Rectangle sourceRectangle = GetAreaOfTextureToDraw(cell.TerrainTypeId);
+                    spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
                 }
                 else
                 {
@@ -126,7 +128,26 @@ namespace ArchmaesterMonogameLibrary
                 }
 
                 // draw grid
-                spriteBatch.DrawRectangle(rectangle, Color.Black);
+                //spriteBatch.DrawRectangle(rectangle, Color.Black);
+            }
+        }
+
+        private Rectangle GetAreaOfTextureToDraw(int terrainTypeId)
+        {
+            switch (terrainTypeId)
+            {
+                case 0: // plains
+                    return new Rectangle(0, 0, 64, 64);
+                case 1: // forest
+                    return new Rectangle(128, 0, 64, 64);
+                case 6: // hills
+                    return new Rectangle(64, 0, 64, 64);
+                case 7: // mountains
+                    return new Rectangle(192, 0, 64, 64);
+                case 11: // ocean
+                    return new Rectangle(0, 64, 64, 64); ;
+                default:
+                    throw new Exception($"Terrain texture [{terrainTypeId}] not found!");
             }
         }
 

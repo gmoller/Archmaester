@@ -45,5 +45,11 @@ namespace Textures
             var texture = _content.Load<Texture2D>(_textureName);
             spriteBatch.Draw(texture, destinationRectangle, color);
         }
+
+        public void Draw(Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, SpriteBatch spriteBatch)
+        {
+            var texture = _content.Load<Texture2D>(_textureName);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color);
+        }
     }
 }

@@ -15,5 +15,10 @@ namespace Textures
         {
             texture.Draw(destinationRectangle, color, spriteBatch);
         }
+
+        public static void Draw(this SpriteBatch spriteBatch, ITexture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color)
+        {
+            texture.Draw(destinationRectangle, sourceRectangle, color, spriteBatch);
+        }
     }
 }

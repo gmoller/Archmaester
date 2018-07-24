@@ -9,5 +9,6 @@ namespace Interfaces
         int Height { get; }
         void Draw(Vector2 position, Color color, float scale, SpriteBatch spriteBatch);
         void Draw(Rectangle destinationRectangle, Color color, SpriteBatch spriteBatch);
+        void Draw(Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, SpriteBatch spriteBatch);
     }
 }
