@@ -18,13 +18,13 @@ namespace GuiControls
     {
         private readonly Dictionary<string, Button> _buttons;
 
-        private ButtonGroup(IFont font, Vector2 position, Size buttonSize, string[] texts, ITexture2D[] textures, ContentManager content, ButtonGroupDirection direction)
+        private ButtonGroup(IFont font, Vector2 position, Size buttonSize, string[] texts, ITexture2D textureAtlas, ContentManager content, ButtonGroupDirection direction)
         {
             _buttons = new Dictionary<string, Button>();
 
             foreach (string item in texts)
             {
-                var button = Button.Create(font, position, buttonSize, item, textures, content);
+                var button = Button.Create(font, position, buttonSize, item, textureAtlas, content);
                 _buttons.Add(item, button);
 
                 if (direction == ButtonGroupDirection.Horizontal)
@@ -41,9 +41,9 @@ namespace GuiControls
         public float Alpha { get; set; }
         public Button this[string name] => _buttons[name];
 
-        public static ButtonGroup Create(IFont font, Vector2 position, Size buttonSize, string[] texts, ITexture2D[] textures, ContentManager content, ButtonGroupDirection direction)
+        public static ButtonGroup Create(IFont font, Vector2 position, Size buttonSize, string[] texts, ITexture2D textureAtlas, ContentManager content, ButtonGroupDirection direction)
         {
-            var control = new ButtonGroup(font, position, buttonSize, texts, textures, content, direction);
+            var control = new ButtonGroup(font, position, buttonSize, texts, textureAtlas, content, direction);
 
             return control;
         }

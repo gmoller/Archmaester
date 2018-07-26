@@ -1,0 +1,66 @@
+[
+  {
+    "Id": 1,
+    "Name": "terrain_grass",
+    "X": 0,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 2,
+    "Name": "terrain_hills",
+    "X": 64,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 3,
+    "Name": "terrain_desert",
+    "X": 128,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 4,
+    "Name": "terrain_mountain",
+    "X": 196,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 5,
+    "Name": "terrain_ocean",
+    "X": 0,
+    "Y": 64,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 6,
+    "Name": "terrain_1",
+    "X": 64,
+    "Y": 64,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 7,
+    "Name": "terrain_2",
+    "X": 128,
+    "Y": 64,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 8,
+    "Name": "terrain_3",
+    "X": 196,
+    "Y": 64,
+    "Width": 64,
+    "Height": 64
+  }
+]

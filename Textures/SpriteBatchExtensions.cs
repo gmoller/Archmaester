@@ -11,6 +11,11 @@ namespace Textures
             texture.Draw(position, color, scale, spriteBatch);
         }
 
+        public static void Draw(this SpriteBatch spriteBatch, ITexture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float scale)
+        {
+            texture.Draw(position, sourceRectangle, color, scale, spriteBatch);
+        }
+
         public static void Draw(this SpriteBatch spriteBatch, ITexture2D texture, Rectangle destinationRectangle, Color color)
         {
             texture.Draw(destinationRectangle, color, spriteBatch);

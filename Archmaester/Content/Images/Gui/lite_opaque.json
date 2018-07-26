@@ -1,0 +1,74 @@
+[
+  {
+    "Id": 1,
+    "Name": "lite_opaque-border-topright",
+    "X": 0,
+    "Y": 0,
+    "Width": 25,
+    "Height": 25
+  },
+  {
+    "Id": 2,
+    "Name": "lite_opaque-background",
+    "X": 25,
+    "Y": 0,
+    "Width": 274,
+    "Height": 154
+  },
+  {
+    "Id": 3,
+    "Name": "lite_opaque-border-botleft",
+    "X": 299,
+    "Y": 0,
+    "Width": 26,
+    "Height": 26
+  },
+  {
+    "Id": 4,
+    "Name": "lite_opaque-border-botright",
+    "X": 325,
+    "Y": 0,
+    "Width": 25,
+    "Height": 26
+  },
+  {
+    "Id": 5,
+    "Name": "lite_opaque-border-bottom",
+    "X": 350,
+    "Y": 0,
+    "Width": 274,
+    "Height": 26
+  },
+  {
+    "Id": 6,
+    "Name": "lite_opaque-border-left",
+    "X": 624,
+    "Y": 0,
+    "Width": 26,
+    "Height": 154
+  },
+  {
+    "Id": 7,
+    "Name": "lite_opaque-border-right",
+    "X": 650,
+    "Y": 0,
+    "Width": 25,
+    "Height": 154
+  },
+  {
+    "Id": 8,
+    "Name": "lite_opaque-border-top",
+    "X": 675,
+    "Y": 0,
+    "Width": 274,
+    "Height": 25
+  },
+  {
+    "Id": 9,
+    "Name": "lite_opaque-border-topleft",
+    "X": 949,
+    "Y": 0,
+    "Width": 26,
+    "Height": 25
+  }
+]

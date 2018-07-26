@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using Common;
 using GameState;
@@ -17,14 +16,14 @@ namespace ArchmaesterMonogameLibrary.GameStates
         private Label _title;
         private ButtonGroup _menuButtonGroup;
 
-        private ButtonGroup _testButtonGroup1;
-        private ButtonGroup _testButtonGroup2;
-        private ButtonGroup _testButtonGroup3;
-        private ButtonGroup _testButtonGroup4;
-        private ButtonGroup _testButtonGroup5;
-        private ButtonGroup _testButtonGroup6;
-        private ButtonGroup _testButtonGroup7;
-        private ButtonGroup _testButtonGroup8;
+        //private ButtonGroup _testButtonGroup1;
+        //private ButtonGroup _testButtonGroup2;
+        //private ButtonGroup _testButtonGroup3;
+        //private ButtonGroup _testButtonGroup4;
+        //private ButtonGroup _testButtonGroup5;
+        //private ButtonGroup _testButtonGroup6;
+        //private ButtonGroup _testButtonGroup7;
+        //private ButtonGroup _testButtonGroup8;
 
         public MainMenuState(Game game) : base("MainMenu", 0.2f, true, game)
         {
@@ -38,55 +37,26 @@ namespace ArchmaesterMonogameLibrary.GameStates
 
             IFont menuItemFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
 
-            var all = GetTextures("lite_translucent", "lite_opaque", "medium_translucent", "menu", "opaque", "selection", "selection2", "strong_opaque", "strong_translucent", "thick_opaque", "thin_opaque", "thin_translucent", "translucent54", "translucent65");
-            ITexture2D[] textures = all["lite_opaque"];
+            ITexture2D textureAtlas = AssetsRepository.Instance.GetTexture("lite_opaque");
 
             float x = Game.GraphicsDevice.Viewport.Width / 2.0f;
             float y = Game.GraphicsDevice.Viewport.Height - 350.0f;
 
-            _menuButtonGroup = ButtonGroup.Create(menuItemFont, new Vector2(x, y), new Size(200, 70), new[] { "Continue", "Load Game", "New Game", "Hall Of Fame", "Quit" }, textures, Game.Content, ButtonGroupDirection.Vertical);
+            _menuButtonGroup = ButtonGroup.Create(menuItemFont, new Vector2(x, y), new Size(200, 70), new[] { "Continue", "Load Game", "New Game", "Hall Of Fame", "Quit" }, textureAtlas, Game.Content, ButtonGroupDirection.Vertical);
             _menuButtonGroup["Continue"].Click += continueButton_Click;
             _menuButtonGroup["Load Game"].Click += loadGameButton_Click;
             _menuButtonGroup["New Game"].Click += newGameButton_Click;
             _menuButtonGroup["Hall Of Fame"].Click += hallOfFameButton_Click;
             _menuButtonGroup["Quit"].Click += quitButton_Click;
 
-            _testButtonGroup1 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 100), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["lite_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup2 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 200), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["menu"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup3 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 300), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["opaque"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup4 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 400), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup5 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 500), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection2"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup6 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 600), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["strong_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup7 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 700), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thick_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
-            _testButtonGroup8 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 800), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thin_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
-        }
-
-        private Dictionary<string, ITexture2D[]> GetTextures(params string[] s)
-        {
-            Dictionary<string, ITexture2D[]> dict = new Dictionary<string, ITexture2D[]>();
-            foreach (string item in s)
-            {
-                ITexture2D[] t = GetTextures(item);
-                dict.Add(item, t);
-            }
-
-            return dict;
-        }
-
-        private ITexture2D[] GetTextures(string s)
-        {
-            ITexture2D buttonTextureTopLeft = AssetsRepository.Instance.GetTexture($"{s}-border-topleft");
-            ITexture2D buttonTextureTop = AssetsRepository.Instance.GetTexture($"{s}-border-top");
-            ITexture2D buttonTextureTopRight = AssetsRepository.Instance.GetTexture($"{s}-border-topright");
-            ITexture2D buttonTextureLeft = AssetsRepository.Instance.GetTexture($"{s}-border-left");
-            ITexture2D buttonTextureRight = AssetsRepository.Instance.GetTexture($"{s}-border-right");
-            ITexture2D buttonTextureBackground = AssetsRepository.Instance.GetTexture($"{s}-background");
-            ITexture2D buttonTextureBottomLeft = AssetsRepository.Instance.GetTexture($"{s}-border-botleft");
-            ITexture2D buttonTextureBottom = AssetsRepository.Instance.GetTexture($"{s}-border-bottom");
-            ITexture2D buttonTextureBottomRight = AssetsRepository.Instance.GetTexture($"{s}-border-botright");
-            ITexture2D[] textures = { buttonTextureTopLeft, buttonTextureTop, buttonTextureTopRight, buttonTextureLeft, buttonTextureBackground, buttonTextureRight, buttonTextureBottomLeft, buttonTextureBottom, buttonTextureBottomRight };
-
-            return textures;
+            //_testButtonGroup1 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 100), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["lite_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup2 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 200), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["menu"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup3 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 300), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup4 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 400), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup5 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 500), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["selection2"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup6 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 600), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["strong_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup7 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 700), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thick_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
+            //_testButtonGroup8 = ButtonGroup.Create(menuItemFont, new Vector2(1000, 800), new Size(100, 80), new[] { "1", "2", "3", "4", "5" }, all["thin_opaque"], Game.Content, ButtonGroupDirection.Horizontal);
         }
 
         private void continueButton_Click(object sender, EventArgs e)
@@ -118,25 +88,25 @@ namespace ArchmaesterMonogameLibrary.GameStates
         public override void Update(InputState input, GameTime gameTime)
         {
             _menuButtonGroup.Update(input, gameTime);
-            _testButtonGroup1.Update(input, gameTime);
-            _testButtonGroup2.Update(input, gameTime);
-            _testButtonGroup3.Update(input, gameTime);
-            _testButtonGroup4.Update(input, gameTime);
-            _testButtonGroup5.Update(input, gameTime);
-            _testButtonGroup6.Update(input, gameTime);
-            _testButtonGroup7.Update(input, gameTime);
-            _testButtonGroup8.Update(input, gameTime);
+            //_testButtonGroup1.Update(input, gameTime);
+            //_testButtonGroup2.Update(input, gameTime);
+            //_testButtonGroup3.Update(input, gameTime);
+            //_testButtonGroup4.Update(input, gameTime);
+            //_testButtonGroup5.Update(input, gameTime);
+            //_testButtonGroup6.Update(input, gameTime);
+            //_testButtonGroup7.Update(input, gameTime);
+            //_testButtonGroup8.Update(input, gameTime);
 
             _title.Alpha = TransitionPosition;
             _menuButtonGroup.Alpha = TransitionPosition;
-            _testButtonGroup1.Alpha = TransitionPosition;
-            _testButtonGroup2.Alpha = TransitionPosition;
-            _testButtonGroup3.Alpha = TransitionPosition;
-            _testButtonGroup4.Alpha = TransitionPosition;
-            _testButtonGroup5.Alpha = TransitionPosition;
-            _testButtonGroup6.Alpha = TransitionPosition;
-            _testButtonGroup7.Alpha = TransitionPosition;
-            _testButtonGroup8.Alpha = TransitionPosition;
+            //_testButtonGroup1.Alpha = TransitionPosition;
+            //_testButtonGroup2.Alpha = TransitionPosition;
+            //_testButtonGroup3.Alpha = TransitionPosition;
+            //_testButtonGroup4.Alpha = TransitionPosition;
+            //_testButtonGroup5.Alpha = TransitionPosition;
+            //_testButtonGroup6.Alpha = TransitionPosition;
+            //_testButtonGroup7.Alpha = TransitionPosition;
+            //_testButtonGroup8.Alpha = TransitionPosition;
         }
 
         public override void Draw(GameTime gameTime)
@@ -150,14 +120,14 @@ namespace ArchmaesterMonogameLibrary.GameStates
             SpriteBatch.Draw(backgroundTexture, fullscreen, Color.White * TransitionPosition);
             SpriteBatch.Draw(_title);
             SpriteBatch.Draw(_menuButtonGroup);
-            SpriteBatch.Draw(_testButtonGroup1);
-            SpriteBatch.Draw(_testButtonGroup2);
-            SpriteBatch.Draw(_testButtonGroup3);
-            SpriteBatch.Draw(_testButtonGroup4);
-            SpriteBatch.Draw(_testButtonGroup5);
-            SpriteBatch.Draw(_testButtonGroup6);
-            SpriteBatch.Draw(_testButtonGroup7);
-            SpriteBatch.Draw(_testButtonGroup8);
+            //SpriteBatch.Draw(_testButtonGroup1);
+            //SpriteBatch.Draw(_testButtonGroup2);
+            //SpriteBatch.Draw(_testButtonGroup3);
+            //SpriteBatch.Draw(_testButtonGroup4);
+            //SpriteBatch.Draw(_testButtonGroup5);
+            //SpriteBatch.Draw(_testButtonGroup6);
+            //SpriteBatch.Draw(_testButtonGroup7);
+            //SpriteBatch.Draw(_testButtonGroup8);
             SpriteBatch.End();
         }
     }

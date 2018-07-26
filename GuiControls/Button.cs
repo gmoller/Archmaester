@@ -14,15 +14,7 @@ namespace GuiControls
     {
         private readonly ContentManager _content;
 
-        private readonly ITexture2D _textureTopLeft;
-        private readonly ITexture2D _textureTop;
-        private readonly ITexture2D _textureTopRight;
-        private readonly ITexture2D _textureLeft;
-        private readonly ITexture2D _textureBackground;
-        private readonly ITexture2D _textureRight;
-        private readonly ITexture2D _textureBottomLeft;
-        private readonly ITexture2D _textureBottom;
-        private readonly ITexture2D _textureBottomRight;
+        private readonly ITexture2D _textureAtlas;
 
         private readonly Label _label;
 
@@ -39,29 +31,20 @@ namespace GuiControls
         public int Height => (int)_size.Height;
         public float Alpha { get; set; }
 
-        private Button(IFont font, Vector2 center, Size size, string text, ITexture2D[] textures, ContentManager content)
+        private Button(IFont font, Vector2 center, Size size, string text, ITexture2D textureAtlas, ContentManager content)
         {
             _content = content;
 
-            _textureTopLeft = textures[0];
-            _textureTop = textures[1];
-            _textureTopRight = textures[2];
-            _textureLeft = textures[3];
-            _textureBackground = textures[4];
-            _textureRight = textures[5];
-            _textureBottomLeft = textures[6];
-            _textureBottom = textures[7];
-            _textureBottomRight = textures[8];
-
+            _textureAtlas = textureAtlas;
             _center = center;
             _size = size;
 
             _label = Label.Create(font, center, text, Color.Yellow, 1.0f);
         }
 
-        public static Button Create(IFont font, Vector2 center, Size size, string text, ITexture2D[] textures, ContentManager content)
+        public static Button Create(IFont font, Vector2 center, Size size, string text, ITexture2D textureAtlas, ContentManager content)
         {
-            var control = new Button(font, center, size, text, textures, content);
+            var control = new Button(font, center, size, text, textureAtlas, content);
 
             return control;
         }
@@ -93,17 +76,28 @@ namespace GuiControls
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_textureTopLeft, new Vector2(Area.Left, Area.Top), Color.White * Alpha, 1.0f);
-            spriteBatch.Draw(_textureTop, new Rectangle(Area.Left + _textureTopLeft.Width, Area.Top, Area.Width - _textureTopLeft.Width - _textureTopRight.Width, _textureTop.Height), Color.White * Alpha);
-            spriteBatch.Draw(_textureTopRight, new Vector2(Area.Right - _textureTopRight.Width, Area.Top), Color.White * Alpha, 1.0f);
+            Color color = Color.White * Alpha;
+            Rectangle topLeftRectangle = _textureAtlas.Frames[8].Rectangle;
+            Rectangle topRectangle = _textureAtlas.Frames[7].Rectangle;
+            Rectangle topRightRectangle = _textureAtlas.Frames[0].Rectangle;
+            Rectangle leftRectangle = _textureAtlas.Frames[5].Rectangle;
+            Rectangle backgroundRectangle = _textureAtlas.Frames[1].Rectangle;
+            Rectangle rightRectangle = _textureAtlas.Frames[6].Rectangle;
+            Rectangle bottomLeftRectangle = _textureAtlas.Frames[2].Rectangle;
+            Rectangle bottomRectangle = _textureAtlas.Frames[4].Rectangle;
+            Rectangle bottomRightRectangle = _textureAtlas.Frames[3].Rectangle;
 
-            spriteBatch.Draw(_textureLeft, new Rectangle(Area.Left, Area.Top + _textureTopLeft.Height, _textureTopLeft.Width, Area.Height - _textureTopLeft.Height - _textureBottomLeft.Height), Color.White * Alpha);
-            spriteBatch.Draw(_textureBackground, new Rectangle(Area.Left + _textureLeft.Width, Area.Top + _textureTop.Height, Area.Width - _textureLeft.Width - _textureRight.Width, Area.Height - _textureTop.Height - _textureBottom.Height), Color.White * Alpha);
-            spriteBatch.Draw(_textureRight, new Rectangle(Area.Right - _textureRight.Width, Area.Top + _textureTopRight.Height, _textureTopRight.Width, Area.Height - _textureTopRight.Height - _textureBottomRight.Height), Color.White * Alpha);
+            spriteBatch.Draw(_textureAtlas, new Vector2(Area.Left, Area.Top), topLeftRectangle, color, 1.0f);
+            spriteBatch.Draw(_textureAtlas, new Rectangle(Area.Left + topLeftRectangle.Width, Area.Top, Area.Width - topLeftRectangle.Width - topRightRectangle.Width, topRectangle.Height), topRectangle, color);
+            spriteBatch.Draw(_textureAtlas, new Vector2(Area.Right - topRightRectangle.Width, Area.Top), topRightRectangle, color, 1.0f);
 
-            spriteBatch.Draw(_textureBottomLeft, new Vector2(Area.Left, Area.Bottom - _textureBottomLeft.Height), Color.White * Alpha, 1.0f);
-            spriteBatch.Draw(_textureBottom, new Rectangle(Area.Left + _textureBottomLeft.Width, Area.Bottom - _textureBottom.Height, Area.Width - _textureBottomLeft.Width - _textureBottomRight.Width, _textureBottom.Height), Color.White * Alpha);
-            spriteBatch.Draw(_textureBottomRight, new Vector2(Area.Right - _textureBottomRight.Width, Area.Bottom - _textureBottomRight.Height), Color.White * Alpha, 1.0f);
+            spriteBatch.Draw(_textureAtlas, new Rectangle(Area.Left, Area.Top + topLeftRectangle.Height, topLeftRectangle.Width, Area.Height - topLeftRectangle.Height - bottomLeftRectangle.Height), leftRectangle, color);
+            spriteBatch.Draw(_textureAtlas, new Rectangle(Area.Left + leftRectangle.Width, Area.Top + topRectangle.Height, Area.Width - leftRectangle.Width - rightRectangle.Width, Area.Height - topRectangle.Height - bottomRectangle.Height), backgroundRectangle, color);
+            spriteBatch.Draw(_textureAtlas, new Rectangle(Area.Right - rightRectangle.Width, Area.Top + topRightRectangle.Height, topRightRectangle.Width, Area.Height - topRightRectangle.Height - bottomRightRectangle.Height), rightRectangle, color);
+
+            spriteBatch.Draw(_textureAtlas, new Vector2(Area.Left, Area.Bottom - bottomLeftRectangle.Height), bottomLeftRectangle, color, 1.0f);
+            spriteBatch.Draw(_textureAtlas, new Rectangle(Area.Left + bottomLeftRectangle.Width, Area.Bottom - bottomRectangle.Height, Area.Width - bottomLeftRectangle.Width - bottomRightRectangle.Width, bottomRectangle.Height), bottomRectangle, color);
+            spriteBatch.Draw(_textureAtlas, new Vector2(Area.Right - bottomRightRectangle.Width, Area.Bottom - bottomRightRectangle.Height), bottomRightRectangle, color, 1.0f);
 
             spriteBatch.Draw(_label);
         }

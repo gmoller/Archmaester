@@ -9,8 +9,8 @@ namespace BitmapFonts
 {
     public class BmFont : IFont
     {
-        private readonly ContentManager _content;
-        private readonly string _fontTexture;
+        //private readonly ContentManager _content;
+        private readonly Texture2D _fontTexture;
         private readonly FontFile _fontFile;
         private readonly Dictionary<char, FontChar> _characterMap;
 
@@ -18,8 +18,8 @@ namespace BitmapFonts
 
         public BmFont(string fontTexture, ContentManager content)
         {
-            _content = content;
-            _fontTexture = fontTexture;
+            //_content = content;
+            _fontTexture = content.Load<Texture2D>(fontTexture);
 
             string fontFilePath = $"Content\\{fontTexture}.fnt";
             FontFile fontFile = FontLoader.Load(fontFilePath);
@@ -36,7 +36,7 @@ namespace BitmapFonts
 
         public void Draw(string message, Vector2 pos, Color color, float rotation, Vector2 origin, float scale, SpriteEffects spriteEffects, float layerDepth, SpriteBatch spriteBatch)
         {
-            var texture = _content.Load<Texture2D>(_fontTexture);
+            //var texture = _content.Load<Texture2D>(_fontTexture);
 
             int dx = (int)pos.X;
             int dy = (int)pos.Y;
@@ -55,7 +55,7 @@ namespace BitmapFonts
                         var sourceRectangle = new Rectangle(fc.X, fc.Y, fc.Width, fc.Height);
                         var position = new Vector2(dx + fc.XOffset * scale, dy + fc.YOffset * scale);
 
-                        spriteBatch.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, spriteEffects, layerDepth);
+                        spriteBatch.Draw(_fontTexture, position, sourceRectangle, color, rotation, origin, scale, spriteEffects, layerDepth);
 
                         dx += (int)(fc.XAdvance * scale);
                     }
