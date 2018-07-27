@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 1,
+    "Name": "Dry",
+    "X": 0,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 2,
+    "Name": "Forest",
+    "X": 64,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 3,
+    "Name": "Grass1",
+    "X": 128,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 4,
+    "Name": "Grass2",
+    "X": 192,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 5,
+    "Name": "Sand",
+    "X": 256,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 6,
+    "Name": "Stone",
+    "X": 320,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  },
+  {
+    "Id": 7,
+    "Name": "Swamp",
+    "X": 384,
+    "Y": 0,
+    "Width": 64,
+    "Height": 64
+  }
+]

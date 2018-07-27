@@ -1,4 +1,5 @@
-﻿using GameLogic;
+﻿using System;
+using GameLogic;
 using GameMap;
 using Input;
 using Microsoft.Xna.Framework;
@@ -39,9 +40,49 @@ namespace ArchmaesterMonogameLibrary.GameStates
 
             if (input.IsLeftMouseButtonDown())
             {
-                _mapWindow.CenterOnViewPosition(input.CurrentMouseState.Position);
-                //_mapWindow.MoveMap() // in the direction of a vector from the center of the screen to where the user clicked
+                // determine where mouse pointer is in relation to the center
+                Vector2 v = new Vector2(input.CurrentMouseState.Position.X - _mapWindow.ViewCenter.X, input.CurrentMouseState.Position.Y - _mapWindow.ViewCenter.Y);
+
+                CompassDirection2 dir = GetDirection(v);
+
+                switch (dir)
+                {
+                    case CompassDirection2.North:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X, (int)_mapWindow.ViewCenter.Y - _mapWindow.CellHeight));
+                        break;
+                    case CompassDirection2.NorthEast:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X + _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y - _mapWindow.CellHeight));
+                        break;
+                    case CompassDirection2.East:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X + _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y));
+                        break;
+                    case CompassDirection2.SouthEast:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X + _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y + _mapWindow.CellHeight));
+                        break;
+                    case CompassDirection2.South:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X, (int)_mapWindow.ViewCenter.Y + _mapWindow.CellHeight));
+                        break;
+                    case CompassDirection2.SouthWest:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X - _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y + _mapWindow.CellHeight));
+                        break;
+                    case CompassDirection2.West:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X - _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y));
+                        break;
+                    case CompassDirection2.NorthWest:
+                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X - _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y - _mapWindow.CellHeight));
+                        break;
+                }
             }
+        }
+
+        private CompassDirection2 GetDirection(Vector2 v)
+        {
+            double angle = Math.Atan2(v.X, v.Y);
+            int octant = (int)Math.Round(8 * angle / (2 * Math.PI) + 8) % 8;
+
+            CompassDirection2 dir = (CompassDirection2)octant;
+
+            return dir;
         }
 
         public override void Draw(GameTime gameTime)
@@ -53,6 +94,18 @@ namespace ArchmaesterMonogameLibrary.GameStates
             // draw units
 
             // draw hudoverlay
+        }
+
+        private enum CompassDirection2
+        {
+            South,
+            SouthEast,
+            East,
+            NorthEast,
+            North,
+            NorthWest,
+            West,
+            SouthWest
         }
     }
 }

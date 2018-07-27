@@ -113,6 +113,8 @@
     <None Include="Content\Fonts\menufont.spritefont" />
     <None Include="Content\Fonts\montserrat-32_0.fnt" />
     <None Include="Content\Images\Gui\lite_opaque.json" />
+    <None Include="Content\Images\Tiles\Base\Basic Terrain1.json" />
+    <None Include="Content\Images\Tiles\Base\Basic Terrain2.json" />
     <None Include="Content\Images\Tiles\Base\terrain.json" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +128,8 @@
     <Content Include="Content\Images\blankscroll2.png" />
     <Content Include="Content\Images\cursor.png" />
     <Content Include="Content\Images\Gui\lite_opaque.png" />
+    <Content Include="Content\Images\Tiles\Base\Basic Terrain1.bmp" />
+    <Content Include="Content\Images\Tiles\Base\Basic Terrain2.bmp" />
     <Content Include="Content\Images\Tiles\Base\terrain.png" />
     <Content Include="Content\Sounds\Button_click.wav" />
     <Content Include="MineralTypes.txt">

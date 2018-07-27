@@ -13,15 +13,18 @@ namespace ArchmaesterMonogameLibrary
 {
     public class GameMapView
     {
-        public const int ColumnCellsInView = 16;
-        public const int RowsCellsInView = 9;
+        public const int ColumnCellsInView = 32;
+        public const int RowsCellsInView = 18;
 
         private readonly GameWorld _gameWorld;
         private readonly Rectangle _drawingArea;
         private readonly Camera _camera;
 
+        private readonly ITexture2D[] _terrainTextures;
+
         public int ViewWidth => _drawingArea.Width;
         public int ViewHeight => _drawingArea.Height;
+        public Vector2 ViewCenter => new Vector2(_drawingArea.Width / 2.0f + CellWidth / 2.0f, _drawingArea.Height / 2.0f + CellHeight / 2.0f);
         public int ColumnCellsInWorld => _gameWorld.NumberOfColumns * CellWidth;
         public int RowCellsInWorld => _gameWorld.NumberOfRows * CellHeight;
         public int CellWidth => _drawingArea.Width / ColumnCellsInView; // 100
@@ -33,6 +36,15 @@ namespace ArchmaesterMonogameLibrary
             _drawingArea = drawingArea;
 
             _camera = new Camera(drawingArea, new Rectangle(0, 0, ColumnCellsInWorld, RowCellsInWorld), CellWidth, CellHeight);
+
+            _terrainTextures = new ITexture2D[2];
+            _terrainTextures[0] = AssetsRepository.Instance.GetTexture("Basic Terrain1");
+            _terrainTextures[1] = AssetsRepository.Instance.GetTexture("Basic Terrain2");
+        }
+
+        public void MoveMap(Vector2 direction)
+        {
+            _camera.MoveCamera(direction);
         }
 
         public void CenterOnViewPosition(Point viewPosition)
@@ -116,11 +128,10 @@ namespace ArchmaesterMonogameLibrary
                 // draw cell
                 if (_gameWorld.IsCellVisible(cellLocation))
                 {
-                    //string textureString = GetTextureString(cell.TerrainTypeId);
-                    string textureString = "terrain";
-                    ITexture2D texture = AssetsRepository.Instance.GetTexture(textureString);
-                    Rectangle sourceRectangle = GetAreaOfTextureToDraw(cell.TerrainTypeId);
-                    spriteBatch.Draw(texture, rectangle, sourceRectangle, Color.White);
+                    Point tile = GetTile(cell.TerrainTypeId);
+                    Rectangle sourceRectangle = _terrainTextures[tile.X].Frames[tile.Y].Rectangle;
+
+                    spriteBatch.Draw(_terrainTextures[tile.X], rectangle, sourceRectangle, Color.White);
                 }
                 else
                 {
@@ -132,43 +143,22 @@ namespace ArchmaesterMonogameLibrary
             }
         }
 
-        private Rectangle GetAreaOfTextureToDraw(int terrainTypeId)
+        private Point GetTile(int terrainTypeId)
         {
             switch (terrainTypeId)
             {
                 case 0: // plains
-                    return new Rectangle(0, 0, 64, 64);
+                    return new Point(1, 3);
                 case 1: // forest
-                    return new Rectangle(128, 0, 64, 64);
+                    return new Point(0, 1);
                 case 6: // hills
-                    return new Rectangle(64, 0, 64, 64);
+                    return new Point(1, 0);
                 case 7: // mountains
-                    return new Rectangle(192, 0, 64, 64);
+                    return new Point(0, 5);
                 case 11: // ocean
-                    return new Rectangle(0, 64, 64, 64); ;
+                    return new Point(1, 5);
                 default:
                     throw new Exception($"Terrain texture [{terrainTypeId}] not found!");
-            }
-        }
-
-        private string GetTextureString(int terrainTypeId)
-        {
-            // TODO: get this from the TerrainTypes file!
-            switch (terrainTypeId)
-            {
-                case 0:
-                    return "plains_1";
-                case 1:
-                    return "conifer_forest_inner";
-                case 6:
-                    return "hills_inner_1";
-                case 7:
-                    return "mountains_inner";
-                case 11:
-                    return "ocean_inner";
-                default:
-                    throw new Exception($"Terrain texture [{terrainTypeId}] not found!");
-
             }
         }
 

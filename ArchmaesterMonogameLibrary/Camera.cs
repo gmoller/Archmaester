@@ -32,6 +32,23 @@ namespace ArchmaesterMonogameLibrary
             _viewCenterCell = new Point(numberOfColumnsInView / 2, numberOfRowsInView / 2);
         }
 
+        public void MoveCamera(Vector2 direction)
+        {
+            float left = VisibleRectangle.Left + direction.X;
+            float top = VisibleRectangle.Top + direction.Y;
+
+            // clip to bounds
+            left = Math.Max(0, left);
+            top = Math.Max(0, top);
+
+            left = Math.Min(left, _world.Right - VisibleRectangle.Width);
+            top = Math.Min(top, _world.Bottom - VisibleRectangle.Height);
+
+            var view = new Rectangle((int)left, (int)top, VisibleRectangle.Width, VisibleRectangle.Height);
+
+            VisibleRectangle = view;
+        }
+
         public void CenterOnWorldCell(Point worldCell)
         {
             int left = (worldCell.X - _viewCenterCell.X) * _cellWidth;

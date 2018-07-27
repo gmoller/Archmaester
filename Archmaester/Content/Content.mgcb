@@ -144,3 +144,33 @@
 #begin Images/Tiles/Base/terrain.json
 /copy:Images/Tiles/Base/terrain.json
 
+#begin Images/Tiles/Base/Basic Terrain1.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Tiles/Base/Basic Terrain1.bmp
+
+#begin Images/Tiles/Base/Basic Terrain1.json
+/copy:Images/Tiles/Base/Basic Terrain1.json
+
+#begin Images/Tiles/Base/Basic Terrain2.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Tiles/Base/Basic Terrain2.bmp
+
+#begin Images/Tiles/Base/Basic Terrain2.json
+/copy:Images/Tiles/Base/Basic Terrain2.json
+

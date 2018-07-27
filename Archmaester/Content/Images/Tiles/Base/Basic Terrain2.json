@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 1,
+    "Name": "DarkSand",
+    "X": 0,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 2,
+    "Name": "Desert1",
+    "X": 64,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 3,
+    "Name": "Desert2",
+    "X": 128,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 4,
+    "Name": "Grass",
+    "X": 192,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 5,
+    "Name": "LightSand",
+    "X": 256,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 6,
+    "Name": "Ocean",
+    "X": 320,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 7,
+    "Name": "Stone",
+    "X": 384,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  }
+]
