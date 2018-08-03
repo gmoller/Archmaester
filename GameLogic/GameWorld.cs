@@ -103,7 +103,59 @@ namespace GameLogic
             return GameBoard.GetCell(location);
         }
 
-        internal List<Point2> GetCellNeighbors(Point2 location)
+        public Cell GetNeighboringCell(Point2 cellLocation, CompassDirection direction)
+        {
+            Point2 p;
+            switch (direction)
+            {
+                case CompassDirection.North:
+                    p = Point2.Create(cellLocation.X, cellLocation.Y - 1);
+                    break;
+                case CompassDirection.NorthEast:
+                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y - 1);
+                    break;
+                case CompassDirection.East:
+                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y);
+                    break;
+                case CompassDirection.SouthEast:
+                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y + 1);
+                    break;
+                case CompassDirection.South:
+                    p = Point2.Create(cellLocation.X, cellLocation.Y + 1);
+                    break;
+                case CompassDirection.SouthWest:
+                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y + 1);
+                    break;
+                case CompassDirection.West:
+                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y);
+                    break;
+                case CompassDirection.NorthWest:
+                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y - 1);
+                    break;
+                default:
+                    p = Point2.Null;
+                    break;
+            }
+
+            return GetCell(p);
+        }
+
+        public List<Cell> GetNeighboringCells(Point2 cellLocation)
+        {
+            List<Cell> cells = new List<Cell>();
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.North));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.NorthEast));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.East));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.SouthEast));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.South));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.SouthWest));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.West));
+            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.NorthWest));
+
+            return cells;
+        }
+
+        public List<Point2> GetCellNeighbors(Point2 location)
         {
             return GameBoard.GetCellNeighbors(location);
         }

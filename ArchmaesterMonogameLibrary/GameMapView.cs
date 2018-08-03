@@ -8,6 +8,8 @@ using Textures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Primitives2D;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ArchmaesterMonogameLibrary
 {
@@ -21,6 +23,7 @@ namespace ArchmaesterMonogameLibrary
         private readonly Camera _camera;
 
         private readonly ITexture2D[] _terrainTextures;
+        private readonly Overlay _overlay;
 
         public int ViewWidth => _drawingArea.Width;
         public int ViewHeight => _drawingArea.Height;
@@ -37,9 +40,12 @@ namespace ArchmaesterMonogameLibrary
 
             _camera = new Camera(drawingArea, new Rectangle(0, 0, ColumnCellsInWorld, RowCellsInWorld), CellWidth, CellHeight);
 
-            _terrainTextures = new ITexture2D[2];
+            _terrainTextures = new ITexture2D[3];
             _terrainTextures[0] = AssetsRepository.Instance.GetTexture("Basic Terrain1");
             _terrainTextures[1] = AssetsRepository.Instance.GetTexture("Basic Terrain2");
+            _terrainTextures[2] = AssetsRepository.Instance.GetTexture("Grass_Ocean_Alpha");
+
+            _overlay = new Overlay();
         }
 
         public void MoveMap(Vector2 direction)
@@ -132,6 +138,7 @@ namespace ArchmaesterMonogameLibrary
                     Rectangle sourceRectangle = _terrainTextures[tile.X].Frames[tile.Y].Rectangle;
 
                     spriteBatch.Draw(_terrainTextures[tile.X], rectangle, sourceRectangle, Color.White);
+                    DrawOverlays(cell, cellLocation, rectangle, spriteBatch);
                 }
                 else
                 {
@@ -160,6 +167,15 @@ namespace ArchmaesterMonogameLibrary
                 default:
                     throw new Exception($"Terrain texture [{terrainTypeId}] not found!");
             }
+        }
+
+        private void DrawOverlays(Cell cell, Point2 cellLocation, Rectangle rectangle, SpriteBatch spriteBatch)
+        {
+            List<Cell> neighbors = _gameWorld.GetNeighboringCells(cellLocation);
+
+            Color color = Color.White;
+
+            _overlay.DrawFrame(cell.TerrainTypeId, neighbors, rectangle, _terrainTextures[2], spriteBatch);
         }
 
         private void DrawMarkers(SpriteBatch spriteBatch)

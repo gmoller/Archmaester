@@ -174,3 +174,18 @@
 #begin Images/Tiles/Base/Basic Terrain2.json
 /copy:Images/Tiles/Base/Basic Terrain2.json
 
+#begin Images/Tiles/Overlay/Grass_Ocean_Alpha.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Tiles/Overlay/Grass_Ocean_Alpha.bmp
+
+#begin Images/Tiles/Overlay/Grass_Ocean_Alpha.json
+/copy:Images/Tiles/Overlay/Grass_Ocean_Alpha.json
+

@@ -8,7 +8,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
 {
     public class OverlandState : GameState
     {
-        private GameMapView _mapWindow;
+        private GameMapView _gameMapView;
 
         public OverlandState(Game game) : base("Overland", 1.0f, true, game)
         {
@@ -26,7 +26,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
             player.StartTurn();
             Globals.Instance.GameWorld.SetPlayer(player);
 
-            _mapWindow = new GameMapView(Globals.Instance.GameWorld, new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height));
+            _gameMapView = new GameMapView(Globals.Instance.GameWorld, new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height));
 
             // TODO: move mouse cursor to middle tile to stop annoying auto-scrolling after clicking the start button.
         }
@@ -35,41 +35,41 @@ namespace ArchmaesterMonogameLibrary.GameStates
         {
             if (input.IsRightMouseButtonPressed())
             {
-                _mapWindow.CenterOnViewPosition(input.CurrentMouseState.Position);
+                _gameMapView.CenterOnViewPosition(input.CurrentMouseState.Position);
             }
 
             if (input.IsLeftMouseButtonDown())
             {
                 // determine where mouse pointer is in relation to the center
-                Vector2 v = new Vector2(input.CurrentMouseState.Position.X - _mapWindow.ViewCenter.X, input.CurrentMouseState.Position.Y - _mapWindow.ViewCenter.Y);
+                Vector2 v = new Vector2(input.CurrentMouseState.Position.X - _gameMapView.ViewCenter.X, input.CurrentMouseState.Position.Y - _gameMapView.ViewCenter.Y);
 
                 CompassDirection2 dir = GetDirection(v);
 
                 switch (dir)
                 {
                     case CompassDirection2.North:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X, (int)_mapWindow.ViewCenter.Y - _mapWindow.CellHeight));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X, (int)_gameMapView.ViewCenter.Y - _gameMapView.CellHeight));
                         break;
                     case CompassDirection2.NorthEast:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X + _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y - _mapWindow.CellHeight));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X + _gameMapView.CellWidth, (int)_gameMapView.ViewCenter.Y - _gameMapView.CellHeight));
                         break;
                     case CompassDirection2.East:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X + _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X + _gameMapView.CellWidth, (int)_gameMapView.ViewCenter.Y));
                         break;
                     case CompassDirection2.SouthEast:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X + _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y + _mapWindow.CellHeight));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X + _gameMapView.CellWidth, (int)_gameMapView.ViewCenter.Y + _gameMapView.CellHeight));
                         break;
                     case CompassDirection2.South:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X, (int)_mapWindow.ViewCenter.Y + _mapWindow.CellHeight));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X, (int)_gameMapView.ViewCenter.Y + _gameMapView.CellHeight));
                         break;
                     case CompassDirection2.SouthWest:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X - _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y + _mapWindow.CellHeight));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X - _gameMapView.CellWidth, (int)_gameMapView.ViewCenter.Y + _gameMapView.CellHeight));
                         break;
                     case CompassDirection2.West:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X - _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X - _gameMapView.CellWidth, (int)_gameMapView.ViewCenter.Y));
                         break;
                     case CompassDirection2.NorthWest:
-                        _mapWindow.CenterOnViewPosition(new Point((int)_mapWindow.ViewCenter.X - _mapWindow.CellWidth, (int)_mapWindow.ViewCenter.Y - _mapWindow.CellHeight));
+                        _gameMapView.CenterOnViewPosition(new Point((int)_gameMapView.ViewCenter.X - _gameMapView.CellWidth, (int)_gameMapView.ViewCenter.Y - _gameMapView.CellHeight));
                         break;
                 }
             }
@@ -88,7 +88,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
         public override void Draw(GameTime gameTime)
         {
             // draw board
-            _mapWindow.Draw(SpriteBatch);
+            _gameMapView.Draw(SpriteBatch);
 
             // draw settlememts
             // draw units

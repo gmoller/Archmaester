@@ -116,6 +116,7 @@
     <None Include="Content\Images\Tiles\Base\Basic Terrain1.json" />
     <None Include="Content\Images\Tiles\Base\Basic Terrain2.json" />
     <None Include="Content\Images\Tiles\Base\terrain.json" />
+    <None Include="Content\Images\Tiles\Overlay\Grass_Ocean_Alpha.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BuildingTypes.txt">
@@ -131,6 +132,7 @@
     <Content Include="Content\Images\Tiles\Base\Basic Terrain1.bmp" />
     <Content Include="Content\Images\Tiles\Base\Basic Terrain2.bmp" />
     <Content Include="Content\Images\Tiles\Base\terrain.png" />
+    <Content Include="Content\Images\Tiles\Overlay\Grass_Ocean_Alpha.bmp" />
     <Content Include="Content\Sounds\Button_click.wav" />
     <Content Include="MineralTypes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

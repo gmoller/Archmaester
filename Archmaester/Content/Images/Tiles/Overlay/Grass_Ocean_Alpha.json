@@ -1,0 +1,178 @@
+[
+  {
+    "Id": 1,
+    "Name": "E_Grass_Alpha_1",
+    "X": 0,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 2,
+    "Name": "NE_Grass_Alpha_1",
+    "X": 64,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 3,
+    "Name": "NE_Grass_Alpha_2",
+    "X": 128,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 4,
+    "Name": "NE_Grass_Alpha_3",
+    "X": 192,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 5,
+    "Name": "NW_Grass_Alpha_1",
+    "X": 256,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 6,
+    "Name": "NW_Grass_Alpha_2",
+    "X": 320,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 7,
+    "Name": "NW_Grass_Alpha_3",
+    "X": 384,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 8,
+    "Name": "N_Grass_Alpha_1",
+    "X": 448,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 9,
+    "Name": "N_Grass_Alpha_2",
+    "X": 512,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 10,
+    "Name": "N_Grass_Alpha_3",
+    "X": 576,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 11,
+    "Name": "N_Grass_Alpha_4",
+    "X": 640,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 12,
+    "Name": "SE_Grass_Alpha_1",
+    "X": 704,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 13,
+    "Name": "SE_Grass_Alpha_2",
+    "X": 768,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 14,
+    "Name": "SE_Grass_Alpha_3",
+    "X": 832,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 15,
+    "Name": "SW_Grass_Alpha_1",
+    "X": 896,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 16,
+    "Name": "SW_Grass_Alpha_2",
+    "X": 960,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 17,
+    "Name": "SW_Grass_Alpha_3",
+    "X": 1024,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 18,
+    "Name": "S_Grass_Alpha_2",
+    "X": 1088,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 19,
+    "Name": "S_Grass_Alpha_3",
+    "X": 1152,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 20,
+    "Name": "S_Grass_Alpha_4",
+    "X": 1216,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 21,
+    "Name": "S_Grass_Alpha_5",
+    "X": 1280,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  },
+  {
+    "Id": 22,
+    "Name": "W_Grass_Alpha_1",
+    "X": 1344,
+    "Y": 0,
+    "Width": 64,
+    "Height": 48
+  }
+]
