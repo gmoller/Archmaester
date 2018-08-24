@@ -64,7 +64,10 @@ namespace GameLogic
         {
             if (key == Key.Enter)
             {
-                _player.EndTurn();
+                if (!_player.SelectedUnit.Equals(Unit.Null))
+                {
+                    _player.EndTurn();
+                }
                 return;
             }
 
@@ -86,6 +89,14 @@ namespace GameLogic
         public void StartTurnForPlayer()
         {
             _player.StartTurn();
+        }
+
+        public void EndTurnForPlayer()
+        {
+            if (!_player.SelectedUnit.Equals(Unit.Null))
+            {
+                _player.EndTurn();
+            }
         }
 
         public void DoTurnForPlayer2()

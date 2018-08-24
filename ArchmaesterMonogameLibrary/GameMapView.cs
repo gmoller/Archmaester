@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Primitives2D;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Input;
 
 namespace ArchmaesterMonogameLibrary
 {
@@ -24,16 +24,17 @@ namespace ArchmaesterMonogameLibrary
 
         private readonly ITexture2D[] _terrainTextures;
         private readonly Overlay _overlay;
+        private Hud _hud;
 
         public int ViewWidth => _drawingArea.Width;
         public int ViewHeight => _drawingArea.Height;
         public Vector2 ViewCenter => new Vector2(_drawingArea.Width / 2.0f + CellWidth / 2.0f, _drawingArea.Height / 2.0f + CellHeight / 2.0f);
         public int ColumnCellsInWorld => _gameWorld.NumberOfColumns * CellWidth;
         public int RowCellsInWorld => _gameWorld.NumberOfRows * CellHeight;
-        public int CellWidth => _drawingArea.Width / ColumnCellsInView; // 100
-        public int CellHeight => _drawingArea.Height / RowsCellsInView; // 100
+        public int CellWidth => _drawingArea.Width / ColumnCellsInView;
+        public int CellHeight => _drawingArea.Height / RowsCellsInView;
 
-        public GameMapView(GameWorld gameWorld, Rectangle drawingArea)
+        public GameMapView(GameWorld gameWorld, Rectangle drawingArea, Hud hud)
         {
             _gameWorld = gameWorld;
             _drawingArea = drawingArea;
@@ -46,14 +47,71 @@ namespace ArchmaesterMonogameLibrary
             _terrainTextures[2] = AssetsRepository.Instance.GetTexture("Grass_Ocean_Alpha");
 
             _overlay = new Overlay();
+            _hud = hud;
         }
 
-        public void MoveMap(Vector2 direction)
+        public void Update(InputState input, GameTime gameTime)
         {
-            _camera.MoveCamera(direction);
+            if (!_hud.MouseOver(input))
+            {
+                if (input.IsLeftMouseButtonDown())
+                {
+                    // determine where mouse pointer is in relation to the center
+                    Vector2 direction = new Vector2(input.CurrentMouseState.Position.X - ViewCenter.X, input.CurrentMouseState.Position.Y - ViewCenter.Y);
+                    MoveMapOneTile(direction);
+                }
+
+                if (input.IsRightMouseButtonPressed())
+                {
+                    CenterOnViewPosition(input.CurrentMouseState.Position);
+                }
+            }
         }
 
-        public void CenterOnViewPosition(Point viewPosition)
+        private CompassDirection2 GetDirection(Vector2 v)
+        {
+            double angle = Math.Atan2(v.X, v.Y);
+            int octant = (int)Math.Round(8 * angle / (2 * Math.PI) + 8) % 8;
+
+            CompassDirection2 dir = (CompassDirection2)octant;
+
+            return dir;
+        }
+
+        private void MoveMapOneTile(Vector2 direction)
+        {
+            CompassDirection2 dir = GetDirection(direction);
+
+            switch (dir)
+            {
+                case CompassDirection2.North:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X, (int)ViewCenter.Y - CellHeight));
+                    break;
+                case CompassDirection2.NorthEast:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X + CellWidth, (int)ViewCenter.Y - CellHeight));
+                    break;
+                case CompassDirection2.East:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X + CellWidth, (int)ViewCenter.Y));
+                    break;
+                case CompassDirection2.SouthEast:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X + CellWidth, (int)ViewCenter.Y + CellHeight));
+                    break;
+                case CompassDirection2.South:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X, (int)ViewCenter.Y + CellHeight));
+                    break;
+                case CompassDirection2.SouthWest:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X - CellWidth, (int)ViewCenter.Y + CellHeight));
+                    break;
+                case CompassDirection2.West:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X - CellWidth, (int)ViewCenter.Y));
+                    break;
+                case CompassDirection2.NorthWest:
+                    CenterOnViewPosition(new Point((int)ViewCenter.X - CellWidth, (int)ViewCenter.Y - CellHeight));
+                    break;
+            }
+        }
+
+        private void CenterOnViewPosition(Point viewPosition)
         {
             Point viewCell = GetViewCell(viewPosition);
             Point worldCell = GetWorldCell(viewCell);
@@ -128,7 +186,7 @@ namespace ArchmaesterMonogameLibrary
             {
                 var rectangle = new Rectangle(screenX, screenY, CellWidth, CellHeight);
 
-                // which cell are we drawing
+                // which cell are we drawing?
                 Cell cell = _gameWorld.GetCell(cellLocation);
 
                 // draw cell
@@ -186,6 +244,18 @@ namespace ArchmaesterMonogameLibrary
             spriteBatch.DrawCircle((ColumnCellsInView / 2) * CellWidth + radius, (RowsCellsInView / 2) * CellHeight + radius, radius, 50, Color.DeepPink); // Center
             spriteBatch.DrawCircle(0 * CellWidth + radius, (RowsCellsInView - 1) * CellHeight + radius, radius, 50, Color.DeepPink);
             spriteBatch.DrawCircle((ColumnCellsInView - 1) * CellWidth + radius, (RowsCellsInView - 1) * CellHeight + radius, radius, 50, Color.DeepPink);
+        }
+
+        private enum CompassDirection2
+        {
+            South,
+            SouthEast,
+            East,
+            NorthEast,
+            North,
+            NorthWest,
+            West,
+            SouthWest
         }
     }
 }

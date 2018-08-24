@@ -79,13 +79,14 @@ namespace GameLogic
             }
 
             _units = units;
-            _selectedUnitIndex = 0;
+            if (units.Count > 0)
+            {
+                _selectedUnitIndex = 0;
+            }
         }
 
         public void EndTurn()
         {
-            if (_selectedUnitIndex >= 0) return;
-
             // each settlement must have its residents increased and build stuff
             foreach (Settlement item in _settlements)
             {

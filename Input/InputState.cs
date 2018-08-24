@@ -133,59 +133,6 @@ namespace Input
             return false;
         }
 
-        /// <summary>
-        /// Checks for a "menu select" input action.
-        /// The controllingPlayer parameter specifies which player to read input for.
-        /// If this is null, it will accept input from any player. When the action
-        /// is detected, the output playerIndex reports which player pressed it.
-        /// </summary>
-        public bool IsMenuSelect()
-        {
-            return IsNewKeyPress(Keys.Space) ||
-                   IsNewKeyPress(Keys.Enter);
-        }
-
-        /// <summary>
-        /// Checks for a "menu cancel" input action.
-        /// The controllingPlayer parameter specifies which player to read input for.
-        /// If this is null, it will accept input from any player. When the action
-        /// is detected, the output playerIndex reports which player pressed it.
-        /// </summary>
-        public bool IsMenuCancel()
-        {
-            return IsNewKeyPress(Keys.Escape);
-        }
-
-        /// <summary>
-        /// Checks for a "menu up" input action.
-        /// The controllingPlayer parameter specifies which player to read
-        /// input for. If this is null, it will accept input from any player.
-        /// </summary>
-        public bool IsMenuUp()
-        {
-            return IsNewKeyPress(Keys.Up);
-        }
-
-        /// <summary>
-        /// Checks for a "menu down" input action.
-        /// The controllingPlayer parameter specifies which player to read
-        /// input for. If this is null, it will accept input from any player.
-        /// </summary>
-        public bool IsMenuDown()
-        {
-            return IsNewKeyPress(Keys.Down);
-        }
-
-        /// <summary>
-        /// Checks for a "pause the game" input action.
-        /// The controllingPlayer parameter specifies which player to read
-        /// input for. If this is null, it will accept input from any player.
-        /// </summary>
-        public bool IsPauseGame()
-        {
-            return IsNewKeyPress(Keys.Escape);
-        }
-
         #endregion
     }
 }
