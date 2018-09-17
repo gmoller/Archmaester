@@ -1,10 +1,9 @@
 ﻿using BitmapFonts;
-using Common;
+using GeneralUtilities;
 using Input;
 using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Primitives2D;
 
 namespace GuiControls
 {

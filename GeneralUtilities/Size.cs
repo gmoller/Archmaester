@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common
+namespace GeneralUtilities
 {
     /// <summary>
     ///     A two dimensional size defined by two integral numbers, a width and a height.

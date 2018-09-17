@@ -1,5 +1,4 @@
 ﻿using System;
-using Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Input;
@@ -7,6 +6,7 @@ using Interfaces;
 using Textures;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using GeneralUtilities;
 
 namespace GuiControls
 {

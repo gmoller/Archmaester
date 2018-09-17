@@ -43,10 +43,6 @@
     <Compile Include="StateManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{57426CD6-FF61-4700-9ED8-A1299AB80A38}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Input\Input.csproj">
       <Project>{42a8c522-c4a0-4d06-8c33-a115a64ee9df}</Project>
       <Name>Input</Name>

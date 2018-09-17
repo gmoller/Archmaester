@@ -43,7 +43,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="FrameRateCounter.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,26 +150,6 @@
     <ProjectReference Include="..\ArchmaesterMonogameLibrary\ArchmaesterMonogameLibrary.csproj">
       <Project>{18e22b61-1c46-4086-95ee-41985a34fefc}</Project>
       <Name>ArchmaesterMonogameLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BitmapFonts\BitmapFonts.csproj">
-      <Project>{a56b8095-bd97-476d-a221-9648c34763ac}</Project>
-      <Name>BitmapFonts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{57426cd6-ff61-4700-9ed8-a1299ab80a38}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameState\GameState.csproj">
-      <Project>{3428c325-4ecd-416b-ade8-7c7a937a4ccd}</Project>
-      <Name>GameState</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
-      <Project>{13e46164-03c9-490a-9e87-84d0026e874f}</Project>
-      <Name>Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Textures\Textures.csproj">
-      <Project>{F1C1B1DB-B61E-4395-8E99-C8D8E6F90981}</Project>
-      <Name>Textures</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

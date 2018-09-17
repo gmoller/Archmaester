@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Interfaces;
 
-namespace Common
+namespace Textures
 {
     public sealed class AssetsRepository
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Common;
 using GameLogic;
 using GameMap;
 using GeneralUtilities;
@@ -24,7 +23,7 @@ namespace ArchmaesterMonogameLibrary
 
         private readonly ITexture2D[] _terrainTextures;
         private readonly Overlay _overlay;
-        private Hud _hud;
+        private readonly Hud _hud;
 
         public int ViewWidth => _drawingArea.Width;
         public int ViewHeight => _drawingArea.Height;

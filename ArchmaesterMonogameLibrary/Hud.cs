@@ -1,17 +1,18 @@
-﻿using Common;
-using GameLogic;
+﻿using GameLogic;
 using GuiControls;
 using Input;
 using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using GeneralUtilities;
+using Textures;
 
 namespace ArchmaesterMonogameLibrary
 {
     public class Hud
     {
-        private Game _game;
+        private readonly Game _game;
         private object _border;
         private Button _nextTurnButton;
 

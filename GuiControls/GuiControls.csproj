@@ -49,9 +49,9 @@
       <Project>{a56b8095-bd97-476d-a221-9648c34763ac}</Project>
       <Name>BitmapFonts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{57426cd6-ff61-4700-9ed8-a1299ab80a38}</Project>
-      <Name>Common</Name>
+    <ProjectReference Include="..\GeneralUtilities\GeneralUtilities.csproj">
+      <Project>{52DAE17E-3240-4B33-A875-A9FE73E208C5}</Project>
+      <Name>GeneralUtilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Input\Input.csproj">
       <Project>{42a8c522-c4a0-4d06-8c33-a115a64ee9df}</Project>

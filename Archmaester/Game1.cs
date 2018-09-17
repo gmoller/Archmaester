@@ -1,5 +1,4 @@
-﻿using ArchmaesterMonogameLibrary.GameStates;
-using GameState;
+﻿using ArchmaesterMonogameLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,7 +11,7 @@ namespace Archmaester
     {
         private SpriteBatch _spriteBatch;
 
-        private FrameRateCounter _fps;
+        private God _god;
 
         private GraphicsDeviceManager _graphics;
 
@@ -34,17 +33,8 @@ namespace Archmaester
         /// </summary>
         protected override void Initialize()
         {
-            StateManager.Instance.AddState(new LoadingState(this));
-            StateManager.Instance.AddState(new MainMenuState(this));
-            StateManager.Instance.AddState(new OverlandState(this));
-            StateManager.Instance.AddState(new CityscapeState(this));
-            StateManager.Instance.AddState(new BattlescapeState(this));
-            StateManager.Instance.AddState(new LoadGameState(this));
-            StateManager.Instance.AddState(new NewGameState(this));
-            StateManager.Instance.AddState(new HallOfFameState(this));
-            StateManager.Instance.AddState(new ExitState(this));
-
-            _fps = new FrameRateCounter();
+            _god = new God();
+            _god.Initialize(this);
 
             base.Initialize();
         }
@@ -56,7 +46,7 @@ namespace Archmaester
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            StateManager.Instance.SpriteBatch = _spriteBatch;
+            _god.LoadContent(_spriteBatch);
         }
 
         /// <summary>
@@ -74,8 +64,7 @@ namespace Archmaester
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            StateManager.Instance.Update(gameTime);
-            _fps.Update(gameTime);
+            _god.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -88,8 +77,7 @@ namespace Archmaester
         {
             GraphicsDevice.Clear(Color.Black);
 
-            StateManager.Instance.Draw(gameTime);
-            _fps.Draw(gameTime);
+            _god.Draw(gameTime);
 
             base.Draw(gameTime);
         }

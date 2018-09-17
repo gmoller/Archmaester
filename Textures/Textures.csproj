@@ -37,6 +37,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetsRepository.cs" />
     <Compile Include="SpriteBatchExtensions.cs" />
     <Compile Include="Texture2DWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

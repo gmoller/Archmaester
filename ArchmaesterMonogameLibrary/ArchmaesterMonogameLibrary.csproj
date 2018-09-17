@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BlankScroll.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="FrameRateCounter.cs" />
     <Compile Include="GameMapView.cs" />
     <Compile Include="GameStates\BattlescapeState.cs" />
     <Compile Include="GameStates\CityscapeState.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="GameStates\LoadingState.cs" />
     <Compile Include="GameStates\NewGameState.cs" />
     <Compile Include="GameStates\OverlandState.cs" />
+    <Compile Include="God.cs" />
     <Compile Include="Hud.cs" />
     <Compile Include="Overlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,10 +64,6 @@
     <ProjectReference Include="..\BitmapFonts\BitmapFonts.csproj">
       <Project>{a56b8095-bd97-476d-a221-9648c34763ac}</Project>
       <Name>BitmapFonts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{57426cd6-ff61-4700-9ed8-a1299ab80a38}</Project>
-      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameLogic\GameLogic.csproj">
       <Project>{1364bc83-91e5-47b7-8e43-4346ff978fc0}</Project>

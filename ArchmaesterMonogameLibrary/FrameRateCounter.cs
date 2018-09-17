@@ -1,11 +1,11 @@
 ﻿using System;
 using BitmapFonts;
-using Common;
 using GameState;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Textures;
 
-namespace Archmaester
+namespace ArchmaesterMonogameLibrary
 {
     public class FrameRateCounter
     {
