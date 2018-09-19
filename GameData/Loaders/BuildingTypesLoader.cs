@@ -1,34 +1,48 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using GeneralUtilities;
 
 namespace GameData.Loaders
 {
     public static class BuildingTypesLoader
     {
+        //public static BuildingTypes GetBuildingTypes()
+        //{
+        //    var buildingTypes = new List<BuildingType>();
+
+        //    IEnumerable<string> lines = File.ReadLines("BuildingTypes.txt");
+
+        //    foreach (string line in lines)
+        //    {
+        //        if (line.StartsWith("--")) continue;
+        //        string[] splitLine = line.Split(',');
+        //        int id = splitLine[0].ToInt32();
+        //        string name = splitLine[1];
+        //        float constructionCost = splitLine[2].ToFloat();
+        //        float upkeepGold = splitLine[3].ToFloat();
+        //        float upkeepMana = splitLine[4].ToFloat();
+        //        float foodProduced = splitLine[5].ToFloat();
+        //        float growthRateIncrease = splitLine[6].ToFloat();
+        //        List<int> dependentBuildings = GetDependentBuildings(splitLine[7]);
+        //        List<int> races = GetRaces(splitLine[8]);
+
+        //        BuildingType buildingType = BuildingType.Create(id, name, constructionCost, 0.0f, upkeepGold, upkeepMana, foodProduced, growthRateIncrease, dependentBuildings, races);
+        //        buildingTypes.Add(buildingType);
+        //    }
+
+        //    return BuildingTypes.Create(buildingTypes);
+        //}
+
         public static BuildingTypes GetBuildingTypes()
         {
-            var buildingTypes = new List<BuildingType>();
-
-            IEnumerable<string> lines = File.ReadLines("BuildingTypes.txt");
-
-            foreach (string line in lines)
+            var buildingTypes = new List<BuildingType>
             {
-                if (line.StartsWith("--")) continue;
-                string[] splitLine = line.Split(',');
-                int id = splitLine[0].ToInt32();
-                string name = splitLine[1];
-                float constructionCost = splitLine[2].ToFloat();
-                float upkeepGold = splitLine[3].ToFloat();
-                float upkeepMana = splitLine[4].ToFloat();
-                float foodProduced = splitLine[5].ToFloat();
-                float growthRateIncrease = splitLine[6].ToFloat();
-                List<int> dependentBuildings = GetDependentBuildings(splitLine[7]);
-                List<int> races = GetRaces(splitLine[8]);
-
-                BuildingType buildingType = BuildingType.Create(id, name, constructionCost, 0.0f, upkeepGold, upkeepMana, foodProduced, growthRateIncrease, dependentBuildings, races);
-                buildingTypes.Add(buildingType);
-            }
+                BuildingType.Create(0, "Barracks", 30.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, GetDependentBuildings("none"), GetRaces("all")),
+                BuildingType.Create(1, "Smithy", 40.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, GetDependentBuildings("none"), GetRaces("all")),
+                BuildingType.Create(2, "Builders Hall", 60.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, GetDependentBuildings("none"), GetRaces("all")),
+                BuildingType.Create(3, "Armory", 80.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, GetDependentBuildings("1"), GetRaces("all")),
+                BuildingType.Create(4, "Fighters Guild", 200.0f, 0.0f, 3.0f, 0.0f, 0.0f, 0.0f, GetDependentBuildings("3"), GetRaces("all")),
+                BuildingType.Create(5, "Armorers Guild", 350.0f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, GetDependentBuildings("4"), GetRaces("allexcept:5;6"))
+            };
 
             return BuildingTypes.Create(buildingTypes);
         }
