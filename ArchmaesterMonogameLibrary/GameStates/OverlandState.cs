@@ -1,5 +1,4 @@
 ﻿using GameLogic;
-using GameMap;
 using Input;
 using Microsoft.Xna.Framework;
 
@@ -17,9 +16,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
         public override void Initialize()
         {
             // setup map/board
-            int[,] terrain = MapGenerator.Generate(200, 160);
-            GameBoard testMap = GameBoard.Create(1, terrain, true);
-            Globals.Instance.GameWorld.SetGameBoard(testMap);
+            Globals.Instance.GameWorld.CreateGameBoard(200, 160);
 
             // setup players
             var player = new Player();

@@ -1,6 +1,5 @@
 ﻿using System;
 using GameLogic;
-using GameMap;
 using GeneralUtilities;
 using Interfaces;
 using Textures;
@@ -151,7 +150,7 @@ namespace ArchmaesterMonogameLibrary
         {
             spriteBatch.Begin();
 
-            for (int rowIndex = 0; rowIndex < _gameWorld.GameBoard.NumberOfRows; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _gameWorld.NumberOfRows; ++rowIndex)
             {
                 DrawRow(rowIndex, spriteBatch);
             }
@@ -163,7 +162,7 @@ namespace ArchmaesterMonogameLibrary
 
         private void DrawRow(int rowIndex, SpriteBatch spriteBatch)
         {
-            for (int colIndex = 0; colIndex < _gameWorld.GameBoard.NumberOfColumns; ++colIndex)
+            for (int colIndex = 0; colIndex < _gameWorld.NumberOfColumns; ++colIndex)
             {
                 Point2 cellLocation = Point2.Create(colIndex, rowIndex);
                 DrawColumn(cellLocation, spriteBatch);
@@ -185,17 +184,17 @@ namespace ArchmaesterMonogameLibrary
             {
                 var rectangle = new Rectangle(screenX, screenY, CellWidth, CellHeight);
 
-                // which cell are we drawing?
-                Cell cell = _gameWorld.GetCell(cellLocation);
+                // which terrain are we drawing?
+                int terrainTypeId = _gameWorld.GetTerrainTypeIdOfCell(cellLocation);
 
                 // draw cell
                 if (_gameWorld.IsCellVisible(cellLocation))
                 {
-                    Point tile = GetTile(cell.TerrainTypeId);
+                    Point tile = GetTile(terrainTypeId);
                     Rectangle sourceRectangle = _terrainTextures[tile.X].Frames[tile.Y].Rectangle;
 
                     spriteBatch.Draw(_terrainTextures[tile.X], rectangle, sourceRectangle, Color.White);
-                    DrawOverlays(cell, cellLocation, rectangle, spriteBatch);
+                    DrawOverlays(terrainTypeId, cellLocation, rectangle, spriteBatch);
                 }
                 else
                 {
@@ -226,13 +225,10 @@ namespace ArchmaesterMonogameLibrary
             }
         }
 
-        private void DrawOverlays(Cell cell, Point2 cellLocation, Rectangle rectangle, SpriteBatch spriteBatch)
+        private void DrawOverlays(int terrainTypeId, Point2 cellLocation, Rectangle rectangle, SpriteBatch spriteBatch)
         {
-            List<Cell> neighbors = _gameWorld.GetNeighboringCells(cellLocation);
-
-            Color color = Color.White;
-
-            _overlay.DrawFrame(cell.TerrainTypeId, neighbors, rectangle, _terrainTextures[2], spriteBatch);
+            List<int> neighboringTerrainTypeIds = _gameWorld.GetNeighboringTerrainTypeIds(cellLocation);
+            _overlay.DrawFrame(terrainTypeId, neighboringTerrainTypeIds, rectangle, _terrainTextures[2], spriteBatch);
         }
 
         private void DrawMarkers(SpriteBatch spriteBatch)

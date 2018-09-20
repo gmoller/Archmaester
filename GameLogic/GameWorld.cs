@@ -23,17 +23,17 @@ namespace GameLogic
             {Key.NumPad9, CompassDirection.NorthEast}
         };
 
+        private GameBoard _gameBoard;
         private Player _player;
         private Player2 _player2;
 
         public MovementProcessor MovementProcessor { get; }
-        public GameBoard GameBoard { get; private set; }
         public IEnumerable<Settlement> PlayerSettlements => _player.Settlements;
         public IEnumerable<Unit> PlayerUnits => _player.Units;
         public IEnumerable<Unit> Player2Units => _player2.Units;
         public Unit SelectedUnit => _player.SelectedUnit;
-        public int NumberOfColumns => GameBoard.NumberOfColumns;
-        public int NumberOfRows => GameBoard.NumberOfRows;
+        public int NumberOfColumns => _gameBoard.NumberOfColumns;
+        public int NumberOfRows => _gameBoard.NumberOfRows;
 
         private GameWorld()
         {
@@ -45,9 +45,11 @@ namespace GameLogic
             return new GameWorld();
         }
 
-        public void SetGameBoard(GameBoard gameBoard)
+        public void CreateGameBoard(int numberOfColumns, int numberOfRows)
         {
-            GameBoard = gameBoard;
+            int[,] terrain = MapGenerator.Generate(numberOfColumns, numberOfRows);
+            GameBoard testMap = GameBoard.Create(1, terrain, true);
+            _gameBoard = testMap;
         }
 
         public void SetPlayer(Player player)
@@ -109,12 +111,34 @@ namespace GameLogic
             _player2.EndTurn();
         }
 
-        public Cell GetCell(Point2 location)
+        internal Cell GetCell(Point2 location)
         {
-            return GameBoard.GetCell(location);
+            return _gameBoard.GetCell(location);
         }
 
-        public Cell GetNeighboringCell(Point2 cellLocation, CompassDirection direction)
+        public int GetTerrainTypeIdOfCell(Point2 location)
+        {
+            return _gameBoard.GetCell(location).TerrainTypeId;
+        }
+
+        public List<int> GetNeighboringTerrainTypeIds(Point2 cellLocation)
+        {
+            var cells = new List<int>
+            {
+                GetNeighboringCell(cellLocation, CompassDirection.North).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.NorthEast).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.East).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.SouthEast).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.South).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.SouthWest).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.West).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.NorthWest).TerrainTypeId
+            };
+
+            return cells;
+        }
+
+        private Cell GetNeighboringCell(Point2 cellLocation, CompassDirection direction)
         {
             Point2 p;
             switch (direction)
@@ -151,47 +175,32 @@ namespace GameLogic
             return GetCell(p);
         }
 
-        public List<Cell> GetNeighboringCells(Point2 cellLocation)
-        {
-            List<Cell> cells = new List<Cell>();
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.North));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.NorthEast));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.East));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.SouthEast));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.South));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.SouthWest));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.West));
-            cells.Add(GetNeighboringCell(cellLocation, CompassDirection.NorthWest));
-
-            return cells;
-        }
-
         public List<Point2> GetCellNeighbors(Point2 location)
         {
-            return GameBoard.GetCellNeighbors(location);
+            return _gameBoard.GetCellNeighbors(location);
         }
 
         public bool IsCellVisible(Point2 location)
         {
-            return GameBoard.IsCellVisible(location);
+            return _gameBoard.IsCellVisible(location);
         }
 
         internal void SetCellVisible(Point2 location)
         {
-            if (location.X < 0 || location.X > GameBoard.NumberOfColumns - 1) return; // 31
-            if (location.Y < 0 || location.Y > GameBoard.NumberOfRows - 1) return; // 31
+            if (location.X < 0 || location.X > _gameBoard.NumberOfColumns - 1) return; // 31
+            if (location.Y < 0 || location.Y > _gameBoard.NumberOfRows - 1) return; // 31
 
-            GameBoard.SetCellVisible(location);
+            _gameBoard.SetCellVisible(location);
         }
 
         internal bool AreAllCellsVisible()
         {
-            return GameBoard.AreAllCellsVisible();
+            return _gameBoard.AreAllCellsVisible();
         }
 
         internal void SetAllCellsInvisible()
         {
-            GameBoard.SetAllCellsInvisible();
+            _gameBoard.SetAllCellsInvisible();
         }
 
         public bool IsPlayerSettlementOnCell(Point2 location)

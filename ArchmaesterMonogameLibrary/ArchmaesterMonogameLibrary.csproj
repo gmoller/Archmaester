@@ -69,10 +69,6 @@
       <Project>{1364bc83-91e5-47b7-8e43-4346ff978fc0}</Project>
       <Name>GameLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameMap\GameMap.csproj">
-      <Project>{40c67b06-306e-4b17-8d04-677fd11e2e23}</Project>
-      <Name>GameMap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameState\GameState.csproj">
       <Project>{3428c325-4ecd-416b-ade8-7c7a937a4ccd}</Project>
       <Name>GameState</Name>

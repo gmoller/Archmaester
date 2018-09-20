@@ -1,5 +1,4 @@
-﻿using GameMap;
-using Interfaces;
+﻿using Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace ArchmaesterMonogameLibrary
 {
     public class Overlay
     {
-        private Dictionary<byte[], int> _test;
+        private readonly Dictionary<byte[], int> _test;
         private Dictionary<byte[], int> _missing;
 
         public Overlay()
@@ -119,11 +118,11 @@ namespace ArchmaesterMonogameLibrary
             _test.Add(new byte[] { 255, 255, 0, 0, 11, 11, 11, 255, 11 }, 0);
         }
 
-        public void DrawFrame(int cellTerrainType, List<Cell> neighbors, Rectangle rectangle, ITexture2D texture, SpriteBatch spriteBatch)
+        public void DrawFrame(int cellTerrainType, List<int> neighboringTerrainTypeIds, Rectangle rectangle, ITexture2D texture, SpriteBatch spriteBatch)
         {
-            var search = new byte[] { (byte)neighbors[0].TerrainTypeId, (byte)neighbors[1].TerrainTypeId, (byte)neighbors[2].TerrainTypeId,
-                                      (byte)neighbors[3].TerrainTypeId, (byte)neighbors[4].TerrainTypeId, (byte)neighbors[5].TerrainTypeId,
-                                      (byte)neighbors[6].TerrainTypeId, (byte)neighbors[7].TerrainTypeId, (byte)cellTerrainType };
+            var search = new[] { (byte)neighboringTerrainTypeIds[0], (byte)neighboringTerrainTypeIds[1], (byte)neighboringTerrainTypeIds[2],
+                                 (byte)neighboringTerrainTypeIds[3], (byte)neighboringTerrainTypeIds[4], (byte)neighboringTerrainTypeIds[5],
+                                 (byte)neighboringTerrainTypeIds[6], (byte)neighboringTerrainTypeIds[7], (byte)cellTerrainType };
 
             if (_test.ContainsKey(search))
             {
@@ -171,6 +170,7 @@ namespace ArchmaesterMonogameLibrary
                     result = result * 23 + obj[i];
                 }
             }
+
             return result;
         }
     }
