@@ -1,5 +1,6 @@
 ﻿using GameLogic.NewLocationCalculators;
 using GameLogic.Processors;
+using GameMap;
 
 namespace GameLogic.Actions
 {

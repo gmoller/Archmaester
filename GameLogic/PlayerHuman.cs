@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameData;
+using GameMap;
 using GeneralUtilities;
 
 namespace GameLogic
 {
-    public class Player
+    public class PlayerHuman
     {
         private readonly List<Settlement> _settlements = new List<Settlement>();
         public IEnumerable<Settlement> Settlements => _settlements;

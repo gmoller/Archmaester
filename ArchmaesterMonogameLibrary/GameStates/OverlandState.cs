@@ -1,4 +1,5 @@
 ﻿using GameLogic;
+using GeneralUtilities;
 using Input;
 using Microsoft.Xna.Framework;
 
@@ -15,13 +16,18 @@ namespace ArchmaesterMonogameLibrary.GameStates
 
         public override void Initialize()
         {
-            // setup map/board
-            Globals.Instance.GameWorld.CreateGameBoard(200, 160);
-
             // setup players
-            var player = new Player();
-            player.StartTurn();
-            Globals.Instance.GameWorld.SetPlayer(player);
+            var humanPlayer = new PlayerHuman();
+
+            // setup map/board
+            Globals.Instance.GameWorld.Intialize(200, 160, humanPlayer, null);
+
+            //humanPlayer.UnitMoved += Player_UnitMoved;
+            //humanPlayer.TurnEnded += Player_TurnEnded;
+            //humanPlayer.AddSettlement("Margeritaville", Point2.Create(1, 1), Globals.Instance.RaceTypes[0]);
+            humanPlayer.AddUnit(4, Point2.Create(2, 2)); // cavalry
+            humanPlayer.AddUnit(0, Point2.Create(0, 1)); // spearman
+            humanPlayer.StartTurn();
 
             _hud = new Hud(Game);
             _hud.Initialize();

@@ -5,6 +5,19 @@ using GeneralUtilities;
 
 namespace GameMap
 {
+    public enum CompassDirection
+    {
+        North,
+        NorthEast,
+        East,
+        SouthEast,
+        South,
+        SouthWest,
+        West,
+        NorthWest,
+        None
+    }
+
     /// <summary>
     /// </summary>
     [DebuggerDisplay("{" + nameof(DebuggerDisplay) + ",nq}")]
@@ -69,6 +82,60 @@ namespace GameMap
             return true;
         }
 
+        public List<int> GetNeighboringTerrainTypeIds(Point2 cellLocation)
+        {
+            var cells = new List<int>
+            {
+                GetNeighboringCell(cellLocation, CompassDirection.North).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.NorthEast).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.East).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.SouthEast).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.South).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.SouthWest).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.West).TerrainTypeId,
+                GetNeighboringCell(cellLocation, CompassDirection.NorthWest).TerrainTypeId
+            };
+
+            return cells;
+        }
+
+        private Cell GetNeighboringCell(Point2 cellLocation, CompassDirection direction)
+        {
+            Point2 p;
+            switch (direction)
+            {
+                case CompassDirection.North:
+                    p = Point2.Create(cellLocation.X, cellLocation.Y - 1);
+                    break;
+                case CompassDirection.NorthEast:
+                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y - 1);
+                    break;
+                case CompassDirection.East:
+                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y);
+                    break;
+                case CompassDirection.SouthEast:
+                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y + 1);
+                    break;
+                case CompassDirection.South:
+                    p = Point2.Create(cellLocation.X, cellLocation.Y + 1);
+                    break;
+                case CompassDirection.SouthWest:
+                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y + 1);
+                    break;
+                case CompassDirection.West:
+                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y);
+                    break;
+                case CompassDirection.NorthWest:
+                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y - 1);
+                    break;
+                default:
+                    p = Point2.Null;
+                    break;
+            }
+
+            return GetCell(p);
+        }
+
         public List<Point2> GetCellNeighbors(Point2 location)
         {
             var neighbors = new List<Point2>();
@@ -111,6 +178,7 @@ namespace GameMap
 
             return neighbors;
         }
+
         private void AddCellsIfItsOnBoard(List<Point2> neighbors, params Point2[] points)
         {
             foreach (Point2 item in points)

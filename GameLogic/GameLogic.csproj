@@ -50,8 +50,8 @@
     <Compile Include="NewLocationCalculators\NorthCalculator.cs" />
     <Compile Include="NewLocationCalculators\NorthEastCalculator.cs" />
     <Compile Include="NewLocationCalculators\NorthWestCalculator.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Player2.cs" />
+    <Compile Include="PlayerHuman.cs" />
+    <Compile Include="PlayerComputer.cs" />
     <Compile Include="Processors\MovementProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NewLocationCalculators\SouthCalculator.cs" />

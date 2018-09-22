@@ -6,7 +6,7 @@ namespace GameLogic
     /// <summary>
     /// A computer player.
     /// </summary>
-    public class Player2
+    public class PlayerComputer
     {
         private List<Unit> _units;
 
@@ -14,7 +14,7 @@ namespace GameLogic
 
         public event UnitMovedEventHandler UnitMoved;
 
-        public Player2()
+        public PlayerComputer()
         {
             _units = new List<Unit>();
         }

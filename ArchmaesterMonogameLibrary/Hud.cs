@@ -46,9 +46,9 @@ namespace ArchmaesterMonogameLibrary
 
         private void nextTurnButton_Click(object sender, EventArgs e)
         {
-            Globals.Instance.GameWorld.EndTurnForPlayer();
+            Globals.Instance.GameWorld.EndTurnForHumanPlayer();
             // do turns for all ai players
-            Globals.Instance.GameWorld.StartTurnForPlayer();
+            Globals.Instance.GameWorld.StartTurnForHumanPlayer();
         }
 
         public bool MouseOver(InputState input)

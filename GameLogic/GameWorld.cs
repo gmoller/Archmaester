@@ -24,14 +24,14 @@ namespace GameLogic
         };
 
         private GameBoard _gameBoard;
-        private Player _player;
-        private Player2 _player2;
+        private PlayerHuman _humanPlayer;
+        private PlayerComputer _computerPlayer;
 
         public MovementProcessor MovementProcessor { get; }
-        public IEnumerable<Settlement> PlayerSettlements => _player.Settlements;
-        public IEnumerable<Unit> PlayerUnits => _player.Units;
-        public IEnumerable<Unit> Player2Units => _player2.Units;
-        public Unit SelectedUnit => _player.SelectedUnit;
+        public IEnumerable<Settlement> PlayerSettlements => _humanPlayer.Settlements;
+        public IEnumerable<Unit> HumanPlayerUnits => _humanPlayer.Units;
+        public IEnumerable<Unit> ComputerPlayerUnits => _computerPlayer.Units;
+        public Unit SelectedUnit => _humanPlayer.SelectedUnit;
         public int NumberOfColumns => _gameBoard.NumberOfColumns;
         public int NumberOfRows => _gameBoard.NumberOfRows;
 
@@ -45,70 +45,63 @@ namespace GameLogic
             return new GameWorld();
         }
 
-        public void CreateGameBoard(int numberOfColumns, int numberOfRows)
+        public void Intialize(int numberOfColumns, int numberOfRows, PlayerHuman humanPlayer, PlayerComputer computerPlayer)
         {
             int[,] terrain = MapGenerator.Generate(numberOfColumns, numberOfRows);
             GameBoard testMap = GameBoard.Create(1, terrain, true);
             _gameBoard = testMap;
+
+            _humanPlayer = humanPlayer;
+            _computerPlayer = computerPlayer;
         }
 
-        public void SetPlayer(Player player)
+        //public void KeyPressed(Key key)
+        //{
+        //    if (key == Key.Enter)
+        //    {
+        //        if (!_humanPlayer.SelectedUnit.Equals(Unit.Null))
+        //        {
+        //            _humanPlayer.EndTurn();
+        //        }
+        //        return;
+        //    }
+
+        //    CompassDirection direction = DetermineDirectionToMove(key);
+        //    if (direction != CompassDirection.None)
+        //    {
+        //        _humanPlayer.MoveSelectedUnit(direction);
+        //    }
+        //}
+
+        //private CompassDirection DetermineDirectionToMove(Key key)
+        //{
+        //    CompassDirection direction;
+        //    _movementMapping.TryGetValue(key, out direction);
+
+        //    return direction;
+        //}
+
+        public void StartTurnForHumanPlayer()
         {
-            _player = player;
+            _humanPlayer.StartTurn();
         }
 
-        public void SetPlayer2(Player2 player2)
+        public void EndTurnForHumanPlayer()
         {
-            _player2 = player2;
-        }
-
-        public void KeyPressed(Key key)
-        {
-            if (key == Key.Enter)
+            if (!_humanPlayer.SelectedUnit.Equals(Unit.Null))
             {
-                if (!_player.SelectedUnit.Equals(Unit.Null))
-                {
-                    _player.EndTurn();
-                }
-                return;
-            }
-
-            CompassDirection direction = DetermineDirectionToMove(key);
-            if (direction != CompassDirection.None)
-            {
-                _player.MoveSelectedUnit(direction);
-            }
-        }
-
-        private CompassDirection DetermineDirectionToMove(Key key)
-        {
-            CompassDirection direction;
-            _movementMapping.TryGetValue(key, out direction);
-
-            return direction;
-        }
-
-        public void StartTurnForPlayer()
-        {
-            _player.StartTurn();
-        }
-
-        public void EndTurnForPlayer()
-        {
-            if (!_player.SelectedUnit.Equals(Unit.Null))
-            {
-                _player.EndTurn();
+                _humanPlayer.EndTurn();
             }
         }
 
-        public void DoTurnForPlayer2()
+        public void DoTurnForComputerPlayer()
         {
-            _player2.DoTurn();
+            _computerPlayer.DoTurn();
         }
 
-        public void EndTurnForPlayer2()
+        public void EndTurnForComputerPlayer()
         {
-            _player2.EndTurn();
+            _computerPlayer.EndTurn();
         }
 
         internal Cell GetCell(Point2 location)
@@ -123,56 +116,7 @@ namespace GameLogic
 
         public List<int> GetNeighboringTerrainTypeIds(Point2 cellLocation)
         {
-            var cells = new List<int>
-            {
-                GetNeighboringCell(cellLocation, CompassDirection.North).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.NorthEast).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.East).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.SouthEast).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.South).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.SouthWest).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.West).TerrainTypeId,
-                GetNeighboringCell(cellLocation, CompassDirection.NorthWest).TerrainTypeId
-            };
-
-            return cells;
-        }
-
-        private Cell GetNeighboringCell(Point2 cellLocation, CompassDirection direction)
-        {
-            Point2 p;
-            switch (direction)
-            {
-                case CompassDirection.North:
-                    p = Point2.Create(cellLocation.X, cellLocation.Y - 1);
-                    break;
-                case CompassDirection.NorthEast:
-                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y - 1);
-                    break;
-                case CompassDirection.East:
-                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y);
-                    break;
-                case CompassDirection.SouthEast:
-                    p = Point2.Create(cellLocation.X + 1, cellLocation.Y + 1);
-                    break;
-                case CompassDirection.South:
-                    p = Point2.Create(cellLocation.X, cellLocation.Y + 1);
-                    break;
-                case CompassDirection.SouthWest:
-                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y + 1);
-                    break;
-                case CompassDirection.West:
-                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y);
-                    break;
-                case CompassDirection.NorthWest:
-                    p = Point2.Create(cellLocation.X - 1, cellLocation.Y - 1);
-                    break;
-                default:
-                    p = Point2.Null;
-                    break;
-            }
-
-            return GetCell(p);
+            return _gameBoard.GetNeighboringTerrainTypeIds(cellLocation);
         }
 
         public List<Point2> GetCellNeighbors(Point2 location)
@@ -187,8 +131,8 @@ namespace GameLogic
 
         internal void SetCellVisible(Point2 location)
         {
-            if (location.X < 0 || location.X > _gameBoard.NumberOfColumns - 1) return; // 31
-            if (location.Y < 0 || location.Y > _gameBoard.NumberOfRows - 1) return; // 31
+            if (location.X < 0 || location.X > _gameBoard.NumberOfColumns - 1) return;
+            if (location.Y < 0 || location.Y > _gameBoard.NumberOfRows - 1) return;
 
             _gameBoard.SetCellVisible(location);
         }

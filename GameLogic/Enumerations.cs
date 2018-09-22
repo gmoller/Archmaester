@@ -20,19 +20,6 @@ namespace GameLogic
         Rebel
     }
 
-    public enum CompassDirection
-    {
-        North,
-        NorthEast,
-        East,
-        SouthEast,
-        South,
-        SouthWest,
-        West,
-        NorthWest,
-        None
-    }
-
     public enum Key
     {
         Up,
