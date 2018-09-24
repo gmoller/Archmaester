@@ -33,7 +33,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
         {
             var titleFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
             var titlePostion = new Vector2(Game.GraphicsDevice.Viewport.Width / 2.0f, 80.0f);
-            _title = Label.Create(titleFont, titlePostion, "Archmaester", Color.Red, 1.25f);
+            _title = Label.Create(titleFont, titlePostion, "Archmaester", Color.Red, 2.25f);
 
             IFont menuItemFont = AssetsRepository.Instance.GetFont("MenuSpriteFont");
 

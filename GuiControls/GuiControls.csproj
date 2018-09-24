@@ -37,6 +37,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alignment.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ControlState.cs" />
     <Compile Include="Label.cs" />

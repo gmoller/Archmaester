@@ -27,6 +27,8 @@ namespace GameLogic
         private PlayerHuman _humanPlayer;
         private PlayerComputer _computerPlayer;
 
+        public int TurnNumber { get; private set; }
+        public bool HumanPlayerTurnEnded { get; set; }
         public MovementProcessor MovementProcessor { get; }
         public IEnumerable<Settlement> PlayerSettlements => _humanPlayer.Settlements;
         public IEnumerable<Unit> HumanPlayerUnits => _humanPlayer.Units;
@@ -53,6 +55,7 @@ namespace GameLogic
 
             _humanPlayer = humanPlayer;
             _computerPlayer = computerPlayer;
+            TurnNumber = 0;
         }
 
         //public void KeyPressed(Key key)
@@ -83,6 +86,7 @@ namespace GameLogic
 
         public void StartTurnForHumanPlayer()
         {
+            TurnNumber++;
             _humanPlayer.StartTurn();
         }
 
@@ -92,6 +96,8 @@ namespace GameLogic
             {
                 _humanPlayer.EndTurn();
             }
+
+            HumanPlayerTurnEnded = false;
         }
 
         public void DoTurnForComputerPlayer()

@@ -15,7 +15,6 @@ namespace GameMap
         SouthWest,
         West,
         NorthWest,
-        None
     }
 
     /// <summary>

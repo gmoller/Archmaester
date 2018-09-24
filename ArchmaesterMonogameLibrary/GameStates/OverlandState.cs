@@ -32,12 +32,20 @@ namespace ArchmaesterMonogameLibrary.GameStates
             _hud = new Hud(Game);
             _hud.Initialize();
             _gameMapView = new GameMapView(Globals.Instance.GameWorld, new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height), _hud);
+
+            Globals.Instance.GameWorld.StartTurnForHumanPlayer();
         }
 
         public override void Update(InputState input, GameTime gameTime)
         {
             _hud.Update(input, gameTime);
             _gameMapView.Update(input, gameTime);
+
+            if (Globals.Instance.GameWorld.HumanPlayerTurnEnded)
+            {
+                Globals.Instance.GameWorld.EndTurnForHumanPlayer();
+                Globals.Instance.GameWorld.StartTurnForHumanPlayer();
+            }
         }
 
         public override void Draw(GameTime gameTime)
