@@ -24,9 +24,10 @@ namespace ArchmaesterMonogameLibrary
 
         public void Initialize()
         {
-            var font = AssetsRepository.Instance.GetFont("TestFont");
-            var labelCenterPostion = new Vector2(50.0f, _game.GraphicsDevice.Viewport.Height - 50.0f);
-            _turnNumberLabel = Label.Create(font, labelCenterPostion, "Turn: ", Color.Yellow, 1.0f);
+            var font = AssetsRepository.Instance.GetFont("MenuSpriteFont"); // TestFont
+
+            var labelPostion = new Vector2(_game.GraphicsDevice.Viewport.Width - 5.0f, _game.GraphicsDevice.Viewport.Y + 10.0f);
+            _turnNumberLabel = Label.Create(font, VerticalAlignment.Top, HorizontalAlignment.Right, labelPostion, "Turn: ", Color.Yellow, 0.5f);
             _turnNumberLabel.Alpha = 1.0f;
 
             var buttonSize = new Size(220, 50);

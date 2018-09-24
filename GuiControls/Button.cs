@@ -39,7 +39,7 @@ namespace GuiControls
             _center = center;
             _size = size;
 
-            _label = Label.Create(font, center, text, Color.Yellow, 1.0f);
+            _label = Label.Create(font, VerticalAlignment.Middle, HorizontalAlignment.Center, center, text, Color.Yellow, 1.0f);
         }
 
         public static Button Create(IFont font, Vector2 center, Size size, string text, ITexture2D textureAtlas, ContentManager content)

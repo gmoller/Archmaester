@@ -29,7 +29,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
 
             var font = AssetsRepository.Instance.GetFont("TestFont");
             var postion = new Vector2(Game.GraphicsDevice.Viewport.Width / 2.0f, Game.GraphicsDevice.Viewport.Height / 2.0f);
-            _loading = Label.Create(font, postion, "Loading Assets...", Color.White, 1.0f);
+            _loading = Label.Create(font, VerticalAlignment.Middle, HorizontalAlignment.Center, postion, "Loading Assets...", Color.White, 1.0f);
 
             _isLoading = false;
             _loadingComplete = false;

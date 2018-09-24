@@ -1,8 +1,16 @@
 ﻿namespace GuiControls
 {
-    public enum Alignment
+    public enum VerticalAlignment
     {
-        MiddleCenter,
-        TopLeft
+        Top,
+        Middle,
+        Bottom
+    }
+
+    public enum HorizontalAlignment
+    {
+        Left,
+        Center,
+        Right
     }
 }
