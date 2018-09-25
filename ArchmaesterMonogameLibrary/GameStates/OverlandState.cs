@@ -9,6 +9,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
     {
         private Hud _hud;
         private GameMapView _gameMapView;
+        private UnitsView _unitsView;
 
         public OverlandState(Game game) : base("Overland", 1.0f, true, game)
         {
@@ -32,6 +33,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
             _hud = new Hud(Game);
             _hud.Initialize();
             _gameMapView = new GameMapView(Globals.Instance.GameWorld, new Rectangle(0, 0, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height), _hud);
+            _unitsView = new UnitsView(Globals.Instance.GameWorld);
 
             Globals.Instance.GameWorld.StartTurnForHumanPlayer();
         }
@@ -56,6 +58,7 @@ namespace ArchmaesterMonogameLibrary.GameStates
             // draw settlements
 
             // draw units
+            _unitsView.Draw(SpriteBatch);
 
             // draw hudoverlay
             _hud.Draw(SpriteBatch);
