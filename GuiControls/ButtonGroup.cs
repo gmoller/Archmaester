@@ -24,7 +24,7 @@ namespace GuiControls
 
             foreach (string item in texts)
             {
-                var button = Button.Create(font, position, buttonSize, item, textureAtlas, content);
+                var button = Button.Create(font, VerticalAlignment.Middle, HorizontalAlignment.Center, position, buttonSize, item, Color.Yellow, 1.0f, textureAtlas, content);
                 _buttons.Add(item, button);
 
                 if (direction == ButtonGroupDirection.Horizontal)

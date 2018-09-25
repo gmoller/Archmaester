@@ -27,13 +27,14 @@ namespace ArchmaesterMonogameLibrary
             var font = AssetsRepository.Instance.GetFont("MenuSpriteFont"); // TestFont
 
             var labelPostion = new Vector2(_game.GraphicsDevice.Viewport.Width - 5.0f, _game.GraphicsDevice.Viewport.Y + 10.0f);
-            _turnNumberLabel = Label.Create(font, VerticalAlignment.Top, HorizontalAlignment.Right, labelPostion, "Turn: ", Color.Yellow, 0.5f);
+            _turnNumberLabel = Label.Create(font, VerticalAlignment.Top, HorizontalAlignment.Right, labelPostion, "Turn: ", Color.Navy, 0.75f);
             _turnNumberLabel.Alpha = 1.0f;
 
-            var buttonSize = new Size(220, 50);
-            var buttonCenterPostion = new Vector2(_game.GraphicsDevice.Viewport.Width - buttonSize.Width/2.0f - 10, _game.GraphicsDevice.Viewport.Height - buttonSize.Height/2.0f - 10);
             ITexture2D textureAtlas = AssetsRepository.Instance.GetTexture("lite_opaque");
-            _nextTurnButton = Button.Create(font, buttonCenterPostion, buttonSize, "Next Turn", textureAtlas, _game.Content);
+            var buttonSize = new Size(220, 50);
+            //var buttonPostion = new Vector2(_game.GraphicsDevice.Viewport.Width - buttonSize.Width/2.0f - 10, _game.GraphicsDevice.Viewport.Height - buttonSize.Height/2.0f - 10);
+            var buttonPostion = new Vector2(_game.GraphicsDevice.Viewport.Width, _game.GraphicsDevice.Viewport.Height);
+            _nextTurnButton = Button.Create(font, VerticalAlignment.Bottom, HorizontalAlignment.Right, buttonPostion, buttonSize, "Next Turn", Color.Orange, 1.0f, textureAtlas, _game.Content);
             _nextTurnButton.Alpha = 1.0f;
             _nextTurnButton.Click += nextTurnButton_Click;
         }

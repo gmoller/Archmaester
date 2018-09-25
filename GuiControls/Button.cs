@@ -10,7 +10,7 @@ using GeneralUtilities;
 
 namespace GuiControls
 {
-    public class Button
+    public class Button : Control
     {
         private readonly ContentManager _content;
 
@@ -18,33 +18,26 @@ namespace GuiControls
 
         private readonly Label _label;
 
-        private readonly Vector2 _center;
-        private Size _size;
-
         private ControlState _controlState;
         private float _clickedCountdown;
 
         public event EventHandler Click;
 
-        public Rectangle Area => new Rectangle((int)(_center.X - _size.Width / 2.0f), (int)(_center.Y - _size.Height / 2.0f), (int)_size.Width, (int)_size.Height);
-        public int Width => (int)_size.Width;
-        public int Height => (int)_size.Height;
-        public float Alpha { get; set; }
-
-        private Button(IFont font, Vector2 center, Size size, string text, ITexture2D textureAtlas, ContentManager content)
+        private Button(IFont font, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment, Vector2 position, Size size, string text, Color textColor, float scale, ITexture2D textureAtlas, ContentManager content) :
+            base(verticalAlignment, horizontalAlignment, position)
         {
             _content = content;
 
             _textureAtlas = textureAtlas;
-            _center = center;
-            _size = size;
+            Size = size;
+            Scale = scale;
 
-            _label = Label.Create(font, VerticalAlignment.Middle, HorizontalAlignment.Center, center, text, Color.Yellow, 1.0f);
+            _label = Label.Create(font, VerticalAlignment.Middle, HorizontalAlignment.Center, new Vector2(Area.X + Area.Width / 2.0f, Area.Y + Area.Height / 2.0f), text, textColor, scale);
         }
 
-        public static Button Create(IFont font, Vector2 center, Size size, string text, ITexture2D textureAtlas, ContentManager content)
+        public static Button Create(IFont font, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment, Vector2 center, Size size, string text, Color textColor, float scale, ITexture2D textureAtlas, ContentManager content)
         {
-            var control = new Button(font, center, size, text, textureAtlas, content);
+            var control = new Button(font, verticalAlignment, horizontalAlignment, center, size, text, textColor, scale, textureAtlas, content);
 
             return control;
         }
@@ -110,9 +103,9 @@ namespace GuiControls
             SoundEffect effect = _content.Load<SoundEffect>(sound);
             effect.Play();
 
-            _clickedCountdown = 0.25f; // in seconds
-            _size.Width -= 5;
-            _size.Height -= 5;
+            _clickedCountdown = 0.1f; // in seconds
+            Size.Width -= 5;
+            Size.Height -= 5;
             _controlState = ControlState.Clicked;
             Click?.Invoke(this, e);
         }
@@ -120,8 +113,8 @@ namespace GuiControls
         private void OnClickComplete()
         {
             _clickedCountdown = 0.0f;
-            _size.Width += 5;
-            _size.Height += 5;
+            Size.Width += 5;
+            Size.Height += 5;
             _controlState = ControlState.None;
         }
     }

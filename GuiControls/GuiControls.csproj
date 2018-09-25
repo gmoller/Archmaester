@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Alignment.cs" />
     <Compile Include="Button.cs" />
+    <Compile Include="Control.cs" />
     <Compile Include="ControlState.cs" />
     <Compile Include="Label.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
